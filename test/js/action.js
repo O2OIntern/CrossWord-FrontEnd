@@ -425,7 +425,8 @@ export class Action {
                 const board = data.board;
                 const boardRow = data.board[0].length; //열
                 const boardCol = data.board.length; //행
-                const timeLimit = data.timeLimit;
+                // const timeLimit = data.timeLimit;
+                const timeLimit =3;
                 const totalWord = data.totalWord;
                 // difficulty -> easy - 1 medium -2 hard -3
                 const difficulty = data.difficulty;
@@ -722,15 +723,25 @@ export class Action {
 
 
                 }
+
+                //단어 grid 설정
+                let totalSize = matchedList.length+unmatchedList.length;
+                for (let i = 0; i < totalSize; i++) {
+                    const resultWordItem = document.createElement("div");
+                    resultWordItem.setAttribute("id", "resultWordItem");
+                    resultDisplay.resultWordBox.appendChild(resultWordItem);
+                    resultWordItem.textContent = "blank";
+                    resultDisplay.wordBoxItem.push(resultWordItem);
+                }
                 //단어 맞춘 현황 설정
                 let wordCnt=0;
                 for (let i = 0; i < matchedList.length; i++) {
-                    resultDisplay.wordBoxItem[wordCnt].setAttribute("id","resultWord_matched");
+                    resultDisplay.wordBoxItem[wordCnt].setAttribute("class","resultWordItem_matched");
                     resultDisplay.wordBoxItem[wordCnt].textContent = matchedList[i];
                     wordCnt++;
                 }
                 for (let i = 0; i < unmatchedList.length; i++) {
-                    resultDisplay.wordBoxItem[wordCnt].setAttribute("id","resultWord_unmatched");
+                    resultDisplay.wordBoxItem[wordCnt].setAttribute("class","resultWordItem_unmatched");
                     resultDisplay.wordBoxItem[wordCnt].textContent = unmatchedList[i];
                     wordCnt++;
                 }

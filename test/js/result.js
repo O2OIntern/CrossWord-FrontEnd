@@ -1,6 +1,6 @@
 export class Result {
 
-
+    #_resultWordBox
     #_resultBox;
     #_resultLevelText;
     #_resultText;
@@ -118,16 +118,16 @@ export class Result {
         this.#_gainExpText2.textContent = "" + this.#_gainExp;
         this.#_gainExpText1.appendChild(this.#_gainExpText2);
         //resultWordBox
-        const resultWordBox = document.createElement("div");
-        resultWordBox.setAttribute("id", "resultWordBox");
-        this.#_resultBox.appendChild(resultWordBox);
-        for (let i = 0; i < 10; i++) {
-            const resultWordItem = document.createElement("div");
-            resultWordItem.setAttribute("id", "resultWordItem");
-            resultWordBox.appendChild(resultWordItem);
-            resultWordItem.textContent = "blank";
-            this.#_wordBoxItem.push(resultWordItem);
-        }
+        this.#_resultWordBox = document.createElement("div");
+        this.#_resultWordBox.setAttribute("id", "resultWordBox");
+        this.#_resultBox.appendChild(this.#_resultWordBox);
+        // for (let i = 0; i < 10; i++) {
+        //     const resultWordItem = document.createElement("div");
+        //     resultWordItem.setAttribute("id", "resultWordItem");
+        //     resultWordBox.appendChild(resultWordItem);
+        //     resultWordItem.textContent = "blank";
+        //     this.#_wordBoxItem.push(resultWordItem);
+        // }
         //resultContinueBox
         const resultContinueBox = document.createElement("div");
         resultContinueBox.setAttribute("id", "resultContinueBox");
@@ -147,6 +147,7 @@ export class Result {
         console.log("이게왜;");
     }
     //GETTER METHOD
+
     get resultBox() {
         return this.#_resultBox;
     }
@@ -166,6 +167,11 @@ export class Result {
     get resultExpText2() {
         return this.#_resultExpText2;
     }
+
+    get resultWordBox() {
+        return this.#_resultWordBox;
+    }
+
 
     get wordBoxItem() {
         return this.#_wordBoxItem;
