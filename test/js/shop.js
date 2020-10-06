@@ -34,9 +34,13 @@ export class Shop{
     doDisplay() {
         console.log("Shop DoDisplay");
         const page = document.querySelector("#shopBox");
-        if(page.style.display == 'none')
-            page.style.display = 'flex';
-        else page.style.display = 'none';
+        page.style.display = 'flex';
+    }
+
+    doNoneDisplay() {
+        console.log("Shop DoNoneDisplay");
+        const page = document.querySelector("#shopBox");
+        page.style.display = 'none';
     }
 
     init() {

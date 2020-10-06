@@ -40,9 +40,13 @@ export class Setting{
     doDisplay() {
         console.log("Setting DoDisplay");
         const page = document.querySelector("#settingBox");
-        if(page.style.display == 'none')
-            page.style.display = 'flex';
-        else page.style.display = 'none';
+        page.style.display = 'flex';
+    }
+
+    doNoneDisplay() {
+        console.log("setting DoNoneDisplay");
+        const page = document.querySelector("#settingBox");
+        page.style.display = 'none';
     }
 
     init() {

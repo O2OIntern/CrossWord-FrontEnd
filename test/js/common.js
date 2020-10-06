@@ -83,8 +83,15 @@ export class Common {
         console.log(this.isDisplay.toString());
     }
 
-    onlyBottomCommon() {
-        console.log("Display only bottom common icons");
+    displayHigherBox() {
+        console.log("Display higher box");
+        const page = document.querySelector("#higherBox");
+        if (page.style.visibility = "hidden")
+            page.style.visibility = "visible";
+    }
+
+    notDisplayHigherBox() {
+        console.log("Do not display higher box");
         const page = document.querySelector("#higherBox");
         if (page.style.visibility = "visible")
             page.style.visibility = "hidden";
@@ -92,7 +99,7 @@ export class Common {
 
     doNoneDisplay() {
         console.log("Common DoNoneDisplay");
-        const pages = document.querySelectorAll(" #levelBox,#userInfoBox,#inGameHintBox,#bottomCommon");
+        const pages = document.querySelectorAll("#higherBox, #lowerBox");
         let i = 0;
         for (let page of pages) {
             page.style.display = "none"
@@ -104,7 +111,7 @@ export class Common {
 
     init() {
         console.log("Common init()");
-        const pages = document.querySelectorAll(" #higherBox, #lowerBox");
+        const pages = document.querySelectorAll("#higherBox, #lowerBox");
         for (let page of pages) {
             this.display.push(page.style.display);
 

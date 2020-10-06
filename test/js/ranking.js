@@ -26,7 +26,12 @@ export class Ranking{
         const page = document.querySelector("#rankingBox");
         if(page.style.display == 'none')
             page.style.display = 'block';
-        else page.style.display = 'none';
+    }
+
+    doNoneDisplay() {
+        console.log("Ranking DoNoneDisplay");
+        const page = document.querySelector("#rankingBox");
+        page.style.display = 'none';
     }
 
     init() {

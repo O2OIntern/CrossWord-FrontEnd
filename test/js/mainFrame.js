@@ -27,13 +27,13 @@ export class MainFrame {
 
     doDisplay() {
         console.log("MainFrame DoDisplay");
-        const page = document.querySelector("#continue_stageButton");
+        const page = document.querySelector("#playBox");
         page.style.display = 'flex';
     }
 
     doNoneDisplay() {
-        console.log("MainFrame DoDisplay");
-        const page = document.querySelector("#continue_stageButton");
+        console.log("MainFrame DoNoneDisplay");
+        const page = document.querySelector("#playBox");
         page.style.display = 'none';
     }
 

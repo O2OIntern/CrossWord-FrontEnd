@@ -6,6 +6,7 @@ import {Setting} from "./Setting.js";
 import {DifficultySelect} from "./difficultySelect.js";
 import {Result} from "./result.js";
 import {Welcome} from "./welcome.js";
+import {Ranking} from "./ranking.js";
 
 const Timer = (function () {
     let intervalId = null;
@@ -241,13 +242,13 @@ export class Action {
         mainFrame.doNoneDisplay();
 
         settingPage.init();
-        settingPage.doDisplay();
+        settingPage.doNoneDisplay();
 
         shopPage.init();
-        shopPage.doDisplay();
+        shopPage.doNoneDisplay();
 
         rankingPage.init();
-        rankingPage.doDisplay();
+        rankingPage.doNoneDisplay();
 
         stageSelect.init();
         stageSelect.doNoneDisplay();
@@ -273,8 +274,6 @@ export class Action {
             },
             MAIN: function (data) {
                 console.log("실행 : main");
-                if (document.querySelector("#coinBox") != null)
-                    document.querySelector("#coinBox").style.visibility = "visible";
                 //welcome button, copyright, o2ologo remove
                 remove_welcome();
                 document.body.style.backgroundImage = "url('')";
@@ -285,6 +284,11 @@ export class Action {
                 stageSelect.doNoneDisplay();
                 difficultySelect.doNoneDisplay();
                 resultDisplay.doNoneDisplay();
+                settingPage.doNoneDisplay();
+                rankingPage.doNoneDisplay();
+                shopPage.doNoneDisplay();
+
+                common.displayHigherBox();
                 /**
                  * 메인 화면에서 보여줄 사용자의
                  * 레벨, 경험치, 힌트, 코인
@@ -309,7 +313,6 @@ export class Action {
                  *
                  * Display Setting
                  */
-                common.doDisplay();
 
                 common.lowerBox.appendChild(mainFrame.playBox);
 
@@ -354,7 +357,6 @@ export class Action {
                  * 중앙에 이어하기, 단계 선택 버튼
                  * @type {HTMLDivElement}
                  */
-                mainFrame.doDisplay();
 
                 mainFrame.gameContinueButton.onclick = continuebutton;
                 mainFrame.chooseLevelButton.onclick = viewallButton;
@@ -781,10 +783,13 @@ export class Action {
             SETTING: function (data) {
                 console.log("실행 : setting");
 
-                mainFrame.doDisplay();
+                mainFrame.doNoneDisplay();
+                rankingPage.doNoneDisplay();
+                shopPage.doNoneDisplay();
+
                 settingPage.doDisplay();
 
-                common.onlyBottomCommon();
+                common.notDisplayHigherBox();
 
                 common.lowerBox.appendChild(settingPage.settingBox);
 
@@ -850,8 +855,10 @@ export class Action {
             },
             RANKING: function (data) {
                 console.log("실행 : ranking");
-                mainFrame.doDisplay();
-                common.onlyBottomCommon();
+                mainFrame.doNoneDisplay();
+                shopPage.doNoneDisplay();
+                settingPage.doNoneDisplay();
+                common.notDisplayHigherBox();
                 common.lowerBox.appendChild(rankingPage.rankingBox);
                 rankingPage.doDisplay();
 
@@ -895,9 +902,11 @@ export class Action {
                 // }
             },
             SHOP: function (data) {
-                common.doDisplay();
+                common.displayHigherBox();
                 shopPage.doDisplay();
-                mainFrame.doDisplay();
+                mainFrame.doNoneDisplay();
+                settingPage.doNoneDisplay();
+                rankingPage.doNoneDisplay();
 
                 common.lowerBox.appendChild(shopPage.shopBox);
 
