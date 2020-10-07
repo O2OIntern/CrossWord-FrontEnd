@@ -6,15 +6,6 @@ export class Ranking{
     #_rightBox
     #_rankingIcon
     #_rankingBoardText
-    #_top5Mail
-    #_top5Exp
-    #_rankNum
-    #_rankMail
-    #_rankExp
-
-    get top5Mail() {
-        return this.#_top5Mail;
-    }
 
     constructor(container) {
         this.container = container;
@@ -49,10 +40,10 @@ export class Ranking{
         this.#_rankingBox.appendChild(this.#_bottomBox);
 
         this.#_leftBox = document.createElement("div");
-        this.#_leftBox.setAttribute("id", "rankLeftBox");
         this.#_bottomBox.appendChild(this.#_leftBox);
 
         this.#_rightBox = document.createElement("div");
+        this.#_rightBox.setAttribute("id", "rankRightBox");
         this.#_bottomBox.appendChild(this.#_rightBox);
 
         this.#_rankingIcon = document.createElement("img");
@@ -64,71 +55,6 @@ export class Ranking{
         this.#_rankingBoardText.textContent = "RANKING BOARD";
         this.#_rankingBoardText.setAttribute("class", "rankYellowText font extraBoldText small");
         this.#_topBox.appendChild(this.#_rankingBoardText);
-
-        for(let i = 0; i < 5; i++) {
-            const top5Box = document.createElement("div");
-            top5Box.setAttribute("class", "flex alignCenter");
-            this.leftBox.appendChild(top5Box);
-
-            const rankingCircle = document.createElement("div");
-            if(i == 0) rankingCircle.setAttribute("class", "rankYellow circle boxShadow rankCircle center");
-            else rankingCircle.setAttribute("class", "rankBlue circle boxShadow rankCircle center");
-            top5Box.appendChild(rankingCircle);
-
-            const top5Num = document.createElement("div");
-            top5Num.textContent = (i + 1).toString();
-            top5Num.setAttribute("class", "top5Num font extraBoldText");
-            rankingCircle.appendChild(top5Num);
-
-            const top5InfoBox = document.createElement("div");
-            top5InfoBox.setAttribute("id", "top5InfoBox");
-            top5Box.appendChild(top5InfoBox);
-
-            this.#_top5Mail = document.createElement("div");
-            this.#_top5Mail.setAttribute("class", "rankBlueText font small");
-            this.#_top5Mail.textContent = "o2o@o2o.kr" + (i + 1).toString();
-            top5InfoBox.appendChild(this.#_top5Mail);
-
-            this.#_top5Exp = document.createElement("div");
-            this.#_top5Exp.setAttribute("class", "rankYellowText font small extraBoldText");
-            this.#_top5Exp.textContent = "Exp" + (i + 1).toString();
-            top5InfoBox.appendChild(this.#_top5Exp);
-        }
-
-        for(let i = 0; i < 8; i ++) {
-            const rank8Box = document.createElement("div");
-            this.rightBox.appendChild(rank8Box);
-
-            const rankInfoCircle = document.createElement("div");
-            rank8Box.appendChild(rankInfoCircle);
-
-            this.#_rankNum = document.createElement("span");
-            this.#_rankNum.textContent = (i+100).toString();
-            this.#_rankNum.setAttribute("class", "font extraBoldText small rank8NumPadding");
-            rankInfoCircle.appendChild(this.#_rankNum);
-
-            this.#_rankMail = document.createElement("span");
-            this.#_rankMail.textContent = "o2o@o2o.kr" + (i+100).toString();
-            rankInfoCircle.appendChild(this.#_rankMail);
-
-            this.#_rankExp = document.createElement("span");
-            this.#_rankExp.textContent = "Exp " + (i+100).toString();
-            this.#_rankExp.setAttribute("class", "font extraBoldText small rankYellowText rank8Exp");
-            rankInfoCircle.appendChild(this.#_rankExp);
-
-
-            if(i == 3) {
-                rankInfoCircle.setAttribute("class", "rankRound boxShadow rankBlue flex alignCenter");
-                this.#_rankMail.setAttribute("class", "rankYellowText font extraBoldText small rank8Mail")
-            }
-            else {
-                rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
-                this.#_rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
-            }
-
-        }
-
-
     }
 
     get rankingBox() {

@@ -876,8 +876,9 @@ button {
     top: -17vh;
 }
 
-#rankLeftBox {
-    padding-right: 148px;
+#rankRightBox {
+    position: absolute;
+    left: 390px;
 }
 
 #top5InfoBox {
@@ -887,7 +888,7 @@ button {
 
 .topBox {
     position: relative;
-    left: -50px;
+    left: 230px;
     padding-bottom: 30px;
 }
 

@@ -859,47 +859,118 @@ export class Action {
                 shopPage.doNoneDisplay();
                 settingPage.doNoneDisplay();
                 common.notDisplayHigherBox();
+
                 common.lowerBox.appendChild(rankingPage.rankingBox);
+
+                let totalRank = data.totalRank;
+                let myRank = data.myRank;
+                console.log("totalRank : " + totalRank); //list.json
+                console.log("totalRank length : " + totalRank.length);
+                console.log("myRank : " + myRank);
+
+                for(let i = 0; i < 5; i++) {
+                    const top5Box = document.createElement("div");
+                    top5Box.setAttribute("class", "flex alignCenter");
+                    rankingPage.leftBox.appendChild(top5Box);
+
+                    const rankingCircle = document.createElement("div");
+                    if(i == 0) rankingCircle.setAttribute("class", "rankYellow circle boxShadow rankCircle center");
+                    else rankingCircle.setAttribute("class", "rankBlue circle boxShadow rankCircle center");
+                    top5Box.appendChild(rankingCircle);
+
+                    const top5Num = document.createElement("div");
+                    top5Num.textContent = (i + 1).toString();
+                    top5Num.setAttribute("class", "top5Num font extraBoldText");
+                    rankingCircle.appendChild(top5Num);
+
+                    const top5InfoBox = document.createElement("div");
+                    top5InfoBox.setAttribute("id", "top5InfoBox");
+                    top5Box.appendChild(top5InfoBox);
+
+                    const top5Mail = document.createElement("div");
+                    top5Mail.setAttribute("class", "rankBlueText font small");
+                    top5Mail.textContent = totalRank[i][0];
+                    top5InfoBox.appendChild(top5Mail);
+
+                    const top5Exp = document.createElement("div");
+                    top5Exp.setAttribute("class", "rankYellowText font small extraBoldText");
+                    top5Exp.textContent = "Exp " + totalRank[i][1];
+                    top5InfoBox.appendChild(top5Exp);
+                }
+
+                for(let i = 0; i < 8; i ++) {
+                    const rank8Box = document.createElement("div");
+                    rankingPage.rightBox.appendChild(rank8Box);
+
+                    const rankInfoCircle = document.createElement("div");
+                    rank8Box.appendChild(rankInfoCircle);
+
+                    const rankNum = document.createElement("span");
+                    // rankNum.textContent = (i+100).toString();
+                    rankNum.setAttribute("class", "font extraBoldText small rank8NumPadding");
+                    rankInfoCircle.appendChild(rankNum);
+
+                    const rankMail = document.createElement("span");
+                    // rankMail.textContent =
+                    rankInfoCircle.appendChild(rankMail);
+
+                    const rankExp = document.createElement("span");
+                    // rankExp.textContent = "Exp " + (i+100).toString();
+                    rankExp.setAttribute("class", "font extraBoldText small rankYellowText rank8Exp");
+                    rankInfoCircle.appendChild(rankExp);
+
+                    if(myRank <= 5) { //내가 상위 5위 안 일때
+                        rankNum.textContent = (i+6).toString(); //6~13위 출력
+                        rankMail.textContent = totalRank[i+5][0]; //6~13위의 mail
+                        rankExp.textContent = "Exp " + totalRank[i+5][1]; //6~13위의 exp
+                        //진한 박스 없이(내가 상위5위 안이므로) 투명 박스만 8개(6~13위)
+                        rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
+                        rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
+                    } else if(myRank > 5 && myRank <= 8) { //내가 6~8등일 때
+                        rankNum.textContent = (i+6).toString(); //6~13위 출력
+                        rankMail.textContent = totalRank[i+5][0]; //6~13위의 mail
+                        rankExp.textContent = "Exp " + totalRank[i+5][1]; //6~13위의 exp
+                        //내 순위 진한 박스 1개, 내 위 아래로 투명 박스 7개
+                        if(i == (myRank - 6)) { //0, 1, 2
+                            rankInfoCircle.setAttribute("class", "rankRound boxShadow rankBlue flex alignCenter");
+                            rankMail.setAttribute("class", "rankYellowText font extraBoldText small rank8Mail")
+                        }
+                        else {
+                            rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
+                            rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
+                        }
+                    } else if(myRank >= (totalRank.length - 3) && myRank <= totalRank.length) { //내가 꼴등~꼴등-3 일때
+                        rankNum.textContent = (totalRank.length - 7 + i).toString(); //꼴등-7~꼴등 위부터 출력
+                        rankMail.textContent = totalRank[totalRank.length - 7 + i - 1][0]; //꼴등-7 ~ 꼴등의 mail
+                        rankExp.textContent = "Exp " + totalRank[totalRank.length - 7 + i - 1][1]; //꼴등-7 ~ 꼴등의 exp
+                        //내 순위 진한 박스 1개, 내 위 아래로 투명 박스 7개
+                        if(i == (myRank - (totalRank.length - 7))) { //4, 5, 6, 7
+                            rankInfoCircle.setAttribute("class", "rankRound boxShadow rankBlue flex alignCenter");
+                            rankMail.setAttribute("class", "rankYellowText font extraBoldText small rank8Mail")
+                        }
+                        else {
+                            rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
+                            rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
+                        }
+                    } else { //그외 default
+                        rankNum.textContent = (myRank - 3 + i).toString(); //나+3위 부터 출력
+                        rankMail.textContent = totalRank[myRank - 3 + i - 1][0];
+                        rankExp.textContent = "Exp " + totalRank[myRank - 3 + i - 1][1];
+                        //내 순위 진한 박스 1개, 내 위 아래로 투명 박스 7개
+                        if(i == 3) {
+                            rankInfoCircle.setAttribute("class", "rankRound boxShadow rankBlue flex alignCenter");
+                            rankMail.setAttribute("class", "rankYellowText font extraBoldText small rank8Mail")
+                        }
+                        else {
+                            rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
+                            rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
+                        }
+                    }
+
+                }
+
                 rankingPage.doDisplay();
 
-
-
-
-                // let totalRank = data.totalRank;
-                // let myrank = data.myRank;
-                // console.log("totalRank : " + totalRank); //list.json
-                // console.log("myrank : " + myrank);
-                //
-                // const rankBox = document.createElement("div");
-                // rankBox.setAttribute("id", "rankBox");
-                // container.appendChild(rankBox);
-                // const yourrank = document.createElement("div");
-                // yourrank.setAttribute("id", "yourrank");
-                // yourrank.textContent = userEmail + "님의 랭킹은" + myrank + "위입니다.";
-                // rankBox.appendChild(yourrank);
-                // const ranking = document.createElement("div");
-                // ranking.setAttribute("class", "ranking");
-                // rankBox.appendChild(ranking);
-                // for (let i = 0; i < totalRank.length; i++) {
-                //     const rank = document.createElement("div");
-                //     rank.setAttribute("id", "rank");
-                //     ranking.appendChild(rank);
-                //     const User = document.createElement("div");
-                //     User.setAttribute("id", "User");
-                //     rank.appendChild(User);
-                //     const ranknum = document.createElement("div");
-                //     ranknum.setAttribute("id", "ranknum");
-                //     ranknum.textContent = "RANK " + (i + 1);
-                //     User.appendChild(ranknum);
-                //     const rankId = document.createElement("div");
-                //     rankId.setAttribute("id", "rankId");
-                //     rankId.textContent = totalRank[i][0];
-                //     User.appendChild(rankId);
-                //     const rankexp = document.createElement("div");
-                //     rankexp.setAttribute("id", "rankexp");
-                //     rank.appendChild(rankexp);
-                //     rankexp.textContent = "exp \t" + totalRank[i][1];
-                // }
             },
             SHOP: function (data) {
                 common.displayHigherBox();
