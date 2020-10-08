@@ -859,7 +859,7 @@ export class Action {
                     common.lowerBox.removeChild(document.querySelector("#inGameBox"));
                 }
                 if (document.querySelector("#hintButtonBox") != null) {
-                    common.lowerBox.removeChild(document.querySelector("#hintButtonBox"));
+                    container.removeChild(document.querySelector("#hintButtonBox"));
                 }
 
                 common.doNoneDisplay();
