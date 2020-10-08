@@ -81,6 +81,18 @@ export class Common {
         console.log(this.isDisplay.toString());
     }
 
+    doNoneDisplay() {
+        console.log("Common DoNoneDisplay");
+        const pages = document.querySelectorAll("#higherBox, #lowerBox");
+        let i = 0;
+        for (let page of pages) {
+            page.style.display = "none"
+        }
+        this.isDisplay = !this.isDisplay
+
+        console.log(this.isDisplay.toString());
+    }
+
     displayHigherBox() {
         console.log("Display higher box");
         const page = document.querySelector("#higherBox");
@@ -95,16 +107,12 @@ export class Common {
             page.style.visibility = "hidden";
     }
 
-    doNoneDisplay() {
-        console.log("Common DoNoneDisplay");
-        const pages = document.querySelectorAll("#higherBox, #lowerBox");
-        let i = 0;
-        for (let page of pages) {
-            page.style.display = "none"
-        }
-        this.isDisplay = !this.isDisplay
+    displayUserInfoBox() {
+        document.querySelector("#userInfoBox").style.visibility = "visible";
+    }
 
-        console.log(this.isDisplay.toString());
+    notDisplayUserInfoBox() {
+        document.querySelector("#userInfoBox").style.visibility = "hidden";
     }
 
     init() {

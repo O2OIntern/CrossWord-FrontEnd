@@ -286,6 +286,7 @@ export class Action {
                 container.style.backgroundImage = "url('../image/scene/default_bg.png')";
 
                 common.doDisplay();
+                common.displayUserInfoBox();
                 mainFrame.doDisplay();
                 stageSelect.doNoneDisplay();
                 difficultySelect.doNoneDisplay();
@@ -461,6 +462,7 @@ export class Action {
                 console.log("실행 : inGame");
 
                 common.doDisplay();
+                common.notDisplayUserInfoBox();
                 mainFrame.doNoneDisplay();
                 settingPage.doNoneDisplay();
                 rankingPage.doNoneDisplay();
@@ -1174,6 +1176,7 @@ export class Action {
             },
             SHOP: function (data) {
                 common.displayHigherBox();
+                common.displayUserInfoBox();
                 shopPage.doDisplay();
                 mainFrame.doNoneDisplay();
                 settingPage.doNoneDisplay();

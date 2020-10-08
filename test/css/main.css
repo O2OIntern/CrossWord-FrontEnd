@@ -321,6 +321,9 @@ button {
     position: relative;
     bottom: 49px;
     left: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #inGameHintNumText {
@@ -335,10 +338,6 @@ button {
     letter-spacing: normal;
     text-align: left;
     color: #ffffff;
-    position: absolute;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
 }
 
 #ranking, #setting, #main{
@@ -872,13 +871,11 @@ button {
     height: 40px;
     box-shadow: -2.8px 4.1px 10px 0 rgba(33, 68, 93, 0.4);
     background-color: #ffba00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #hintCountText{
-    position:absolute;
-    left :13px;
-    top : 11px;
-    width: 13px;
-    height: 18px;
     font-family: 'NanumSquare',sans-serif;
     font-size: 23.5px;
     font-weight: 800;
