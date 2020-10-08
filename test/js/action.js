@@ -860,6 +860,10 @@ export class Action {
                 if (document.querySelector("#inGameBox") != null) {
                     common.lowerBox.removeChild(document.querySelector("#inGameBox"));
                 }
+                if (document.querySelector("#hintButtonBox") != null) {
+                    container.removeChild(document.querySelector("#hintButtonBox"));
+                }
+
                 common.doNoneDisplay();
                 mainFrame.doNoneDisplay();
                 stageSelect.doNoneDisplay();

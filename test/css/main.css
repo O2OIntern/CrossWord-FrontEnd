@@ -896,6 +896,7 @@ button {
     transform: translate(-50%, -50%);
     width:540px;
     height:460px;
+    z-index : 2;
 }
 #hintModal{
     position : absolute;
