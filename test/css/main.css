@@ -406,7 +406,7 @@ button {
     height: 321px;
     width: 1030px;
     left: 14vw;
-    top: 30vh;
+    top: 40vh;
 }
 
 #stepButton {
@@ -519,7 +519,7 @@ button {
     position: absolute;
     left: 22.1vw;
     right: 12.9vw;
-    top: 32.4vh;
+    /*top: 32.4vh;*/
     bottom: 21.1vh;
     width: 827px;
     height: 305px;
@@ -1284,7 +1284,7 @@ input[type="checkbox"] {
     height: 596px;
     justify-content: flex-start;
     align-items: center;
-    top: 44px;
+    top: 18vh;
     left: 17.2vw;
     bottom: 40px;
 }
