@@ -5,6 +5,7 @@ export class Common {
      * @type {HTMLDivElement}
      */
 
+    #_higherBox
     #_levelBox
     #_backCircle
     #_levelText
@@ -13,6 +14,7 @@ export class Common {
     #_userExp
     #_expBar
     #_levelFullExp
+    #_progressBar
     /**
      * 우측 상단에
      * 힌트와 코인
@@ -41,6 +43,8 @@ export class Common {
      * @type {HTMLDivElement}
      */
 
+    #_leftLowerBox
+    #_lowerBox
     #_bottomCommon
     #_mainButton
     #_rankingButton
@@ -60,25 +64,40 @@ export class Common {
 
     doDisplay() {
         console.log("Common DoDisplay");
-        const pages = document.querySelectorAll(" #levelBox,#userInfoBox,#inGameHintBox,#bottomCommon");
+        const pages = document.querySelectorAll(" #higherBox, #lowerBox");
         let i = 0;
         for (let page of pages) {
-            console.log("this.display: " + i + this.display[i]);
-            if (i == 1) {
+            if(!this.isDisplay){ //화면에 보여지지 않는다면 -> 보여주도록
+                console.log("this.display: "+i+this.display[i]);
                 page.style.display = "flex";
-            } else {
-                page.style.display = "block";
             }
             i++;
         }
-        // this.isDisplay = !this.isDisplay
-        //
-        // console.log(this.isDisplay.toString());
+        this.isDisplay = !this.isDisplay //상태 변경
+
+        const page = document.querySelector("#inGameHintBox");
+        page.style.visibility = "hidden";
+
+        console.log(this.isDisplay.toString());
+    }
+
+    displayHigherBox() {
+        console.log("Display higher box");
+        const page = document.querySelector("#higherBox");
+        if (page.style.visibility = "hidden")
+            page.style.visibility = "visible";
+    }
+
+    notDisplayHigherBox() {
+        console.log("Do not display higher box");
+        const page = document.querySelector("#higherBox");
+        if (page.style.visibility = "visible")
+            page.style.visibility = "hidden";
     }
 
     doNoneDisplay() {
         console.log("Common DoNoneDisplay");
-        const pages = document.querySelectorAll(" #levelBox,#userInfoBox,#inGameHintBox,#bottomCommon");
+        const pages = document.querySelectorAll("#higherBox, #lowerBox");
         let i = 0;
         for (let page of pages) {
             page.style.display = "none"
@@ -90,7 +109,7 @@ export class Common {
 
     init() {
         console.log("Common init()");
-        const pages = document.querySelectorAll(" #levelBox, #userInfoBox, #inGameHintBox, #bottomCommon");
+        const pages = document.querySelectorAll("#higherBox, #lowerBox");
         for (let page of pages) {
             this.display.push(page.style.display);
 
@@ -99,9 +118,15 @@ export class Common {
          * 좌측 사용자 레벨, 경험치
          * @type {HTMLDivElement}
          */
+
+
+        this.#_higherBox = document.createElement("div");
+        this.#_higherBox.setAttribute("id", "higherBox");
+        this.container.appendChild(this.#_higherBox);
+
         this.#_levelBox = document.createElement("div");
         this.#_levelBox.setAttribute("id", "levelBox");
-        this.container.appendChild(this.#_levelBox);
+        this.#_higherBox.appendChild(this.#_levelBox);
 
         this.#_backCircle = document.createElement("div");
         this.#_backCircle.setAttribute("id", "backCircle");
@@ -110,32 +135,16 @@ export class Common {
         this.#_levelText = document.createElement("div");
         this.#_levelText.setAttribute("id", "levelText");
         this.#_levelText.textContent = "Level";
-        this.#_levelBox.appendChild(this.#_levelText);
+        this.#_backCircle.appendChild(this.#_levelText);
 
         this.#_userLevel = document.createElement("div");
         this.#_userLevel.setAttribute("id", "userLevel");
         //this.#userLevel.textContent = level;
-        this.#_levelBox.appendChild(this.#_userLevel);
+        this.#_backCircle.appendChild(this.#_userLevel);
 
-        // 원형 progress bar 달기
-
-        // const progressBar = document.createElement("div");
-        // progressBar.setAttribute("id", "progress");
-        // levelBox.appendChild(progressBar);
-        //
-        // $('#progress').circleProgress({
-        //     size:101,
-        //     //그래프 크기
-        //     startAngle: -Math.PI/2 ,
-        //     //시작지점 (기본값 Math.PI)
-        //     value: 0.3,
-        //     //그래프에 표시될 값
-        //     animation: false,
-        //     //그래프가 그려지는 애니메이션 동작 여부
-        //     fill: {gradient: ['#f9d118', '#7cbf5a']},
-        //     // emptyFill: "rgba(0,0,0,0.0)",
-        //     lineCap: 'round'
-        // });
+        this.#_progressBar = document.createElement("div");
+        this.#_progressBar.setAttribute("id", "progress");
+        this.#_levelBox.appendChild(this.#_progressBar);
 
         this.#_expBox = document.createElement("div");
         this.#_expBox.setAttribute("id", "expBox");
@@ -162,8 +171,7 @@ export class Common {
          */
         this.#_userInfoBox = document.createElement("div");
         this.#_userInfoBox.setAttribute("id", "userInfoBox");
-        this.container.appendChild(this.#_userInfoBox);
-
+        this.#_higherBox.appendChild(this.#_userInfoBox);
         this.#_hintBox = document.createElement("div");
         this.#_hintBox.setAttribute("id", "hintBox");
         this.#_userInfoBox.appendChild(this.#_hintBox);
@@ -196,7 +204,7 @@ export class Common {
 
         this.#_coinIcon = document.createElement("img");
         this.#_coinIcon.setAttribute("id", "coinIcon");
-        this.#_coinIcon.setAttribute("src", "../image/coin_icon.png");
+        this.#_coinIcon.setAttribute("src", "../image/common/coin_icon.png");
         this.#_coinBox.appendChild(this.#_coinIcon);
 
         this.#_coinText = document.createElement("div");
@@ -225,9 +233,24 @@ export class Common {
         //this.#accountText.textContent = userEmail;
         this.#_accountBox.appendChild(this.#_accountText);
 
+
+        /**
+         * 우측 하단에
+         * 메인, 랭킹, 설정
+         * @type {HTMLDivElement}
+         */
+
+        this.#_lowerBox = document.createElement("div");
+        this.#_lowerBox.setAttribute("id", "lowerBox");
+        this.container.appendChild(this.#_lowerBox);
+
+        this.#_leftLowerBox = document.createElement("div");
+        this.#_leftLowerBox.setAttribute("id", "leftLowerBox");
+        this.#_lowerBox.appendChild(this.#_leftLowerBox);
+
         this.#_inGameHintBox = document.createElement("div");
         this.#_inGameHintBox.setAttribute("id", "inGameHintBox");
-        this.container.appendChild(this.#_inGameHintBox);
+        this.#_leftLowerBox.appendChild(this.#_inGameHintBox);
 
         this.#_inGameHintIcon = document.createElement("i");
         this.#_inGameHintIcon.setAttribute("id", "inGameHintIcon");
@@ -243,37 +266,30 @@ export class Common {
         //this.#inGameHintNumText.textContent = myHint;
         this.#_inGameHintNumBox.appendChild(this.#_inGameHintNumText);
 
-
-        /**
-         * 우측 하단에
-         * 메인, 랭킹, 설정
-         * @type {HTMLDivElement}
-         */
-
         this.#_bottomCommon = document.createElement("div");
         this.#_bottomCommon.setAttribute("id", "bottomCommon");
-        this.container.appendChild(this.#_bottomCommon);
+        this.#_leftLowerBox.appendChild(this.#_bottomCommon);
 
         this.#_mainButton = document.createElement("img");
-        this.#_mainButton.setAttribute("src", "../image/home_icon.png");
-        this.#_mainButton.setAttribute("onmouseover", "this.src='../image/home_hvicon.png';");
-        this.#_mainButton.setAttribute("onmouseout", "this.src='../image/home_icon.png';");
+        this.#_mainButton.setAttribute("src", "../image/common/home_icon.png");
+        this.#_mainButton.setAttribute("onmouseover", "this.src='../image/common/home_hvicon.png';");
+        this.#_mainButton.setAttribute("onmouseout", "this.src='../image/common/home_icon.png';");
         this.#_mainButton.setAttribute("id", "main");
         //this.#_mainButton.onclick = home;
         this.#_bottomCommon.appendChild(this.#_mainButton);
 
         this.#_rankingButton = document.createElement("img");
-        this.#_rankingButton.setAttribute("src", "../image/rank_icon.png");
-        this.#_rankingButton.setAttribute("onmouseover", "this.src='../image/rank_hvicon.png';");
-        this.#_rankingButton.setAttribute("onmouseout", "this.src='../image/rank_icon.png';");
+        this.#_rankingButton.setAttribute("src", "../image/common/rank_icon.png");
+        this.#_rankingButton.setAttribute("onmouseover", "this.src='../image/common/rank_hvicon.png';");
+        this.#_rankingButton.setAttribute("onmouseout", "this.src='../image/common/rank_icon.png';");
         this.#_rankingButton.setAttribute("id", "ranking");
         //this.#_rankingButton.onclick = ranking;
         this.#_bottomCommon.appendChild(this.#_rankingButton);
 
         this.#_settingButton = document.createElement("img");
-        this.#_settingButton.setAttribute("src", "../image/setting_icon.png");
-        this.#_settingButton.setAttribute("onmouseover", "this.src='../image/setting_hvicon.png';");
-        this.#_settingButton.setAttribute("onmouseout", "this.src='../image/setting_icon.png';");
+        this.#_settingButton.setAttribute("src", "../image/common/setting_icon.png");
+        this.#_settingButton.setAttribute("onmouseover", "this.src='../image/common/setting_hvicon.png';");
+        this.#_settingButton.setAttribute("onmouseout", "this.src='../image/common/setting_icon.png';");
         this.#_settingButton.setAttribute("id", "setting");
         //this.#_settingButton.onclick = setting;
         this.#_bottomCommon.appendChild(this.#_settingButton);
@@ -397,5 +413,18 @@ export class Common {
 
     get settingButton() {
         return this.#_settingButton;
+    }
+
+    get progressBar() {
+        return this.#_progressBar;
+    }
+
+
+    get higherBox() {
+        return this.#_higherBox;
+    }
+
+    get lowerBox() {
+        return this.#_lowerBox;
     }
 }//class Common

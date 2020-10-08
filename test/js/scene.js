@@ -1,7 +1,6 @@
 export class Scene {
 
     #_playButton;
-
     constructor() {
         console.log("Scene Constructor");
         // 화면 크기를 콘솔에 출력

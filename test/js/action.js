@@ -1,9 +1,12 @@
 import {Common} from "./common.js";
 import {MainFrame} from "./mainFrame.js";
 import {StageSelect} from "./stageSelect.js";
+import {Shop} from "./shop.js";
+import {Setting} from "./Setting.js";
 import {DifficultySelect} from "./difficultySelect.js";
 import {Result} from "./result.js";
 import {Welcome} from "./welcome.js";
+import {Ranking} from "./ranking.js";
 
 const Timer = (function () {
     let intervalId = null;
@@ -211,6 +214,9 @@ export class Action {
         /**
          * Display Class Variable
          */
+        const shopPage = new Shop(container);
+        const settingPage = new Setting(container);
+        const rankingPage = new Ranking(container);
         const welcome = new Welcome(container);
         const common = new Common(container);
         const mainFrame = new MainFrame(container);
@@ -218,7 +224,7 @@ export class Action {
         const difficultySelect = new DifficultySelect(container);
         const resultDisplay = new Result(container);
 
-        //welcome.init();
+        welcome.init();
 
         //First Frame Test
         //remove_welcome();
@@ -236,6 +242,16 @@ export class Action {
         mainFrame.init();
         mainFrame.doNoneDisplay();
 
+
+        settingPage.init();
+        settingPage.doNoneDisplay();
+
+        shopPage.init();
+        shopPage.doNoneDisplay();
+
+        rankingPage.init();
+        rankingPage.doNoneDisplay();
+
         stageSelect.init();
         stageSelect.doNoneDisplay();
 
@@ -244,6 +260,7 @@ export class Action {
 
         resultDisplay.init();
         resultDisplay.doNoneDisplay();
+
 
         this.canvas = window.interactiveCanvas;
         this.scene = scene;
@@ -260,8 +277,6 @@ export class Action {
             },
             MAIN: function (data) {
                 console.log("실행 : main");
-                if (document.querySelector("#coinBox") != null)
-                    document.querySelector("#coinBox").style.visibility = "visible";
                 //welcome button, copyright, o2ologo remove
                 remove_welcome();
                 document.body.style.backgroundImage = "url('')";
@@ -272,6 +287,11 @@ export class Action {
                 stageSelect.doNoneDisplay();
                 difficultySelect.doNoneDisplay();
                 resultDisplay.doNoneDisplay();
+                settingPage.doNoneDisplay();
+                rankingPage.doNoneDisplay();
+                shopPage.doNoneDisplay();
+
+                common.displayHigherBox();
                 /**
                  * 메인 화면에서 보여줄 사용자의
                  * 레벨, 경험치, 힌트, 코인
@@ -296,7 +316,8 @@ export class Action {
                  *
                  * Display Setting
                  */
-                common.doDisplay();
+
+                common.lowerBox.appendChild(mainFrame.playBox);
 
                 //set TextContent
                 common.userLevel.textContent = level;
@@ -316,19 +337,38 @@ export class Action {
                 common.rankingButton.onclick = ranking;
                 common.settingButton.onclick = setting;
 
+                $('#progress').circleProgress({
+                    size:110,
+                    //그래프 크기
+                    startAngle: -Math.PI/2 ,
+                    //시작지점 (기본값 Math.PI)
+                    value: exp/fullExp,
+                    //그래프에 표시될 값
+                    animation: true,
+                    //그래프가 그려지는 애니메이션 동작 여부
+                    fill: {gradient: ['#7cbf5a', '#f9d118']},
+                    //채워지는 색
+                    emptyFill: "rgba(0, 0, 0, 0.0)",
+                    //빈칸 색
+                    lineCap: 'round',
+                    //그래프 끝
+                    thickness: 10
+                    //그래프 두께
+                });
+
                 /**
                  * 중앙에 이어하기, 단계 선택 버튼
                  * @type {HTMLDivElement}
                  */
-                mainFrame.doDisplay();
 
-                //set onClick Function
-                mainFrame.continueButton.onclick = continuebutton;
-                mainFrame.stageButton.onclick = viewallButton;
+                mainFrame.gameContinueButton.onclick = continuebutton;
+                mainFrame.chooseLevelButton.onclick = viewallButton;
+
 
             },
             STAGESELECT: function (data) {
                 console.log("실행 : stage");
+
                 /**
                  * 메인 화면, 중앙에 생성했던
                  * continue, view all 버튼 제거
@@ -348,6 +388,7 @@ export class Action {
             },
             DIFFICULTYSELECT: function (data) {
                 console.log("실행 : difficulty");
+
                 let winMoney1 = 0;
                 let winMoney2 = 0;
                 let winMoney3 = 0;
@@ -401,6 +442,7 @@ export class Action {
                  * 난이도별 경험치 표시해야 함
                  * @type {HTMLDivElement}
                  */
+
                 for(let i=1;i<=3;i++){
                     difficultySelect.feeText[i-1].textContent = eval("betMoney"+i)+"c";
                     difficultySelect.timeText[i-1].textContent = eval("timeLimit"+i)+"s";
@@ -662,10 +704,10 @@ export class Action {
                         },
             RESULT: function (data) {
                 console.log("실행 : result");
-                document.querySelector("#coinBox").style.visibility = "visible";
-                if (document.querySelector("#inGameBox") != null) {
-                    container.removeChild(document.querySelector("#inGameBox"));
-                }
+                // document.querySelector("#coinBox").style.visibility = "visible";
+                // if (document.querySelector("#inGameBox") != null) {
+                //     container.removeChild(document.querySelector("#inGameBox"));
+                // }
                 common.doNoneDisplay();
                 mainFrame.doNoneDisplay();
                 stageSelect.doNoneDisplay();
@@ -743,7 +785,7 @@ export class Action {
                     }
 
 
-                //실패
+                    //실패
                 } else if (result == "fail") {
                     //Audio Play
                     failAudio.load();
@@ -791,103 +833,49 @@ export class Action {
                 fullExp = data.fullExp;
                 myCoin = data.myCoin;
 
-
             },
             SETTING: function (data) {
                 console.log("실행 : setting");
-                document.querySelector("#coinBox").style.visibility = "visible";
 
-                if (document.querySelector("#stepBox") != null) {
-                    container.removeChild(document.querySelector("#stepBox"));
-                }
-                if (document.querySelector("#continue_stageButton") != null) {
-                    container.removeChild(document.querySelector("#continue_stageButton"));
-                }
-                if (document.querySelector("#rankBox") != null) {
-                    container.removeChild(document.querySelector("#rankBox"));
-                }
-                if (document.querySelector("#Store") != null) {
-                    container.removeChild(document.querySelector("#Store"));
-                }
-                if (document.querySelector("#inGameBox") != null) {
-                    container.removeChild(document.querySelector("#inGameBox"));
-                }
-                if (document.querySelector("#difficultyBox") != null) {
-                    container.removeChild(document.querySelector("#difficultyBox"));
-                }
-                if (document.querySelector("#resultBox") != null) {
-                    container.removeChild(document.querySelector("#resultBox"));
-                }
-                let backgroundsoundeffect = data.backgroundsound; //1
+                mainFrame.doNoneDisplay();
+                rankingPage.doNoneDisplay();
+                shopPage.doNoneDisplay();
+
+                settingPage.doDisplay();
+
+                common.notDisplayHigherBox();
+
+                common.lowerBox.appendChild(settingPage.settingBox);
+
+                let backgroundsoundeffect = data.backgroundsound; //켜져있음
                 let soundeffect = data.soundeffect; //1
-                const SettingBox = document.createElement("div");
-                SettingBox.setAttribute("id", "SettingBox");
-                container.appendChild(SettingBox);
-                const UserID = document.createElement("div");
-                UserID.setAttribute("id", "UserID");
-                UserID.textContent = userEmail;
-                SettingBox.appendChild(UserID);
-                const leftBox = document.createElement("div");
-                leftBox.setAttribute("id", "leftBox");
-                SettingBox.appendChild(leftBox);
-                const SoundEffect = document.createElement("div");
-                SoundEffect.setAttribute("id", "SoundEffect");
-                SoundEffect.textContent = "Sound Effect";
-                leftBox.appendChild(SoundEffect);
-                const BackGroundEffect = document.createElement("div");
-                BackGroundEffect.setAttribute("id", "BackGroundEffect");
-                BackGroundEffect.textContent = "BackGround Effect";
-                leftBox.appendChild(BackGroundEffect);
-                const rightBox = document.createElement("div");
-                rightBox.setAttribute("id", "rightBox");
-                SettingBox.appendChild(rightBox);
-                const label = document.createElement("label");
-                label.setAttribute("class", "switch");
-                rightBox.appendChild(label);
-                const input = document.createElement("input");
-                input.setAttribute("id", "input");
-                input.setAttribute("type", "checkbox");
-                label.appendChild(input);
-                const span = document.createElement("span");
-                span.setAttribute("class", "slider round");
-                label.appendChild(span);
-                const label2 = document.createElement("label");
-                label2.setAttribute("class", "switch2");
-                rightBox.appendChild(label2);
-                const input2 = document.createElement("input");
-                input2.setAttribute("id", "input2");
-                input2.setAttribute("type", "checkbox");
-                label2.appendChild(input2);
-                const span2 = document.createElement("span");
-                span2.setAttribute("class", "slider round");
-                label2.appendChild(span2);
 
                 console.log(soundeffect);
 
+                settingPage.accountText.textContent = userEmail;
 
+                //기초설정대로 보여주기
                 if (soundeffect == 1) {
-                    document.querySelector("#input").checked = true;
+                    settingPage.effectSound.checked = true;
                 } else {
-                    document.querySelector("#input").checked = false;
+                    settingPage.effectSound.checked = false;
                 }
                 if (backgroundsoundeffect == 1) {
-                    document.querySelector("#input2").checked = true;
+                    settingPage.bgSound.checked = true;
                 } else {
-                    document.querySelector("#input2").checked = false;
-
+                    settingPage.bgSound.checked = false;
                 }
 
                 /**
                  * 초기화
                  */
-                const ResetButton = document.createElement("button");
-                ResetButton.setAttribute("id", "ResetButton");
-                ResetButton.textContent = "RESET";
-                SettingBox.appendChild(ResetButton);
+                // const ResetButton = document.createElement("button");
+                // ResetButton.setAttribute("id", "ResetButton");
+                // ResetButton.textContent = "RESET";
+                // SettingBox.appendChild(ResetButton);
             },
             SETTINGSELECT: function (data) {
             console.log("실행: settingselect");
-            document.querySelector("#coinBox").style.visibility = "visible";
                 let sound = data.sound; //1. soundEffect 2.background sound
                 let onoff = data.onoff; //1.  0오면 off/1오면 on
                 if ((onoff == "0") && (sound == "SoundEffect")) {
@@ -895,93 +883,160 @@ export class Action {
                     wrongAudio.volume = 0;
                     successAudio.volume = 0;
                     failAudio.volume = 0;
-                    document.querySelector("#input").checked = false;
+                    settingPage.effectSound.checked = false;
                 }
                 if ((onoff == "1") && (sound == "SoundEffect")) {
                     correctAudio.volume = 1;
                     wrongAudio.volume = 1;
                     successAudio.volume = 1;
                     failAudio.volume = 1;
-                    document.querySelector("#input").checked = true;
+                    settingPage.effectSound.checked = true;
                 }
                 if ((onoff == "0") && (sound == "BackGround")) {
                     correctAudio.volume = 0;
                     wrongAudio.volume = 0;
                     successAudio.volume = 0;
                     failAudio.volume = 0;
-                    document.querySelector("#input2").checked = false;
+                    settingPage.bgSound.checked = false;
                 }
                 if ((onoff == "1") && (sound == "BackGround")) {
                     correctAudio.volume = 1;
                     wrongAudio.volume = 1;
                     successAudio.volume = 1;
                     failAudio.volume = 1;
-                    document.querySelector("#input2").checked = true;
+                    settingPage.bgSound.checked = true;
                 }
             },
             RANKING: function (data) {
                 console.log("실행 : ranking");
-                document.querySelector("#coinBox").style.visibility = "visible";
-                if (document.querySelector("#stepBox") != null) {
-                    container.removeChild(document.querySelector("#stepBox"));
-                }
-                if (document.querySelector("#continue_stageButton") != null) {
-                    container.removeChild(document.querySelector("#continue_stageButton"));
-                }
-                if (document.querySelector("#SettingBox") != null) {
-                    container.removeChild(document.querySelector("#SettingBox"));
-                }
-                if (document.querySelector("#Store") != null) {
-                    container.removeChild(document.querySelector("#Store"));
-                }
-                if (document.querySelector("#inGameBox") != null) {
-                    container.removeChild(document.querySelector("#inGameBox"));
-                }
-                if (document.querySelector("#difficultyBox") != null) {
-                    container.removeChild(document.querySelector("#difficultyBox"));
-                }
-                if (document.querySelector("#resultBox") != null) {
-                    container.removeChild(document.querySelector("#resultBox"));
-                }
-                let totalRank = data.totalRank;
-                let myrank = data.myRank;
-                console.log("totalRank : " + totalRank); //list.json
-                console.log("myrank : " + myrank);
+                mainFrame.doNoneDisplay();
+                shopPage.doNoneDisplay();
+                settingPage.doNoneDisplay();
+                common.notDisplayHigherBox();
 
-                const rankBox = document.createElement("div");
-                rankBox.setAttribute("id", "rankBox");
-                container.appendChild(rankBox);
-                const yourrank = document.createElement("div");
-                yourrank.setAttribute("id", "yourrank");
-                yourrank.textContent = userEmail + "님의 랭킹은" + myrank + "위입니다.";
-                rankBox.appendChild(yourrank);
-                const ranking = document.createElement("div");
-                ranking.setAttribute("class", "ranking");
-                rankBox.appendChild(ranking);
-                for (let i = 0; i < totalRank.length; i++) {
-                    const rank = document.createElement("div");
-                    rank.setAttribute("id", "rank");
-                    ranking.appendChild(rank);
-                    const User = document.createElement("div");
-                    User.setAttribute("id", "User");
-                    rank.appendChild(User);
-                    const ranknum = document.createElement("div");
-                    ranknum.setAttribute("id", "ranknum");
-                    ranknum.textContent = "RANK " + (i + 1);
-                    User.appendChild(ranknum);
-                    const rankId = document.createElement("div");
-                    rankId.setAttribute("id", "rankId");
-                    rankId.textContent = totalRank[i][0];
-                    User.appendChild(rankId);
-                    const rankexp = document.createElement("div");
-                    rankexp.setAttribute("id", "rankexp");
-                    rank.appendChild(rankexp);
-                    rankexp.textContent = "exp \t" + totalRank[i][1];
+                common.lowerBox.appendChild(rankingPage.rankingBox);
+
+                let totalRank = data.totalRank;
+                let myRank = data.myRank;
+                console.log("totalRank : " + totalRank); //list.json
+                console.log("totalRank length : " + totalRank.length);
+                console.log("myRank : " + myRank);
+
+                for(let i = 0; i < 5; i++) {
+                    const top5Box = document.createElement("div");
+                    top5Box.setAttribute("class", "flex alignCenter");
+                    rankingPage.leftBox.appendChild(top5Box);
+
+                    const rankingCircle = document.createElement("div");
+                    if(i == 0) rankingCircle.setAttribute("class", "rankYellow circle boxShadow rankCircle center");
+                    else rankingCircle.setAttribute("class", "rankBlue circle boxShadow rankCircle center");
+                    top5Box.appendChild(rankingCircle);
+
+                    const top5Num = document.createElement("div");
+                    top5Num.textContent = (i + 1).toString();
+                    top5Num.setAttribute("class", "top5Num font extraBoldText");
+                    rankingCircle.appendChild(top5Num);
+
+                    const top5InfoBox = document.createElement("div");
+                    top5InfoBox.setAttribute("id", "top5InfoBox");
+                    top5Box.appendChild(top5InfoBox);
+
+                    const top5Mail = document.createElement("div");
+                    top5Mail.setAttribute("class", "rankBlueText font small");
+                    top5Mail.textContent = totalRank[i][0];
+                    top5InfoBox.appendChild(top5Mail);
+
+                    const top5Exp = document.createElement("div");
+                    top5Exp.setAttribute("class", "rankYellowText font small extraBoldText");
+                    top5Exp.textContent = "Exp " + totalRank[i][1];
+                    top5InfoBox.appendChild(top5Exp);
                 }
+
+                for(let i = 0; i < 8; i ++) {
+                    const rank8Box = document.createElement("div");
+                    rankingPage.rightBox.appendChild(rank8Box);
+
+                    const rankInfoCircle = document.createElement("div");
+                    rank8Box.appendChild(rankInfoCircle);
+
+                    const rankNum = document.createElement("span");
+                    // rankNum.textContent = (i+100).toString();
+                    rankNum.setAttribute("class", "font extraBoldText small rank8NumPadding");
+                    rankInfoCircle.appendChild(rankNum);
+
+                    const rankMail = document.createElement("span");
+                    // rankMail.textContent =
+                    rankInfoCircle.appendChild(rankMail);
+
+                    const rankExp = document.createElement("span");
+                    // rankExp.textContent = "Exp " + (i+100).toString();
+                    rankExp.setAttribute("class", "font extraBoldText small rankYellowText rank8Exp");
+                    rankInfoCircle.appendChild(rankExp);
+
+                    if(myRank <= 5) { //내가 상위 5위 안 일때
+                        rankNum.textContent = (i+6).toString(); //6~13위 출력
+                        rankMail.textContent = totalRank[i+5][0]; //6~13위의 mail
+                        rankExp.textContent = "Exp " + totalRank[i+5][1]; //6~13위의 exp
+                        //진한 박스 없이(내가 상위5위 안이므로) 투명 박스만 8개(6~13위)
+                        rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
+                        rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
+                    } else if(myRank > 5 && myRank <= 8) { //내가 6~8등일 때
+                        rankNum.textContent = (i+6).toString(); //6~13위 출력
+                        rankMail.textContent = totalRank[i+5][0]; //6~13위의 mail
+                        rankExp.textContent = "Exp " + totalRank[i+5][1]; //6~13위의 exp
+                        //내 순위 진한 박스 1개, 내 위 아래로 투명 박스 7개
+                        if(i == (myRank - 6)) { //0, 1, 2
+                            rankInfoCircle.setAttribute("class", "rankRound boxShadow rankBlue flex alignCenter");
+                            rankMail.setAttribute("class", "rankYellowText font extraBoldText small rank8Mail")
+                        }
+                        else {
+                            rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
+                            rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
+                        }
+                    } else if(myRank >= (totalRank.length - 3) && myRank <= totalRank.length) { //내가 꼴등~꼴등-3 일때
+                        rankNum.textContent = (totalRank.length - 7 + i).toString(); //꼴등-7~꼴등 위부터 출력
+                        rankMail.textContent = totalRank[totalRank.length - 7 + i - 1][0]; //꼴등-7 ~ 꼴등의 mail
+                        rankExp.textContent = "Exp " + totalRank[totalRank.length - 7 + i - 1][1]; //꼴등-7 ~ 꼴등의 exp
+                        //내 순위 진한 박스 1개, 내 위 아래로 투명 박스 7개
+                        if(i == (myRank - (totalRank.length - 7))) { //4, 5, 6, 7
+                            rankInfoCircle.setAttribute("class", "rankRound boxShadow rankBlue flex alignCenter");
+                            rankMail.setAttribute("class", "rankYellowText font extraBoldText small rank8Mail")
+                        }
+                        else {
+                            rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
+                            rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
+                        }
+                    } else { //그외 default
+                        rankNum.textContent = (myRank - 3 + i).toString(); //나+3위 부터 출력
+                        rankMail.textContent = totalRank[myRank - 3 + i - 1][0];
+                        rankExp.textContent = "Exp " + totalRank[myRank - 3 + i - 1][1];
+                        //내 순위 진한 박스 1개, 내 위 아래로 투명 박스 7개
+                        if(i == 3) {
+                            rankInfoCircle.setAttribute("class", "rankRound boxShadow rankBlue flex alignCenter");
+                            rankMail.setAttribute("class", "rankYellowText font extraBoldText small rank8Mail")
+                        }
+                        else {
+                            rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
+                            rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
+                        }
+                    }
+
+                }
+
+                rankingPage.doDisplay();
+
             },
             SHOP: function (data) {
+                common.displayHigherBox();
+                shopPage.doDisplay();
+                mainFrame.doNoneDisplay();
+                settingPage.doNoneDisplay();
+                rankingPage.doNoneDisplay();
+
+                common.lowerBox.appendChild(shopPage.shopBox);
+
                 console.log("실행 : shop");
-                document.querySelector("#coinBox").style.visibility = "visible";
+                // document.querySelector("#coinBox").style.visibility = "visible";
                 /**
                  * 상점은
                  * 뒤로 가기
@@ -989,85 +1044,6 @@ export class Action {
                  * 코인 충전
                  * 힌트 충전
                  */
-                if (document.querySelector("#stepBox") != null) {
-                    container.removeChild(document.querySelector("#stepBox"));
-                }
-                if (document.querySelector("#continue_stageButton") != null) {
-                    container.removeChild(document.querySelector("#continue_stageButton"));
-                }
-                if (document.querySelector("#rankBox") != null) {
-                    container.removeChild(document.querySelector("#rankBox"));
-                }
-                if (document.querySelector("#SettingBox") != null) {
-                    container.removeChild(document.querySelector("#SettingBox"));
-                }
-                if (document.querySelector("#inGameBox") != null) {
-                    container.removeChild(document.querySelector("#inGameBox"));
-                }
-                if (document.querySelector("#difficultyBox") != null) {
-                    container.removeChild(document.querySelector("#difficultyBox"));
-                }
-                if (document.querySelector("#resultBox") != null) {
-                    container.removeChild(document.querySelector("#resultBox"));
-                }
-                const Store = document.createElement("div");
-                Store.setAttribute("id", "Store");
-                container.appendChild(Store);
-                const Hintbox = document.createElement("div");
-                Hintbox.setAttribute("id", "HintBox");
-                Store.appendChild(Hintbox);
-                const top = document.createElement("div");
-                top.setAttribute("id", "top");
-                Hintbox.appendChild(top);
-                const HintText = document.createElement("div");
-                HintText.textContent = "Hint Purchase";
-                top.appendChild(HintText);
-                const hr = document.createElement("hr");
-                hr.setAttribute("id", "hr");
-                top.appendChild(hr);
-                const HintIcon = document.createElement("i");
-                HintIcon.setAttribute("class", "fa fa-neuter fa-2x");
-                top.appendChild(HintIcon);
-                const Hintcount = document.createElement("span");
-                Hintcount.textContent = " X 3";
-                top.appendChild(Hintcount);
-                const price = document.createElement("div");
-                price.setAttribute("id", "price");
-                price.textContent = "300c";
-                Hintbox.appendChild(price);
-                //
-                const Coinbox = document.createElement("div");
-                Coinbox.setAttribute("id", "Coinbox");
-                Store.appendChild(Coinbox);
-                const cointop = document.createElement("div");
-                cointop.setAttribute("id", "cointop");
-                Coinbox.appendChild(cointop);
-                const CoinText = document.createElement("div");
-                CoinText.textContent = "Coin Purchase";
-                cointop.appendChild(CoinText);
-                const hr2 = document.createElement("hr");
-                hr2.setAttribute("id", "hr");
-                cointop.appendChild(hr2);
-                const CoinIcon = document.createElement("i");
-                CoinIcon.setAttribute("class", "fa fa-eur fa-2x");
-                cointop.appendChild(CoinIcon);
-                const Coincount = document.createElement("span");
-                Coincount.textContent = " 1000c";
-                cointop.appendChild(Coincount);
-                const CoinPrice = document.createElement("div");
-                CoinPrice.setAttribute("id", "CoinPrice");
-                CoinPrice.textContent = "1000w";
-                Coinbox.appendChild(CoinPrice);
-                //
-                const ad = document.createElement("div");
-                ad.setAttribute("id", "ad");
-                Store.appendChild(ad);
-                const adtext = document.createElement("span");
-                adtext.textContent = "GET COINS ";
-                ad.appendChild(adtext);
-                const adIcon = document.createElement("i");
-                adIcon.setAttribute("class", "fa fa-caret-right");
-                ad.appendChild(adIcon);
             },
         };
     }
