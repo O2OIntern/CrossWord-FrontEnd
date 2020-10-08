@@ -11,7 +11,7 @@ export class Scene {
 
         this.#_playButton = document.createElement("div");
         this.#_playButton.setAttribute("id", "playbutton");
-        this.#_playButton.textContent = "start"
+        this.#_playButton.textContent = "START"
         view.appendChild(this.#_playButton);
 
         const copyright = document.createElement("span");

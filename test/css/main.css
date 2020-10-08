@@ -391,6 +391,16 @@ button {
     top: 10px;
 }
 
+#gameContinueIcon {
+    top: 12px;
+    left: 14px;
+}
+
+#chooseLevelIcon {
+    top: 19px;
+    left: 10px;
+}
+
 #gameContinueCircle {
     background-color: #00b4ff;
 }
@@ -1001,8 +1011,8 @@ button {
 .shopIcon {
     width: 120px;
     position: relative;
-    left: 5px;
-    top: 14px;
+    left: 6px;
+    top: 17px;
 }
 
 .miniCoinIcon {
