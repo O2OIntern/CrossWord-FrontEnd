@@ -71,9 +71,7 @@ export class Common {
                 console.log("this.display: "+i+this.display[i]);
                 page.style.display = "flex";
             }
-            // else{ //화면에 보인다면 -> 보이지 않도록
-            //     page.style.display = "none"
-            // }
+            i++;
         }
         this.isDisplay = !this.isDisplay //상태 변경
 

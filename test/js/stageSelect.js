@@ -1,4 +1,4 @@
-export class StageSelect{
+export class StageSelect {
     #stepBox;
     #stepButton;
     #nextPage;
@@ -7,12 +7,12 @@ export class StageSelect{
     //Display Function
     doDisplay() {
         console.log("stageSelect DoDisplay");
-        const page=document.querySelector("#stepBox");
+        const page = document.querySelector("#stepBox");
         page.style.display = 'flex';
     }//doDisplay
     doNoneDisplay() {
         console.log("stageSelect doNoneDisplay");
-        const page=document.querySelector("#stepBox");
+        const page = document.querySelector("#stepBox");
         page.style.display = 'none';
     }//doDisplay
 
@@ -21,7 +21,7 @@ export class StageSelect{
         console.log("StageSelect Constructor");
     }//constructor
 
-    init(){
+    init() {
         // if (step > 10) {
         //     //nextPage,lastPage onClick Function
         // }
@@ -32,17 +32,20 @@ export class StageSelect{
         this.#stepButton.setAttribute("id", "stepButton");
         this.#stepBox.appendChild(this.#stepButton);
         this.#nextPage = document.createElement("img");
-        this.#nextPage.setAttribute("id","nextPage");
+        this.#nextPage.setAttribute("id", "nextPage");
         this.#nextPage.setAttribute("src", "../image/btn-arrow-right.png");
         this.#stepBox.appendChild(this.#nextPage);
         this.#lastPage = document.createElement("img");
-        this.#lastPage.setAttribute("id","lastPage");
+        this.#lastPage.setAttribute("id", "lastPage");
         this.#lastPage.setAttribute("src", "../image/btn-arrow-left.png");
         this.#stepBox.appendChild(this.#lastPage);
     }
-    stepLock(step) {
-        const totalStep = 10;
 
+    stepLock(step) {
+        while (this.#stepButton.hasChildNodes()) {
+            this.#stepButton.removeChild(this.#stepButton.firstChild);
+        }
+        const totalStep = 10;
         let stepNum = 0;
         for (let row = 0; row < 2; row++) {
             const stepRow = document.createElement("div");
@@ -74,7 +77,7 @@ export class StageSelect{
                     });
                     const stepText = document.createElement("div");
                     stepText.setAttribute("id", "stepText");
-                    stepText.textContent=num;
+                    stepText.textContent = num;
                     ableBox.appendChild(underBox);
                     underBox.appendChild(stepText);
                 }

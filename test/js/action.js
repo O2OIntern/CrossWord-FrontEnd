@@ -226,22 +226,24 @@ export class Action {
         const difficultySelect = new DifficultySelect(container);
         const resultDisplay = new Result(container);
 
-
         welcome.init();
 
         //First Frame Test
         //remove_welcome();
-        //document.body.style.backgroundImage = "url('../image/bg.png')";
-        //왜 이게 동작이 안될까 ;;;;;;;;;;;;;;;;;;;;;;;;;
-        //container.style.backgroundImage = "url('../image/default_bg.png')";
-        //console.log(container.style.backgroundImage);
-        //window.open("../image/default_bg.png");
+        // document.body.style.backgroundImage = "url('')";
+        // console.log(container);
+        // container.style.backgroundImage = "url('../image/scene/default_bg.png')";
+        // console.log(container);
+
+        //window.open("../image/scene/default_bg.png");
         //welcome.setGameBackGround();
+
         common.init();
         common.doNoneDisplay();
 
         mainFrame.init();
         mainFrame.doNoneDisplay();
+
 
         settingPage.init();
         settingPage.doNoneDisplay();
@@ -267,6 +269,7 @@ export class Action {
         this.commands = {
             WELCOME: function (data) {
                 console.log("실행 : welcome");
+                console.log(data);
                 console.log(data.inputemail);
 
                 userEmail = data.inputemail;
@@ -405,6 +408,7 @@ export class Action {
                 stageSelect.doNoneDisplay();
                 difficultySelect.doDisplay();
                 resultDisplay.doNoneDisplay();
+
                 /**
                  * 배팅머니, 획득머니, 시간제한 등을 fulfillment에서 가져옴
                  * 변동사항이 있으면 안되므로 상수 선언
@@ -445,8 +449,8 @@ export class Action {
                  */
 
                 for(let i=1;i<=3;i++){
-                    difficultySelect.feeText[i-1].textContent = eval("betMoney"+i);
-                    difficultySelect.timeText[i-1].textContent = eval("timeLimit"+i);
+                    difficultySelect.feeText[i-1].textContent = eval("betMoney"+i)+"c";
+                    difficultySelect.timeText[i-1].textContent = eval("timeLimit"+i)+"s";
                     difficultySelect.boxItem[i-1].addEventListener("click",function(){
                         window.canvas.sendTextQuery(difficultySelect.difficulty[i-1]);
                     })
@@ -471,7 +475,7 @@ export class Action {
                 const boardRow = data.board[0].length; //열
                 const boardCol = data.board.length; //행
                 // const timeLimit = data.timeLimit;
-                const timeLimit = 500;
+                const timeLimit = 500; //test
                 const totalWord = data.totalWord;
                 // difficulty -> easy - 1 medium -2 hard -3
                 const difficulty = data.difficulty;
@@ -723,14 +727,15 @@ export class Action {
             RESULT: function (data) {
                 console.log("실행 : result");
                 // document.querySelector("#coinBox").style.visibility = "visible";
-                // if (document.querySelector("#inGameBox") != null) {
-                //     container.removeChild(document.querySelector("#inGameBox"));
-                // }
+                if (document.querySelector("#inGameBox") != null) {
+                    container.removeChild(document.querySelector("#inGameBox"));
+                }
                 common.doNoneDisplay();
                 mainFrame.doNoneDisplay();
                 stageSelect.doNoneDisplay();
                 difficultySelect.doNoneDisplay();
                 resultDisplay.doDisplay();
+                settingPage.doNoneDisplay();
 
                 const result = data.result;
                 let islevelup = false;
@@ -746,7 +751,13 @@ export class Action {
                 const unmatchedList = data.wrongList;
 
                 //결과 값과 현재 레벨 텍스트 설정
-                resultDisplay.resultText.textContent = result;
+                console.log(result.toUpperCase());
+                resultDisplay.resultText.textContent = result.toUpperCase();
+                resultDisplay.resultText.setAttribute("class",result.toUpperCase());
+                if(islevelup){
+                    resultDisplay.resultText.textContent = "LEVEL UP";
+                    resultDisplay.resultText.setAttribute("class","LEVELUP");
+                }
                 resultDisplay.resultLevelText.textContent = "Lv." + level;
 
                 //결과 값에 따른 아이콘 변경
@@ -754,6 +765,26 @@ export class Action {
                     resultDisplay.resultIcon.setAttribute("src","../image/ico-"+"levelup"+".png");
                 }else{
                     resultDisplay.resultIcon.setAttribute("src","../image/ico-"+result+".png");
+                }
+
+                if(islevelup){
+                    const levelUpBox = document.createElement("div");
+                    levelUpBox.setAttribute("id", "levelUpBox");
+                    resultDisplay.resultBox.appendChild(levelUpBox);
+                    const levelUpIcon = document.createElement("img");
+                    levelUpIcon.setAttribute("id", "levelUpIcon");
+                    levelUpBox.appendChild(levelUpIcon);
+                    const levelUpEffectText = document.createElement("div");
+                    levelUpEffectText.setAttribute("id", "levelUpEffectText");
+                    levelUpBox.appendChild(levelUpEffectText);
+                    const levelUpText = document.createElement("div");
+                    levelUpText.setAttribute("id", "levelUpText");
+                    levelUpBox.appendChild(levelUpText);
+
+                    levelUpEffectText.textContent = (level*1000-100).toString();
+                    levelUpText.textContent = (level*1000-100).toString();
+                    resultDisplay.intervalLevelUpFunc(levelUpIcon,levelUpEffectText,levelUpText);
+
                 }
 
                 //내 코인 및 exp 설정
@@ -769,9 +800,11 @@ export class Action {
 
                     //레벨업 여부에 따른 gain 효과
                     if (islevelup) {
-                        resultDisplay.intervalFunc(data.myCoin - myCoin,data.fullExp - exp);
+                        //resultDisplay.intervalFunc(data.myCoin - myCoin,data.fullExp - exp);
                     } else {
-                        resultDisplay.intervalFunc(data.myCoin - myCoin,data.myExp - exp);
+                        //resultDisplay.intervalFunc(data.myCoin - myCoin,data.myExp - exp);
+                        resultDisplay.intervalFunc(200,90);
+
                     }
 
 
@@ -783,15 +816,37 @@ export class Action {
 
 
                 }
+
+
+                //단어 grid 설정 전 초기화 부분
+                resultDisplay.wordBoxItem.length=0;
+                while (resultDisplay.resultWordBox.hasChildNodes()) {
+                    resultDisplay.resultWordBox.removeChild(resultDisplay.resultWordBox.firstChild);
+                }
+
+                //단어 grid 설정
+                let totalSize = matchedList.length+unmatchedList.length;
+                if(totalSize<=5)
+                    resultDisplay.resultWordBox.style.gridTemplateColumns="repeat("+totalSize+",1fr)";
+                else
+                    resultDisplay.resultWordBox.style.gridTemplateColumns="repeat("+5+",1fr)";
+
+                for (let i = 0; i < totalSize; i++) {
+                    const resultWordItem = document.createElement("div");
+                    resultWordItem.setAttribute("id", "resultWordItem");
+                    resultDisplay.resultWordBox.appendChild(resultWordItem);
+                    resultWordItem.textContent = "blank";
+                    resultDisplay.wordBoxItem.push(resultWordItem);
+                }
                 //단어 맞춘 현황 설정
                 let wordCnt=0;
                 for (let i = 0; i < matchedList.length; i++) {
-                    resultDisplay.wordBoxItem[wordCnt].setAttribute("id","resultWord_matched");
+                    resultDisplay.wordBoxItem[wordCnt].setAttribute("class","resultWordItem_matched");
                     resultDisplay.wordBoxItem[wordCnt].textContent = matchedList[i];
                     wordCnt++;
                 }
                 for (let i = 0; i < unmatchedList.length; i++) {
-                    resultDisplay.wordBoxItem[wordCnt].setAttribute("id","resultWord_unmatched");
+                    resultDisplay.wordBoxItem[wordCnt].setAttribute("class","resultWordItem_unmatched");
                     resultDisplay.wordBoxItem[wordCnt].textContent = unmatchedList[i];
                     wordCnt++;
                 }

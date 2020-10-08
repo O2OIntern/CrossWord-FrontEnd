@@ -1,6 +1,6 @@
 export class Result {
 
-
+    #_resultWordBox
     #_resultBox;
     #_resultLevelText;
     #_resultText;
@@ -14,6 +14,11 @@ export class Result {
     #_gainExpText1;
     #_gainExpText2;
 
+    #_gainCoinEffectText;
+    #_gainExpEffectText;
+
+    #_gainCoinInnerText;
+    #_gainExpInnerText;
 
     #_gainCoin;
     #_gainExp;
@@ -32,13 +37,14 @@ export class Result {
 
 
     //UI Function
-    intervalCoin(a){
-        console.log("log: "+a);
-        document.querySelector("#gainCoinText1").childNodes[0].textContent = "+" + a;
+    intervalCoin(a) {
+        console.log("log: " + a);
+        document.querySelector("#gainCoinInnerText").childNodes[0].textContent = "+" + a;
     }
-    intervalExp(a){
-        console.log("log: "+a);
-        document.querySelector("#gainExpText1").childNodes[0].textContent = "+" + a;
+
+    intervalExp(a) {
+        console.log("log: " + a);
+        document.querySelector("#gainExpInnerText").childNodes[0].textContent = "+" + a;
     }
 
 
@@ -59,7 +65,7 @@ export class Result {
         this.#_resultBox.appendChild(resultNotifyBox);
         this.#_resultIcon = document.createElement("img");
         this.#_resultIcon.setAttribute("id", "resultIcon");
-        this.#_resultIcon.setAttribute("src", "../image/ico-sucess.png");
+        this.#_resultIcon.setAttribute("src", "../image/ico-success.png");
         resultNotifyBox.appendChild(this.#_resultIcon);
         this.#_resultText = document.createElement("div");
         this.#_resultText.setAttribute("id", "resultText");
@@ -87,16 +93,22 @@ export class Result {
         resultCoinBox.appendChild(this.#_resultCoinText2);
         this.#_gainCoinText1 = document.createElement("div");
         this.#_gainCoinText1.setAttribute("id", "gainCoinText1");
-        this.#_gainCoinText1.textContent = "+" + this.#_gainCoin;
         resultCoinBox.appendChild(this.#_gainCoinText1);
+        this.#_gainCoinInnerText = document.createElement("div");
+        this.#_gainCoinInnerText.setAttribute("id", "gainCoinInnerText");
+        this.#_gainCoinInnerText.textContent = "" + this.#_gainExp;
+        this.#_gainCoinText1.appendChild(this.#_gainCoinInnerText);
         // const gainCoinBox = document.createElement("div");
         // gainCoinBox.setAttribute("id","gainCoinBox");
         // this.#_gainCoinText1.appendChild(gainCoinBox);
+
         this.#_gainCoinText2 = document.createElement("div");
         this.#_gainCoinText2.setAttribute("id", "gainCoinText2");
-        this.#_gainCoinText2.textContent = "" + this.#_gainCoin;
         this.#_gainCoinText1.appendChild(this.#_gainCoinText2);
-
+        this.#_gainCoinEffectText = document.createElement("div");
+        this.#_gainCoinEffectText.setAttribute("id", "gainCoinEffectText");
+        this.#_gainCoinEffectText.textContent = "";
+        this.#_gainCoinText2.appendChild(this.#_gainCoinEffectText);
         //resultExpBox
         const resultExpBox = document.createElement("div");
         resultExpBox.setAttribute("id", "resultExpBox");
@@ -111,23 +123,34 @@ export class Result {
         resultExpBox.appendChild(this.#_resultExpText2);
         this.#_gainExpText1 = document.createElement("div");
         this.#_gainExpText1.setAttribute("id", "gainExpText1");
-        this.#_gainExpText1.textContent = "+" + this.#_gainExp;
         resultExpBox.appendChild(this.#_gainExpText1);
+        this.#_gainExpInnerText = document.createElement("div");
+        this.#_gainExpInnerText.setAttribute("id", "gainExpInnerText");
+        this.#_gainExpInnerText.textContent = "" + this.#_gainExp;
+        this.#_gainExpText1.appendChild(this.#_gainExpInnerText);
+
         this.#_gainExpText2 = document.createElement("div");
         this.#_gainExpText2.setAttribute("id", "gainExpText2");
-        this.#_gainExpText2.textContent = "" + this.#_gainExp;
         this.#_gainExpText1.appendChild(this.#_gainExpText2);
+        this.#_gainExpEffectText = document.createElement("div");
+        this.#_gainExpEffectText.setAttribute("id", "gainExpEffectText");
+        this.#_gainExpEffectText.textContent = "";
+        this.#_gainExpText2.appendChild(this.#_gainExpEffectText);
+        //WordBox
+        const wordBox = document.createElement("div");
+        wordBox.setAttribute("id", "wordBox");
+        this.#_resultBox.appendChild(wordBox);
         //resultWordBox
-        const resultWordBox = document.createElement("div");
-        resultWordBox.setAttribute("id", "resultWordBox");
-        this.#_resultBox.appendChild(resultWordBox);
-        for (let i = 0; i < 10; i++) {
-            const resultWordItem = document.createElement("div");
-            resultWordItem.setAttribute("id", "resultWordItem");
-            resultWordBox.appendChild(resultWordItem);
-            resultWordItem.textContent = "blank";
-            this.#_wordBoxItem.push(resultWordItem);
-        }
+        this.#_resultWordBox = document.createElement("div");
+        this.#_resultWordBox.setAttribute("id", "resultWordBox");
+        wordBox.appendChild(this.#_resultWordBox);
+        // for (let i = 0; i < 10; i++) {
+        //     const resultWordItem = document.createElement("div");
+        //     resultWordItem.setAttribute("id", "resultWordItem");
+        //     resultWordBox.appendChild(resultWordItem);
+        //     resultWordItem.textContent = "blank";
+        //     this.#_wordBoxItem.push(resultWordItem);
+        // }
         //resultContinueBox
         const resultContinueBox = document.createElement("div");
         resultContinueBox.setAttribute("id", "resultContinueBox");
@@ -135,6 +158,9 @@ export class Result {
         const resultContinueText = document.createElement("div");
         resultContinueText.setAttribute("id", "resultContinueText");
         resultContinueText.textContent = "CONTINUE";
+        resultContinueBox.addEventListener("click",function(){
+            window.canvas.sendTextQuery("next");
+        });
         resultContinueBox.appendChild(resultContinueText);
         const resultContinueIcon = document.createElement("img");
         resultContinueIcon.setAttribute("id", "resultContinueIcon");
@@ -143,10 +169,13 @@ export class Result {
 
 
     }
-    test(){
+
+    test() {
         console.log("이게왜;");
     }
+
     //GETTER METHOD
+
     get resultBox() {
         return this.#_resultBox;
     }
@@ -166,6 +195,11 @@ export class Result {
     get resultExpText2() {
         return this.#_resultExpText2;
     }
+
+    get resultWordBox() {
+        return this.#_resultWordBox;
+    }
+
 
     get wordBoxItem() {
         return this.#_wordBoxItem;
@@ -195,22 +229,59 @@ export class Result {
         return this.#_gainExp;
     }
 
+    get gainCoinEffectText() {
+        return this.#_gainCoinEffectText;
+    }
 
-    intervalFunc(gainCoin,gainExp) {
+    get gainExpEffectText() {
+        return this.#_gainExpEffectText;
+    }
+
+    get gainCoinInnerText() {
+        return this.#_gainCoinInnerText;
+    }
+
+    get gainExpInnerText() {
+        return this.#_gainExpInnerText;
+    }
+
+    intervalLevelUpFunc(iconElement, textEffectElement, textElement) {
+        let intervalAnimation = null;
+        let term = 0;
+        let scale = 1;
+        let coin = textEffectElement.textContent;
+        intervalAnimation = setInterval(() => {
+            term++;
+            console.log(term);
+            scale += 0.01;
+            textEffectElement.style.zoom = scale;
+            textElement.textContent = "+" + coin++;
+            textEffectElement.textContent = "+" + coin;
+            iconElement.setAttribute("src", "../image/" + (term % 16 + 1).toString() + ".png");
+            if (term >= 100) {
+                // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
+                const deleteNode = document.getElementById("levelUpBox");
+                deleteNode.parentNode.removeChild(deleteNode);
+                clearInterval(intervalAnimation);
+            }
+        }, 30);
+    }
+
+    intervalFunc(gainCoin, gainExp) {
         let intervalGainCoin = null;
         let intervalGainExp = null;
-        let Coin =0;
-        let Exp =0;
+        let Coin = 0;
+        let Exp = 0;
         let rst = new Result();
 
-        intervalGainCoin=setInterval(() => {
+        intervalGainCoin = setInterval(() => {
             rst.intervalCoin(Coin++);
             if (Coin === gainCoin) {
                 // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
                 clearInterval(intervalGainCoin);
             }
         }, 10);
-        intervalGainExp=setInterval(() => {
+        intervalGainExp = setInterval(() => {
             rst.intervalExp(Exp++);
             if (Exp === gainExp) {
                 // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
@@ -218,15 +289,19 @@ export class Result {
             }
         }, 10);
         let intervalCoinZoom = null;
-        let scale = 1.0;
-        intervalCoinZoom=setInterval(() => {
-            scale += 0.004;
-            console.log("gain"+self.gainCoinText2.textContent);
-            self.gainCoinText2.textContent = "+" + (Coin - 1);
-            self.gainCoinText2.style.zoom = scale;
-            self.gainExpText2.textContent = "+" + (Exp - 1);
-            self.gainExpText2.style.zoom = scale;
-            if (scale >= 2.12) {
+        let scale = 31.0;
+        let opacity = 1.0;
+        intervalCoinZoom = setInterval(() => {
+            scale += 0.125;
+            self.gainCoinEffectText.textContent = "+" + (Coin - 1);
+            self.gainCoinEffectText.style.fontSize = scale + "px";
+            self.gainExpEffectText.textContent = "+" + (Exp - 1);
+            self.gainExpEffectText.style.fontSize = scale + "px";
+            opacity -= 0.007;
+            console.log(self.gainCoinEffectText.style.opacity);
+            self.gainCoinEffectText.style.opacity = opacity;
+            self.gainExpEffectText.style.opacity = opacity;
+            if (scale >= 66) {
                 // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
                 clearInterval(intervalCoinZoom);
             }
