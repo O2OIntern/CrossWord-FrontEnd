@@ -75,6 +75,7 @@ export class MainFrame {
         this.#_gameContinueButton.appendChild(this.#_gameContinueCircle);
 
         this.#_gameContinueIcon = document.createElement("img");
+        this.#_gameContinueIcon.setAttribute("id", "gameContinueIcon");
         this.#_gameContinueIcon.setAttribute("class", "mainIcon");
         this.#_gameContinueIcon.setAttribute("src", "../image/mainFrame/continue_icon.png");
         this.#_gameContinueCircle.appendChild(this.#_gameContinueIcon);
@@ -106,6 +107,7 @@ export class MainFrame {
         this.#_chooseLevelButton.appendChild(this.#_chooseLevelCircle);
 
         this.#_chooseLevelIcon = document.createElement("img");
+        this.#_chooseLevelIcon.setAttribute("id", "chooseLevelIcon");
         this.#_chooseLevelIcon.setAttribute("class", "mainIcon");
         this.#_chooseLevelIcon.setAttribute("src", "../image/mainFrame/chooseLv_icon.png");
         this.#_chooseLevelCircle.appendChild(this.#_chooseLevelIcon);

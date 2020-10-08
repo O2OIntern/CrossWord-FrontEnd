@@ -391,6 +391,16 @@ button {
     top: 10px;
 }
 
+#gameContinueIcon {
+    top: 12px;
+    left: 14px;
+}
+
+#chooseLevelIcon {
+    top: 19px;
+    left: 10px;
+}
+
 #gameContinueCircle {
     background-color: #00b4ff;
 }
