@@ -71,7 +71,7 @@ export class Shop{
 
         this.#_hintText = document.createElement("span");
         this.#_hintText.setAttribute("class", "font textShadow shopText")
-        this.#_hintText.textContent = "HINT";
+        this.#_hintText.textContent = "HINT ";
         this.#_hintTextBox.appendChild(this.#_hintText);
 
         this.#_hintX3Text = document.createElement("span");
@@ -125,7 +125,7 @@ export class Shop{
 
         this.#_coinText = document.createElement("span");
         this.#_coinText.setAttribute("class", "font textShadow shopText");
-        this.#_coinText.textContent = "COIN";
+        this.#_coinText.textContent = "COIN ";
         this.#_coinTextBox.appendChild(this.#_coinText);
 
         this.#_coin500Text = document.createElement("span");

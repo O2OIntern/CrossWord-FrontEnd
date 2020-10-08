@@ -392,6 +392,16 @@ button {
     top: 10px;
 }
 
+#gameContinueIcon {
+    top: 12px;
+    left: 14px;
+}
+
+#chooseLevelIcon {
+    top: 19px;
+    left: 10px;
+}
+
 #gameContinueCircle {
     background-color: #00b4ff;
 }
@@ -793,6 +803,7 @@ button {
 #gameTimerBox {
     display: flex;
     flex-direction: column;
+    margin: 0 44px 0 10px;
 }
 
 #gameTimer {
@@ -1128,8 +1139,8 @@ button {
 .shopIcon {
     width: 120px;
     position: relative;
-    left: 5px;
-    top: 14px;
+    left: 6px;
+    top: 17px;
 }
 
 .miniCoinIcon {

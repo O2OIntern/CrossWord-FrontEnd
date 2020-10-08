@@ -454,6 +454,8 @@ export class Action {
                         window.canvas.sendTextQuery(difficultySelect.difficulty[i - 1]);
                     })
                 }
+
+                //level 선택했는지 확인
             },
             INGAME: function (data) {
                 console.log("실행 : inGame");
@@ -473,8 +475,7 @@ export class Action {
                 const board = data.board;
                 const boardRow = data.board[0].length; //열
                 const boardCol = data.board.length; //행
-                // const timeLimit = data.timeLimit;
-                const timeLimit = 500; //test
+                const timeLimit = data.timeLimit;
                 const totalWord = data.totalWord;
                 // difficulty -> easy - 1 medium -2 hard -3
                 const difficulty = data.difficulty;
@@ -485,6 +486,21 @@ export class Action {
                 console.log("totalWord : " + totalWord);
                 console.log("difficulty : " + difficulty);
                 cnt = 0;
+
+                //난이도별 설정
+                if(difficulty == 1) {
+                    container.style.backgroundImage = "url('../image/inGame/bg_easy.png')";
+                    container.setAttribute("value", "easy");
+                }
+                else if(difficulty == 2) {
+                    container.style.backgroundImage = "url('../image/inGame/bg_medium.png')";
+                    container.setAttribute("value", "medium");
+                }
+                else {
+                    container.style.backgroundImage = "url('../image/inGame/bg_hard.png')";
+                    container.setAttribute("value", "hard");
+                }
+
 
                 const inGameBox = document.createElement("div");
                 inGameBox.setAttribute("id", "inGameBox");
@@ -523,8 +539,23 @@ export class Action {
 
                 const gameBoard = document.createElement("div");
                 gameBoard.setAttribute("id", "gameBoard");
-                gameBoard.style.gridTemplateColumns = "repeat(" + (5 + difficulty) + ", 1fr)";
-                gameBoard.style.gridTemplateRows = "repeat(" + (5 + difficulty) + ", 1fr)";
+
+
+                /* data 로부터 선택한 level 받아오는 설정 필요 */
+                if(timeLimit <= 90) {
+                    gameBoard.style.gridTemplateColumns = "repeat(6, 1fr)";
+                    gameBoard.style.gridTemplateRows = "repeat(6, 1fr)";
+                }
+                else if(timeLimit <= 120 && timeLimit >= 95) {
+                    gameBoard.style.gridTemplateColumns = "repeat(7, 1fr)";
+                    gameBoard.style.gridTemplateRows = "repeat(7, 1fr)";
+                }
+                else {
+                    gameBoard.style.gridTemplateColumns = "repeat(8, 1fr)";
+                    gameBoard.style.gridTemplateRows = "repeat(8, 1fr)";
+                }
+
+
                 gameBoardBox.appendChild(gameBoard);
 
                 for (let col = 0; col < boardCol; col++) {
@@ -533,8 +564,9 @@ export class Action {
                         //알파벳 이미지 담을 배경(네모박스)
                         const alphabetBox = document.createElement("div");
                         alphabetBox.setAttribute("class", "alphabetBox");
-                        alphabetBox.setAttribute("value", board[col][row].toLowerCase());
+
                         alphabetBox.setAttribute("id", "box" + col + "," + row);
+                        alphabetBox.setAttribute("value", board[col][row].toLowerCase());
                         gameBoard.appendChild(alphabetBox);
 
                         //알파벳 이미지
@@ -625,6 +657,8 @@ export class Action {
                 const finish = data.finish;
                 console.log(finish);
 
+                const difficulty = container.getAttribute("value");
+
                 correctAudio.load();
                 correctAudio.autoplay = true;
 
@@ -637,9 +671,16 @@ export class Action {
                 cnt++;
 
                 const matchedWord = data.matchpoint;
-                console.log(matchedWord);
+                console.log("matchedWord : " + matchedWord);
+                console.log("matchedWord[0] : " + matchedWord[0]);
                 for (let i = 0; i < matchedWord.length; i++) {
-                    document.getElementById(matchedWord[i]).style.backgroundColor = "rgba( 255, 255, 255, 0.2)";
+                    const alphabetBox = document.getElementById("box" + matchedWord[i]);
+                    if(difficulty == "easy") alphabetBox.style.backgroundImage = "linear-gradient(to top, #516afb, #a1efc8)";
+                    else if(difficulty == "medium") alphabetBox.style.backgroundImage = "linear-gradient(to top, #278336, #d8db48)";
+                    else alphabetBox.style.backgroundImage = "linear-gradient(to top, #563fcb, #cb93ff)";
+                    alphabetBox.style.boxShadow = "-5.6px 8.3px 20px 0 rgba(0, 0, 0, 0.35)";
+                    console.log(alphabetBox.getAttribute("value"));
+                    alphabetBox.firstChild.src = "../image/inGame/hover/" + alphabetBox.getAttribute("value") + ".png";
                 }
 
                 //다 맞추면 fulfillment로 textQuery 전송
@@ -811,8 +852,11 @@ export class Action {
             RESULT: function (data) {
                 console.log("실행 : result");
                 // document.querySelector("#coinBox").style.visibility = "visible";
+
+                container.style.backgroundImage = "url('../image/scene/default_bg.png')";
+
                 if (document.querySelector("#inGameBox") != null) {
-                    container.removeChild(document.querySelector("#inGameBox"));
+                    common.lowerBox.removeChild(document.querySelector("#inGameBox"));
                 }
                 common.doNoneDisplay();
                 mainFrame.doNoneDisplay();
