@@ -687,21 +687,14 @@ button {
 
 /*인게임 화면*/
 #inGameBox {
-    font-size: 3vh;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
     position: relative;
-    top: 2vh;
-    right: 3vw;
+    top: -15vh;
 }
 
 #gameProgress_HintBox {
     display: flex;
     flex-direction: column;
-    position: relative;
-    top: 7vh;
 }
 
 #gameProgressBox {
@@ -710,18 +703,14 @@ button {
     justify-content: center;
     align-items: center;
     font-size: 2vw;
-    background-color: rgba(255, 255, 255, 0.3);
-    border: 2px solid white;
-    margin-bottom: 2vh;
-    border-radius: 1vh;
+
 }
 
 .gameProgress {
-    margin: 1vw;
-    background-color: rgba(255, 255, 255, 0.4);
-    width: 3vw;
-    height: 3vh;
-    border-radius: 10vw;
+    margin-right: 10px;
+    width: 55px;
+    object-fit: contain;
+    opacity: 0.1;
 }
 
 .inGameBoxMargin {
@@ -760,66 +749,60 @@ button {
 #gameBoardBox {
     display: flex;
     flex-direction: row;
-    position: relative;
-    bottom: 1vh;
-    right: 5.5vw;
+    height: fit-content;
 }
 
 #gameBoard {
-    width: 45vw;
-    height: 75vh;
-    border: 2px solid white;
-    border-radius: 1.4vh;
-}
-
-.rowBox {
-    display: flex;
-    flex-direction: row;
+    width: 554px;
+    height: 554px;
+    display: grid;
+    gap: 1%;
 }
 
 .alphabetBox {
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    background-color: rgba(67, 67, 67, 0.1);
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 .alphabet {
-    font-size: 4vh;
+    height: 45px;
+    object-fit: contain;
 }
 
 #gameTimerBox {
     display: flex;
     flex-direction: column;
-    position: relative;
-    top: 1vh;
 }
 
 #gameTimer {
-    width: 1vw;
+    width: 22px;
+    height: 554px;
     background-color: rgba(255, 255, 255, 0.3);
     border: white;
     border-radius: 2vh;
     transform: rotate(180deg);
-    margin-left: 3vw;
 }
 
 #remainTime {
-    width: 1vw;
-    background-color: rgba(255, 255, 255, 0.8);
+    width: 22px;
+    background-image: linear-gradient(to top, #fed61a, #54e7f5);
     border-radius: 2vh;
     transform: rotate(180deg);
+    position: absolute;
+    bottom: 0;
 }
 
-#gameTimerText {
-    text-align: center;
-    border: 2px solid white;
-    padding: 0.2vw;
-    width: 3vw;
-    height: 5vh;
-    margin: 2vw;
-}
+/*#gameTimerText {*/
+/*    text-align: center;*/
+/*    border: 2px solid white;*/
+/*    padding: 0.2vw;*/
+/*    width: 3vw;*/
+/*    height: 5vh;*/
+/*    margin: 2vw;*/
+/*}*/
 
 /*힌트 열기*/
 .backgroundModal {

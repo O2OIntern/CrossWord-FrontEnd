@@ -14,12 +14,14 @@ const Timer = (function () {
     let timerTextBox = 0;
     let timerHeight = 0;
     let timerText = 0;
-    let minusHeight = 0;
+    let plusHeight = 0;
+    let timerStart = 0;
 
     function setTimer(remainTime, remainHeight) { //시간을 정함.
-        timerHeight = remainHeight;
-        timerText = remainTime;
-        minusHeight = remainHeight / remainTime;
+        timerHeight = remainHeight; //gameTimer 의 높이
+        timerText = remainTime; //timeLimit == 이 판의 제한시간(80s .. )
+        plusHeight = remainHeight / remainTime; //gameTimer 의 높이를 제한시간으로 나눔??
+        console.log(plusHeight);
     }
 
     function initTimer() { //초기 타이머 설정
@@ -31,14 +33,14 @@ const Timer = (function () {
         }
     }
 
-    function update() {
+    function update() { //setInterval(update, 1000) 을 통해 1000ms(1초) 간격으로 호출
         //console.log(timer);
-        timerTextBox.textContent = timerText;
-        timerHeightBox.style.height = timerHeight + "px";
-        timerText -= 1;
-        timerHeight -= minusHeight;
+        // timerTextBox.textContent = timerText; //제한시간 출력
+        timerHeightBox.style.height = timerStart + "px"; //계속해서 남은 시간을 표시하는 바의 높이가 늘어나도록
+        timerText -= 1; //1초에 1씩 줄어들도록
+        timerStart += plusHeight; //gameTimer 의 높이를 제한시간만큼 나눈 것 == 1초에 늘어나야하는 높이
 
-        if (timerText < 0 && timerHeight < 0) {
+        if (timerText < 0) { //&& timerHeight = 0
             stopTimer();
             window.canvas.sendTextQuery("get fail result");
         }
@@ -271,6 +273,8 @@ export class Action {
 
                 scene.playButton.onclick = main;
 
+
+
             },
             MAIN: function (data) {
                 console.log("실행 : main");
@@ -450,10 +454,12 @@ export class Action {
             },
             INGAME: function (data) {
                 console.log("실행 : inGame");
-                document.querySelector("#coinBox").style.visibility = "hidden";
-                console.log("cnbx: " + document.querySelector("#coinBox").style.visible);
+
                 common.doDisplay();
                 mainFrame.doNoneDisplay();
+                settingPage.doNoneDisplay();
+                rankingPage.doNoneDisplay();
+                shopPage.doNoneDisplay();
                 stageSelect.doNoneDisplay();
                 difficultySelect.doNoneDisplay();
                 resultDisplay.doNoneDisplay();
@@ -464,130 +470,146 @@ export class Action {
                 const board = data.board;
                 const boardRow = data.board[0].length; //열
                 const boardCol = data.board.length; //행
-                const timeLimit = data.timeLimit;
+                // const timeLimit = data.timeLimit;
+                const timeLimit = 500;
                 const totalWord = data.totalWord;
                 // difficulty -> easy - 1 medium -2 hard -3
                 const difficulty = data.difficulty;
+                console.log("board : " + board);
+                console.log("boardRow : " + boardRow);
+                console.log("boardCol : " + boardCol);
+                console.log("timeLimit : " + timeLimit);
+                console.log("totalWord : " + totalWord);
+                console.log("difficulty : " + difficulty);
                 cnt = 0;
-                /**
-                 * 좌측 중앙에
-                 * 사용자가 사용한 힌트가 보임
-                 *
-                 * 좌측 하단에 게임 진행상황을 보임
-                 * @type {HTMLDivElement}
-                 */
+
                 const inGameBox = document.createElement("div");
                 inGameBox.setAttribute("id", "inGameBox");
-                container.appendChild(inGameBox);
-                const gameProgress_HintBox = document.createElement("div");
-                gameProgress_HintBox.setAttribute("id", "gameProgress_HintBox");
-                inGameBox.appendChild(gameProgress_HintBox);
-                const gameProgressBox = document.createElement("div");
-                gameProgressBox.setAttribute("id", "gameProgressBox");
-                gameProgressBox.setAttribute("class", "inGameBoxMargin");
-                gameProgress_HintBox.appendChild(gameProgressBox);
-                const usedHint = document.createElement("div");
-                usedHint.setAttribute("id", "usedHint");
-                usedHint.setAttribute("class", "inGameBoxMargin");
-                gameProgress_HintBox.appendChild(usedHint);
-                const hint = document.createElement("p");
-                hint.textContent = "HINT";
-                usedHint.appendChild(hint);
-                usedHint.appendChild(document.createElement("hr"));
-                const hintScrollBox = document.createElement("div");
-                hintScrollBox.setAttribute("id", "hintScrollBox");
-                usedHint.appendChild(hintScrollBox);
+                common.lowerBox.appendChild(inGameBox);
+
                 const gameBoardBox = document.createElement("div");
                 gameBoardBox.setAttribute("id", "gameBoardBox");
                 gameBoardBox.setAttribute("class", "inGameBoxMargin");
                 inGameBox.appendChild(gameBoardBox);
-                /**
-                 * 중앙에
-                 * 게임판 위치
-                 *
-                 * 게임판 좌측에 타이머
-                 *
-                 * @type {HTMLDivElement}
-                 */
+
+                //main의 게임판 좌측에 타이머 배치
+                const gameTimerBox = document.createElement("div");
+                gameTimerBox.setAttribute("id", "gameTimerBox");
+                gameBoardBox.appendChild(gameTimerBox);
+
+                const gameTimer = document.createElement("div");
+                gameTimer.setAttribute("id", "gameTimer");
+                console.log(gameTimer.style.height);
+                gameTimerBox.appendChild(gameTimer);
+
+                const remainTime = document.createElement("div");
+                remainTime.setAttribute("id", "remainTime");
+                gameTimer.appendChild(remainTime);
+
+                const gameTimerText = document.createElement("div");
+                gameTimerText.setAttribute("id", "gameTimerText");
+                gameTimerBox.appendChild(gameTimerText);
+
+                const remainHeight = document.querySelector("#gameTimer").clientHeight;
+                const gameTimerHeight = document.querySelector("#gameTimer").style.height;
+                console.log(gameTimerHeight);
+                console.log(remainHeight);
+                Timer.setter(timeLimit, remainHeight);
+                Timer.init();
+                Timer.start();
+
                 const gameBoard = document.createElement("div");
                 gameBoard.setAttribute("id", "gameBoard");
+                gameBoard.style.gridTemplateColumns = "repeat(" + (5+difficulty) + ", 1fr)";
+                gameBoard.style.gridTemplateRows = "repeat(" + (5+difficulty) + ", 1fr)";
                 gameBoardBox.appendChild(gameBoard);
-                const gameBoardHeight = gameBoard.clientHeight - (boardRow*4);
-                const gameBoardWidth = gameBoard.clientWidth - (boardCol*4);
-                //게임판 안에 넣을 n x n 배열
-                for (let col = 0; col < boardCol; col++) {
-                    const rowBox = document.createElement("div");
-                    rowBox.setAttribute("class", "rowBox");
-                    gameBoard.appendChild(rowBox);
+
+                for(let col = 0; col < boardCol; col++) {
                     for (let row = 0; row < boardRow; row++) {
+
+                        //알파벳 이미지 담을 배경(네모박스)
                         const alphabetBox = document.createElement("div");
-                        alphabetBox.setAttribute("id", col + "," + row);
                         alphabetBox.setAttribute("class", "alphabetBox");
-                        alphabetBox.style.height = gameBoardHeight / boardRow + "px";
-                        alphabetBox.style.width = gameBoardWidth / boardCol + "px";
-                        rowBox.appendChild(alphabetBox);
-                        const alphabet = document.createElement("p");
+                        gameBoard.appendChild(alphabetBox);
+
+                        //알파벳 이미지
+                        const alphabet = document.createElement("img");
+                        alphabet.setAttribute("src", "../image/inGame/alphabet/" + board[col][row].toLowerCase() +".png");
                         alphabet.setAttribute("class", "alphabet");
-                        alphabet.setAttribute("name", board[col][row]);
-                        alphabet.textContent = board[col][row].toUpperCase();
                         alphabetBox.appendChild(alphabet);
                     }
                 }
+
+                const gameProgress_HintBox = document.createElement("div");
+                gameProgress_HintBox.setAttribute("id", "gameProgress_HintBox");
+                inGameBox.appendChild(gameProgress_HintBox);
+
+                const gameProgressBox = document.createElement("div");
+                gameProgressBox.setAttribute("id", "gameProgressBox");
+                gameProgressBox.setAttribute("class", "inGameBoxMargin");
+                gameProgress_HintBox.appendChild(gameProgressBox);
+
+                const usedHint = document.createElement("div");
+                usedHint.setAttribute("id", "usedHint");
+                usedHint.setAttribute("class", "inGameBoxMargin");
+                gameProgress_HintBox.appendChild(usedHint);
+
+                const hint = document.createElement("p");
+                hint.textContent = "HINT";
+                usedHint.appendChild(hint);
+                usedHint.appendChild(document.createElement("hr"));
+
+                const hintScrollBox = document.createElement("div");
+                hintScrollBox.setAttribute("id", "hintScrollBox");
+                usedHint.appendChild(hintScrollBox);
+
+
                 //게임보드에 높이 맞추기
                 usedHint.style.height = (gameBoard.clientHeight * 3 / 5) + "px";
                 gameProgressBox.style.width = usedHint.clientWidth + "px";
                 //  0 0 0 0 0 형식
                 for (let i = 0; i < totalWord; i++) {
-                    const gameProgress = document.createElement("div");
+                    const gameProgress = document.createElement("img");
+                    gameProgress.setAttribute("src", "../image/inGame/count.png");
                     // gameProgress.style.width = gameProgressBox.clientWidth / totalWord + "px";
                     gameProgress.setAttribute("id", "progress" + i);
                     gameProgress.setAttribute("class", "gameProgress");
+                    gameProgress.style.opacity = "0.1";
                     gameProgressBox.appendChild(gameProgress);
                 }
-                //main의 게임판 우측에 타이머 배치
-                const gameTimerBox = document.createElement("div");
-                gameTimerBox.setAttribute("id", "gameTimerBox");
-                gameBoardBox.appendChild(gameTimerBox);
-                const gameTimer = document.createElement("div");
-                gameTimer.setAttribute("id", "gameTimer");
-                gameTimer.style.height = (gameBoard.clientHeight * 5 / 6) + "px";
-                gameTimerBox.appendChild(gameTimer);
-                const remainTime = document.createElement("div");
-                remainTime.setAttribute("id", "remainTime");
-                gameTimer.appendChild(remainTime);
-                const gameTimerText = document.createElement("div");
-                gameTimerText.setAttribute("id", "gameTimerText");
-                gameTimerBox.appendChild(gameTimerText);
-                const remainHeight = document.querySelector("#gameTimer").clientHeight;
-                Timer.setter(timeLimit, remainHeight);
-                Timer.init();
-                Timer.start();
 
 
-                if (difficulty == 1) {
-                    document.querySelector("#coinText").textContent = myCoin - betMoney1;
-                } else if (difficulty == 2) {
-                    document.querySelector("#coinText").textContent = myCoin - betMoney2;
-                } else if (difficulty == 3) {
-                    document.querySelector("#coinText").textContent = myCoin - betMoney3;
-                }
+
+                // if (difficulty == 1) {
+                //     document.querySelector("#coinText").textContent = myCoin - betMoney1;
+                // } else if (difficulty == 2) {
+                //     document.querySelector("#coinText").textContent = myCoin - betMoney2;
+                // } else if (difficulty == 3) {
+                //     document.querySelector("#coinText").textContent = myCoin - betMoney3;
+                // }
             },
             CORRECT: function (data) {
                 console.log("실행 : correct");
 
                 // 게임 종료 여부를 받아옴, 변경되면 안되므로 상수 선언
                 const finish = data.finish;
+                console.log(finish);
 
                 correctAudio.load();
                 correctAudio.autoplay = true;
 
                 const correctOne = document.querySelector("#progress" + cnt);
-                correctOne.style.backgroundColor = "white";
+                console.log(correctOne);
+                console.log(correctOne.src);
+                correctOne.src = "../image/inGame/star.png";
+                correctOne.style.opacity = "1";
+                console.log(correctOne.src);
                 cnt++;
 
                 const matchedWord = data.matchpoint;
-                for (let cnt = 0; cnt < matchedWord.length; cnt++) {
-                    document.getElementById(matchedWord[cnt]).style.backgroundColor = "rgba( 255, 255, 255, 0.2)";
+                console.log(matchedWord);
+                for (let i = 0; i < matchedWord.length; i++) {
+                    document.getElementById(matchedWord[i]).style.backgroundColor = "rgba( 255, 255, 255, 0.2)";
                 }
 
                 //다 맞추면 fulfillment로 textQuery 전송
