@@ -792,6 +792,7 @@ button {
 #gameTimerBox {
     display: flex;
     flex-direction: column;
+    margin: 0 44px 0 10px;
 }
 
 #gameTimer {
