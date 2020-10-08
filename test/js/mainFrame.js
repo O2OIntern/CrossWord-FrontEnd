@@ -22,7 +22,7 @@ export class MainFrame {
     }
 
     doNoneDisplay() {
-        console.log("MainFrame DoDisplay");
+        console.log("MainFrame DoNoneDisplay");
         const page = document.querySelector("#continue_stageButton");
         page.style.display = 'none';
 

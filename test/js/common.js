@@ -70,7 +70,6 @@ export class Common {
                 page.style.display = "block";
             }
             i++;
-
         }
         // this.isDisplay = !this.isDisplay
         //

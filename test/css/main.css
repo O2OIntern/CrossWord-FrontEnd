@@ -15,8 +15,6 @@ button {
 
 /*화면 전체*/
 .container {
-    /*background: linear-gradient(to bottom, #3d43ae, #3ca3de);*/
-    /*background-image: url("../../image/default_bg.png");*/
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -515,10 +513,28 @@ button {
 }
 
 #button {
+    position: relative;
     border-radius: 50%;
     width: 130px;
     height: 131px;
     box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+}
+
+#difficultyText{
+    position:absolute;
+    width: 74px;
+    height: 16px;
+    font-family: 'NanumSquare', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 16px;
+    letter-spacing: normal;
+    text-align: center;
+    left: 28px;
+    bottom: 19px;
+    color: #ffffff;
 }
 
 #expTextBox {
@@ -527,7 +543,9 @@ button {
     flex-direction: row;
     align-items: center;
     width: 213px;
-    height: 12.6vh;
+    height: 41px;
+    margin-bottom: 31px;
+    margin-top: 29px;
 }
 
 #expText1 {
@@ -562,7 +580,7 @@ button {
 #timeBox {
     display: flex;
     flex-direction: row;
-    height: 4.5vh;
+    height: 41px;
     align-items: center;
 }
 
@@ -605,7 +623,7 @@ button {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 4.5vh;
+    height: 41px;
 }
 
 #feeIcon {
@@ -889,6 +907,59 @@ button {
 }
 
 /*result*/
+#levelUpBox{
+    position: absolute;
+    left: 245px;
+    right: 270px;
+    top: 148px;
+    width: 333px;
+    height: 300px;
+}
+#levelUpIcon{
+    position: absolute;
+    left: 19px;
+    right: 25px;
+    width: 300px;
+    height: 300px;
+}
+#levelUpText{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 158px;
+    height: 37px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 51px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #00b4ff;
+}
+#levelUpEffectText{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    opacity: 0.3;
+    transform: translate(-50%, -50%);
+    /*width: 333px;*/
+    /*height: 75px;*/
+    width: 158px;
+    height: 37px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 51px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 100%;
+    letter-spacing: normal;
+    text-align: center;
+    color: #00b4ff;
+}
+
 #resultBox {
     position: relative;
     display: flex;
@@ -911,12 +982,12 @@ button {
 
 #resultIcon {
     width: 78px;
-    height: 77px;
+    height: 71px;
     object-fit: fill;
 }
 
 #resultText {
-    width: 132px;
+    width: 150px;
     height: 23px;
     text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
     font-family: 'NanumSquare', sans-serif;
@@ -924,10 +995,18 @@ button {
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: normal;
+    line-height: 23px;
     letter-spacing: normal;
     text-align: center;
+}
+.LEVELUP{
+    color: #f7d119;
+}
+.SUCCESS{
     color: #ffffff;
+}
+.FAIL{
+    color: #99c34b;
 }
 
 #resultLevelBox {
@@ -937,17 +1016,16 @@ button {
     background-color: #324091;
     padding-top: 14px;
     padding-bottom: 14px;
-    margin-bottom: 23px;
 }
 
 #resultLevelText {
-    height: 22px;
+    height: 23px;
     font-family: 'NanumSquare', sans-serif;
     font-size: 28px;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: normal;
+    line-height: 22px;
     letter-spacing: normal;
     text-align: center;
     color: #f7d119;
@@ -956,10 +1034,11 @@ button {
 #resultCoinBox {
     display: flex;
     flex-direction: row;
+    align-self: flex-start;
+    margin-left: 20.5vw;
     justify-content: flex-start;
-    width: 23.6vw;
-    height: 79px;
-    margin-bottom: 21px;
+    width: 33.2vw;
+    height: 113px;
 }
 
 
@@ -997,37 +1076,58 @@ button {
 }
 
 #gainCoinText1 ,#gainExpText1{
+    padding-bottom:30px;
     position: relative;
     align-self: flex-start;
     display: inline-flex;
     width: 54px;
+    height: 75px;
     text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
     font-family: "NanumSquare", sans-serif;
     font-size: 31px;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: normal;
+    line-height: 75px;
     letter-spacing: normal;
     text-align: left;
     color: #a9f2d4;
     z-index: 1;
 }
 
+#gainCoinEffectText,#gainExpEffectText{
+    height: 49px;
+    padding-bottom: 32px;
+    line-height: 49px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#gainCoinInnerText,#gainExpInnerText{
+    height: 23px;
+    padding-bottom: 32px;
+    line-height: 23px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
 #gainCoinText2 ,#gainExpText2{
+    padding-bottom:30px;
     position: absolute;
     align-self: flex-start;
     display: inline-flex;
     width: 114px;
-    height: 49px;
-    opacity: 0.1;
+    height: 75px;
+    opacity: 1;
     text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
     font-family: "NanumSquare", sans-serif;
     font-size: 31px;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: normal;
+    line-height: 75px;
     letter-spacing: normal;
     text-align: left;
     z-index: 2;
@@ -1037,12 +1137,16 @@ button {
 #resultExpBox {
     display: flex;
     flex-direction: row;
+    align-self: flex-start;
+    margin-left: 20.5vw;
     justify-content: flex-start;
-    width: 23.6vw;
+    width: 33.2vw;
+    height: 113px;
     margin-bottom: 51px;
 }
 
 #resultExpText1 {
+    align-self: flex-end;
     width: 9vw;
     margin-right: 5.1vw;
     text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
@@ -1058,6 +1162,7 @@ button {
 }
 
 #resultExpText2 {
+    align-self: flex-end;
     text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
     font-family: 'NanumSquare', sans-serif;
     font-size: 56.5px;
@@ -1070,14 +1175,21 @@ button {
     color: #f7d119;
 }
 
+#wordBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 110px;
+    width: 65.6vw;
+    margin-bottom: 48px;
+
+}
 #resultWordBox {
     display: grid;
     grid-row-gap: 10px;
     grid-column-gap: 0.8vw;
     grid-template-columns: repeat(5, 1fr);
-    height: 110px;
-    width: 65.6vw;
-    margin-bottom: 48px;
 }
 
 .resultWordItem_matched {

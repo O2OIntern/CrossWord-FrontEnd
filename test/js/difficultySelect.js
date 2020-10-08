@@ -48,6 +48,10 @@ export class DifficultySelect {
             difficultyIcon.setAttribute("id", "difficultyIcon");
             difficultyIcon.setAttribute("src", "../image/ico-" + this.#_difficulty[i] + ".png");
             button.appendChild(difficultyIcon);
+            const difficultyText = document.createElement("div");
+            difficultyText.setAttribute("id", "difficultyText");
+            difficultyText.textContent=this.#_difficulty[i].toUpperCase();
+            button.appendChild(difficultyText);
             const expTextBox = document.createElement("div");
             expTextBox.setAttribute("id", "expTextBox");
             boxItem.appendChild(expTextBox);
