@@ -404,7 +404,7 @@ export class Action {
                 stageSelect.doNoneDisplay();
                 difficultySelect.doDisplay();
                 resultDisplay.doNoneDisplay();
-                
+
                 /**
                  * 배팅머니, 획득머니, 시간제한 등을 fulfillment에서 가져옴
                  * 변동사항이 있으면 안되므로 상수 선언
