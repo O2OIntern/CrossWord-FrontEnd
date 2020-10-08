@@ -404,9 +404,7 @@ export class Action {
                 stageSelect.doNoneDisplay();
                 difficultySelect.doDisplay();
                 resultDisplay.doNoneDisplay();
-                if(document.getElementById("inGameBox")!=null){
-                    container.removeChild(document.getElementById("inGameBox"));
-                }
+                
                 /**
                  * 배팅머니, 획득머니, 시간제한 등을 fulfillment에서 가져옴
                  * 변동사항이 있으면 안되므로 상수 선언
@@ -708,9 +706,9 @@ export class Action {
             RESULT: function (data) {
                 console.log("실행 : result");
                 // document.querySelector("#coinBox").style.visibility = "visible";
-                // if (document.querySelector("#inGameBox") != null) {
-                //     container.removeChild(document.querySelector("#inGameBox"));
-                // }
+                if (document.querySelector("#inGameBox") != null) {
+                    container.removeChild(document.querySelector("#inGameBox"));
+                }
                 common.doNoneDisplay();
                 mainFrame.doNoneDisplay();
                 stageSelect.doNoneDisplay();

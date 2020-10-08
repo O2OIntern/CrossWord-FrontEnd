@@ -158,6 +158,9 @@ export class Result {
         const resultContinueText = document.createElement("div");
         resultContinueText.setAttribute("id", "resultContinueText");
         resultContinueText.textContent = "CONTINUE";
+        resultContinueBox.addEventListener("click",function(){
+            window.canvas.sendTextQuery("play");
+        });
         resultContinueBox.appendChild(resultContinueText);
         const resultContinueIcon = document.createElement("img");
         resultContinueIcon.setAttribute("id", "resultContinueIcon");
