@@ -779,10 +779,10 @@ export class Action {
 
                     //레벨업 여부에 따른 gain 효과
                     if (islevelup) {
-                        //resultDisplay.intervalFunc(data.myCoin - myCoin,data.fullExp - exp);
+                        resultDisplay.intervalFunc(data.myCoin - myCoin,data.fullExp - exp);
                     } else {
-                        //resultDisplay.intervalFunc(data.myCoin - myCoin,data.myExp - exp);
-                        resultDisplay.intervalFunc(200,90);
+                        resultDisplay.intervalFunc(data.myCoin - myCoin,data.myExp - exp);
+                        //resultDisplay.intervalFunc(200,90);
 
                     }
 

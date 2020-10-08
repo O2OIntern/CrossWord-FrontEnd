@@ -157,9 +157,9 @@ export class Result {
         this.#_resultBox.appendChild(resultContinueBox);
         const resultContinueText = document.createElement("div");
         resultContinueText.setAttribute("id", "resultContinueText");
-        resultContinueText.textContent = "CONTINUE";
+        resultContinueText.textContent = "HOME";
         resultContinueBox.addEventListener("click",function(){
-            window.canvas.sendTextQuery("next");
+            window.canvas.sendTextQuery("home");
         });
         resultContinueBox.appendChild(resultContinueText);
         const resultContinueIcon = document.createElement("img");
