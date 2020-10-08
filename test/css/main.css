@@ -8,6 +8,7 @@ body {
     margin: 0;
 }
 
+
 button {
     background-color: cornflowerblue;
 
@@ -822,6 +823,133 @@ button {
 /*}*/
 
 /*힌트 열기*/
+#hintButtonBox{
+    position:absolute;
+    left:53px;
+    top:338px;
+    width: 90px;
+    height:90px;
+
+}
+#hintClickBox{
+    border-radius: 50%;
+    position:absolute;
+    left :0px;
+    top : 0px;
+    width: 81px;
+    height: 80px;
+    box-shadow: -5.6px 8.3px 20px 0 rgba(0, 0, 0, 0.2);
+    background-color: #7cbf5a;
+}
+/**
+좌측 힌트버튼
+ */
+#hintBoxIcon{
+    position:absolute;
+    left :18px;
+    top : 19px;
+    width: 42px;
+    height: 41px;
+    object-fit: contain;
+}
+#hintCountBox{
+    border-radius: 50%;
+    position:absolute;
+    right : 0px;
+    top :  0px;
+    width: 40px;
+    height: 40px;
+    box-shadow: -2.8px 4.1px 10px 0 rgba(33, 68, 93, 0.4);
+    background-color: #ffba00;
+}
+#hintCountText{
+    position:absolute;
+    left :13px;
+    top : 11px;
+    width: 13px;
+    height: 18px;
+    font-family: 'NanumSquare',sans-serif;
+    font-size: 23.5px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 18px;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+/**
+힌트 모달
+ */
+#hintModalBox{
+    position : absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width:540px;
+    height:460px;
+}
+#hintModal{
+    position : absolute;
+    left: 0px;
+    top: 40px;
+    width: 540px;
+    height: 420px;
+    border-radius: 20px;
+    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+    background-color: #ffffff;
+}
+#hintModalIcon{
+    position : absolute;
+    left: 228px;
+    top: 0px;
+    width: 69px;
+    height: 71px;
+    object-fit: contain;
+}
+#hintTopBox{
+    width: 540px;
+    height: 90px;
+    border-radius: 15px 15px 0px 0px;
+    position : absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #99c34b;
+}
+#hintTopBoxText{
+    position : absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 67px;
+    height: 22px;
+    font-family: 'NanumSquare',sans-serif;
+    font-size: 31px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 22px;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+#hintNotifyText{
+    position : absolute;
+    left: 178px;
+    top : 241px;
+    width: 184px;
+    height: 28px;
+    font-family: 'NanumSquare',sans-serif;
+    font-size: 34.5px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 28px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000000;
+}
+
 .backgroundModal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */

@@ -23,7 +23,7 @@ export class Result {
     #_gainCoin;
     #_gainExp;
 
-    //Display Function
+    //Display FunctionsendText
     doDisplay() {
         console.log("Result DoDisplay");
         const page = document.querySelector("#resultBox");
@@ -273,7 +273,7 @@ export class Result {
         let Coin = 0;
         let Exp = 0;
         let rst = new Result();
-
+        console.log(gainCoin+" "+gainExp);
         intervalGainCoin = setInterval(() => {
             rst.intervalCoin(Coin++);
             if (Coin === gainCoin) {

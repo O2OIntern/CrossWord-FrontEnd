@@ -132,11 +132,11 @@ function hardGame() {
     window.canvas.sendTextQuery("hard");
 }
 
-function remove_welcome(){
+function remove_welcome() {
     const pages = document.querySelectorAll("#playbutton,#copyright,#o2ologo");
-    console.log("count: "+pages.length);
-    for (let page of pages){
-        console.log("remove_welcome function()"+page.textContent);
+    console.log("count: " + pages.length);
+    for (let page of pages) {
+        console.log("remove_welcome function()" + page.textContent);
         page.parentNode.removeChild(page);
     }
 }
@@ -172,7 +172,7 @@ export class Action {
          *
          * User Info
          */
-        //main, stageselect, difficultyselect에서 사용
+            //main, stageselect, difficultyselect에서 사용
         let level = 0;
         let exp = 0;
         let myHint = 0;
@@ -277,7 +277,6 @@ export class Action {
                 scene.playButton.onclick = main;
 
 
-
             },
             MAIN: function (data) {
                 console.log("실행 : main");
@@ -342,11 +341,11 @@ export class Action {
                 common.settingButton.onclick = setting;
 
                 $('#progress').circleProgress({
-                    size:110,
+                    size: 110,
                     //그래프 크기
-                    startAngle: -Math.PI/2 ,
+                    startAngle: -Math.PI / 2,
                     //시작지점 (기본값 Math.PI)
-                    value: exp/fullExp,
+                    value: exp / fullExp,
                     //그래프에 표시될 값
                     animation: true,
                     //그래프가 그려지는 애니메이션 동작 여부
@@ -448,11 +447,11 @@ export class Action {
                  * @type {HTMLDivElement}
                  */
 
-                for(let i=1;i<=3;i++){
-                    difficultySelect.feeText[i-1].textContent = eval("betMoney"+i)+"c";
-                    difficultySelect.timeText[i-1].textContent = eval("timeLimit"+i)+"s";
-                    difficultySelect.boxItem[i-1].addEventListener("click",function(){
-                        window.canvas.sendTextQuery(difficultySelect.difficulty[i-1]);
+                for (let i = 1; i <= 3; i++) {
+                    difficultySelect.feeText[i - 1].textContent = eval("betMoney" + i) + "c";
+                    difficultySelect.timeText[i - 1].textContent = eval("timeLimit" + i) + "s";
+                    difficultySelect.boxItem[i - 1].addEventListener("click", function () {
+                        window.canvas.sendTextQuery(difficultySelect.difficulty[i - 1]);
                     })
                 }
             },
@@ -524,26 +523,54 @@ export class Action {
 
                 const gameBoard = document.createElement("div");
                 gameBoard.setAttribute("id", "gameBoard");
-                gameBoard.style.gridTemplateColumns = "repeat(" + (5+difficulty) + ", 1fr)";
-                gameBoard.style.gridTemplateRows = "repeat(" + (5+difficulty) + ", 1fr)";
+                gameBoard.style.gridTemplateColumns = "repeat(" + (5 + difficulty) + ", 1fr)";
+                gameBoard.style.gridTemplateRows = "repeat(" + (5 + difficulty) + ", 1fr)";
                 gameBoardBox.appendChild(gameBoard);
 
-                for(let col = 0; col < boardCol; col++) {
+                for (let col = 0; col < boardCol; col++) {
                     for (let row = 0; row < boardRow; row++) {
 
                         //알파벳 이미지 담을 배경(네모박스)
                         const alphabetBox = document.createElement("div");
                         alphabetBox.setAttribute("class", "alphabetBox");
+                        alphabetBox.setAttribute("value", board[col][row].toLowerCase());
+                        alphabetBox.setAttribute("id", "box" + col + "," + row);
                         gameBoard.appendChild(alphabetBox);
 
                         //알파벳 이미지
                         const alphabet = document.createElement("img");
-                        alphabet.setAttribute("src", "../image/inGame/alphabet/" + board[col][row].toLowerCase() +".png");
+                        alphabet.setAttribute("src", "../image/inGame/alphabet/" + board[col][row].toLowerCase() + ".png");
                         alphabet.setAttribute("class", "alphabet");
                         alphabetBox.appendChild(alphabet);
                     }
                 }
+                //좌측 힌트 버튼 생성
+                const hintButtonBox = document.createElement("div");
+                hintButtonBox.setAttribute("id", "hintButtonBox");
+                container.appendChild(hintButtonBox);
 
+                const hintClickBox = document.createElement("div");
+                hintClickBox.setAttribute("id", "hintClickBox");
+                hintButtonBox.appendChild(hintClickBox);
+                hintClickBox.addEventListener("click", function () {
+                    window.canvas.sendTextQuery("open hint");
+                });
+
+                const hintBoxIcon = document.createElement("img");
+                hintBoxIcon.setAttribute("id", "hintBoxIcon");
+                hintBoxIcon.setAttribute("src", "../image/ico-hint.png");
+                hintClickBox.appendChild(hintBoxIcon);
+
+                const hintCountBox = document.createElement("div");
+                hintCountBox.setAttribute("id", "hintCountBox");
+                hintButtonBox.appendChild(hintCountBox);
+
+                const hintCountText = document.createElement("div");
+                hintCountText.setAttribute("id", "hintCountText");
+                hintCountBox.appendChild(hintCountText);
+                hintCountText.textContent = myHint;
+
+                //우측 힌트 리스트 생성
                 const gameProgress_HintBox = document.createElement("div");
                 gameProgress_HintBox.setAttribute("id", "gameProgress_HintBox");
                 inGameBox.appendChild(gameProgress_HintBox);
@@ -581,7 +608,6 @@ export class Action {
                     gameProgress.style.opacity = "0.1";
                     gameProgressBox.appendChild(gameProgress);
                 }
-
 
 
                 // if (difficulty == 1) {
@@ -639,91 +665,149 @@ export class Action {
                 gameBoard.classList.add("shake");
             },
             OPENHINT: function (data) {
-                            console.log("실행 : openHint");
-                            /**
-                             * hint = data.hint -> fulfillment에서 보내주는 hint
-                             * 게임판을 가리고 힌트를 보여줌
-                             * 타이머가 잠시 멈춤
-                             */
-                            const hint = data.hint;
-                            //힌트를 열면 타이머를 잠시 멈춤
-                            // Timer.stop(); //demo를 위함
-                            const backgroundModal = document.createElement("div");
-                            backgroundModal.setAttribute("class", "backgroundModal");
-                            backgroundModal.setAttribute("id", "backgroundModal");
-                            container.appendChild(backgroundModal);
-                            const contentModal = document.createElement("div");
-                            contentModal.setAttribute("class", "contentModal");
-                            contentModal.style.height = document.querySelector("#gameBoard").clientHeight + "px";
-                            contentModal.style.width = document.querySelector("#gameBoard").clientWidth + "px";
-                            backgroundModal.appendChild(contentModal);
-                            const hintModalText = document.createElement("p");
-                            hintModalText.textContent = "HINT";
-                            contentModal.appendChild(hintModalText);
-                            contentModal.appendChild(document.createElement("br"));
-                            contentModal.appendChild(document.createElement("hr"));
-                            contentModal.appendChild(document.createElement("br"));
-                            //사용자의 힌트 개수가 1개 이상인지 체크
-                            if (myHint >= 1) {
-                                if (hint.length == 1) {
-                                    backgroundModal.style.display = "none";
-                                    console.log(hint);
-                                    for (let i = 0; i < document.getElementsByName(hint).length; i++)
-                                        document.getElementsByName(hint)[i].style.textShadow = "0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18";
-                                    /*setTimeout(function () { //demo를 위해 주석처리
-                                        *//*글자가 다시 원상태로 돌아오록 함, usedHint에 추가 "first alphabet : A"*//*
-                                         Timer.resume();
-                                        for (let i = 0; i < document.getElementsByName(hint).length; i++)
-                                            document.getElementsByName(hint)[i].style.textShadow = "none";
-                                        const usedHint = document.querySelector("#hintScrollBox");
-                                        const content = document.createElement("p");
-                                        content.textContent = "first alphabet is \"" + hint.toUpperCase() + "\"";
-                                        usedHint.appendChild(content);
-                                    }, 5000);*/
-                                    //사용자의 남은 힌트를 보여줌
-                                    const remainingHint = document.querySelector("#hintText");
-                                    if (myHint > 0) myHint--;
-                                    remainingHint.textContent = myHint;
-                                } else if (hint.length > 1) {
-                                    Timer.stop(); // demo를 위함
-                                    const hintModal = document.createElement("p");
-                                    if (hint != "noHint") {
-                                        hintModal.textContent = hint;
-                                        console.log(hint);
-                                        contentModal.appendChild(hintModal);
-                                        //사용자의 남은 힌트를 보여줌
-                                        const remainingHint = document.querySelector("#hintText");
-                                        if (myHint > 0) myHint--;
-                                        remainingHint.textContent = myHint;
-                                    } else if (hint == "noHint") {
-                                        hintModal.textContent = "Please charge your hint";
-                                        contentModal.appendChild(hintModal);
-                                    }
-                                    backgroundModal.style.display = "block";
-                                    setTimeout(function () {
-                                        backgroundModal.style.display = "none";
-                                        Timer.resume();
-                                        if (hint != "noHint") {
-                                            const usedHint = document.querySelector("#hintScrollBox");
-                                            const content = document.createElement("p");
-                                            content.textContent = hint;
-                                            console.log(hint);
-                                            usedHint.appendChild(content);
-                                        }
-                                    }, 5000);
-                                }
-                            } else if (myHint <= 0) {
-                                //사용자의 남은 힌트가 없다면 힌트를 보여주지 않음
-                                const hintModal = document.createElement("p");
-                                hintModal.textContent = "Please charge your hint";
-                                contentModal.appendChild(hintModal);
-                                backgroundModal.style.display = "block";
-                                setTimeout(function () {
-                                    backgroundModal.style.display = "none";
-                                    Timer.resume();
-                                }, 5000);
+                console.log("실행 : openHint");
+                container.classList.add("overlay");
+                /**
+                 * hint = data.hint -> fulfillment에서 보내주는 hint
+                 * 게임판을 가리고 힌트를 보여줌
+                 * 타이머가 잠시 멈춤
+                 */
+                const hint = data.hint;
+
+                const backgroundModal = document.createElement("div");
+                backgroundModal.setAttribute("class", "backgroundModal");
+                backgroundModal.setAttribute("id", "backgroundModal");
+                container.appendChild(backgroundModal);
+
+                //힌트를 열면 타이머를 잠시 멈춤
+                // Timer.stop(); //demo를 위함
+
+
+                // const contentModal = document.createElement("div");
+                // contentModal.setAttribute("class", "contentModal");
+                // contentModal.style.height = document.querySelector("#gameBoard").clientHeight + "px";
+                // contentModal.style.width = document.querySelector("#gameBoard").clientWidth + "px";
+                // backgroundModal.appendChild(contentModal);
+                // const hintModalText = document.createElement("p");
+                // hintModalText.textContent = "HINT";
+                // contentModal.appendChild(hintModalText);
+                // contentModal.appendChild(document.createElement("br"));
+                // contentModal.appendChild(document.createElement("hr"));
+                // contentModal.appendChild(document.createElement("br"));
+                //사용자의 힌트 개수가 1개 이상인지 체크
+                if (myHint >= 1) {
+
+                    if (hint.length == 1) {
+                        backgroundModal.style.display = "none";
+                        console.log(hint);
+                        for (let i = 0; i < document.getElementsByClassName("alphabetBox").length; i++){
+                            console.log(document.getElementsByClassName("alphabetBox")[i].getAttribute("value"));
+                        if (document.getElementsByClassName("alphabetBox")[i].getAttribute("value") === hint)
+                            document.getElementsByClassName("alphabetBox")[i].style.backgroundColor = "#ffffff";
+                        }
+                        setTimeout(function () {
+                            /*글자가 다시 원상태로 돌아오록 함, usedHint에 추가 "first alphabet : A"*/
+                            //Timer.resume();
+                            for (let i = 0; i < document.getElementsByClassName("alphabetBox").length; i++)
+                                document.getElementsByClassName("alphabetBox")[i].style.backgroundColor = "rgba(67, 67, 67, 0.1)";
+                            //힌트리스트박스에 추가
+                            const usedHint = document.querySelector("#hintScrollBox");
+                            const content = document.createElement("p");
+                            content.textContent = "first alphabet is \"" + hint.toUpperCase() + "\"";
+                            usedHint.appendChild(content);
+                        }, 5000);
+
+                        //사용자의 남은 힌트를 보여줌
+                        if (myHint > 0) myHint--;
+                        document.getElementById("hintCountText").textContent = myHint;
+
+                    } else if (hint.length > 1) {
+                        backgroundModal.style.display = "block";
+
+                        //힌트 모달 생성
+                        const hintModalBox = document.createElement("div");
+                        hintModalBox.setAttribute("id", "hintModalBox");
+                        container.appendChild(hintModalBox);
+                        const hintModal = document.createElement("div");
+                        hintModal.setAttribute("id", "hintModal");
+                        hintModalBox.appendChild(hintModal);
+                        const hintModalIcon = document.createElement("img");
+                        hintModalIcon.setAttribute("id", "hintModalIcon");
+                        hintModalIcon.setAttribute("src", "../image/ico-hint-modal.png");
+                        hintModalBox.appendChild(hintModalIcon);
+                        const hintTopBox = document.createElement("div");
+                        hintTopBox.setAttribute("id", "hintTopBox");
+                        hintModal.appendChild(hintTopBox);
+                        const hintTopBoxText = document.createElement("div");
+                        hintTopBoxText.setAttribute("id", "hintTopBoxText");
+                        hintTopBox.appendChild(hintTopBoxText);
+                        hintTopBoxText.textContent = "HINT";
+                        const hintNotifyText = document.createElement("div");
+                        hintNotifyText.setAttribute("id", "hintNotifyText");
+                        hintModal.appendChild(hintNotifyText);
+
+
+                        Timer.stop();
+
+                        if (hint != "noHint") {
+                            hintNotifyText.textContent = hint;
+                            console.log(hint);
+
+                            //사용자의 남은 힌트를 보여줌
+                            if (myHint > 0) myHint--;
+                            document.getElementById("hintCountText").textContent = myHint;
+
+                        } else if (hint == "noHint") {
+                            hintNotifyText.textContent = "Please charge your hint";
+                        }
+
+                        setTimeout(function () {
+                            backgroundModal.style.display = "none";
+                            container.removeChild(hintModalBox);
+                            Timer.resume();
+                            //힌트 리스트 박스에 추가
+                            if (hint != "noHint") {
+                                const usedHint = document.querySelector("#hintScrollBox");
+                                const content = document.createElement("p");
+                                content.textContent = hint;
+                                console.log(hint);
+                                usedHint.appendChild(content);
                             }
-                        },
+                        }, 5000);
+                    }
+                } else if (myHint <= 0) {
+                    //힌트 모달 생성
+                    const hintModalBox = document.createElement("div");
+                    hintModalBox.setAttribute("id", "hintModalBox");
+                    container.appendChild(hintModalBox);
+                    const hintModal = document.createElement("div");
+                    hintModal.setAttribute("id", "hintModal");
+                    hintModalBox.appendChild(hintModal);
+                    const hintModalIcon = document.createElement("img");
+                    hintModalIcon.setAttribute("id", "hintModalIcon");
+                    hintModalIcon.setAttribute("src", "../image/ico-hint-modal.png");
+                    hintModalBox.appendChild(hintModalIcon);
+                    const hintTopBox = document.createElement("div");
+                    hintTopBox.setAttribute("id", "hintTopBox");
+                    hintModal.appendChild(hintTopBox);
+                    const hintTopBoxText = document.createElement("div");
+                    hintTopBoxText.setAttribute("id", "hintTopBoxText");
+                    hintTopBox.appendChild(hintTopBoxText);
+                    hintTopBoxText.textContent = "HINT";
+                    const hintNotifyText = document.createElement("div");
+                    hintNotifyText.setAttribute("id", "hintNotifyText");
+                    hintModal.appendChild(hintNotifyText);
+
+                    //사용자의 남은 힌트가 없다면 힌트를 보여주지 않음
+                    hintNotifyText.textContent = "Please charge your hint";
+                    backgroundModal.style.display = "block";
+                    setTimeout(function () {
+                        backgroundModal.style.display = "none";
+                        Timer.resume();
+                    }, 5000);
+                    container.removeChild(hintModalBox);
+                }
+            },
             RESULT: function (data) {
                 console.log("실행 : result");
                 // document.querySelector("#coinBox").style.visibility = "visible";
@@ -753,21 +837,21 @@ export class Action {
                 //결과 값과 현재 레벨 텍스트 설정
                 console.log(result.toUpperCase());
                 resultDisplay.resultText.textContent = result.toUpperCase();
-                resultDisplay.resultText.setAttribute("class",result.toUpperCase());
-                if(islevelup){
+                resultDisplay.resultText.setAttribute("class", result.toUpperCase());
+                if (islevelup) {
                     resultDisplay.resultText.textContent = "LEVEL UP";
-                    resultDisplay.resultText.setAttribute("class","LEVELUP");
+                    resultDisplay.resultText.setAttribute("class", "LEVELUP");
                 }
                 resultDisplay.resultLevelText.textContent = "Lv." + level;
 
                 //결과 값에 따른 아이콘 변경
-                if(islevelup){
-                    resultDisplay.resultIcon.setAttribute("src","../image/ico-"+"levelup"+".png");
-                }else{
-                    resultDisplay.resultIcon.setAttribute("src","../image/ico-"+result+".png");
+                if (islevelup) {
+                    resultDisplay.resultIcon.setAttribute("src", "../image/ico-" + "levelup" + ".png");
+                } else {
+                    resultDisplay.resultIcon.setAttribute("src", "../image/ico-" + result + ".png");
                 }
 
-                if(islevelup){
+                if (islevelup) {
                     const levelUpBox = document.createElement("div");
                     levelUpBox.setAttribute("id", "levelUpBox");
                     resultDisplay.resultBox.appendChild(levelUpBox);
@@ -781,9 +865,9 @@ export class Action {
                     levelUpText.setAttribute("id", "levelUpText");
                     levelUpBox.appendChild(levelUpText);
 
-                    levelUpEffectText.textContent = (level*1000-100).toString();
-                    levelUpText.textContent = (level*1000-100).toString();
-                    resultDisplay.intervalLevelUpFunc(levelUpIcon,levelUpEffectText,levelUpText);
+                    levelUpEffectText.textContent = (level * 1000 - 100).toString();
+                    levelUpText.textContent = (level * 1000 - 100).toString();
+                    resultDisplay.intervalLevelUpFunc(levelUpIcon, levelUpEffectText, levelUpText);
 
                 }
 
@@ -800,13 +884,12 @@ export class Action {
 
                     //레벨업 여부에 따른 gain 효과
                     if (islevelup) {
-                        resultDisplay.intervalFunc(data.myCoin - myCoin,data.fullExp - exp);
+                        resultDisplay.intervalFunc(data.myCoin - myCoin, data.fullExp - exp);
                     } else {
-                        resultDisplay.intervalFunc(data.myCoin - myCoin,data.myExp - exp);
+                        resultDisplay.intervalFunc(data.myCoin - myCoin, data.myExp - exp);
                         //resultDisplay.intervalFunc(200,90);
 
                     }
-
 
                     //실패
                 } else if (result == "fail") {
@@ -817,19 +900,18 @@ export class Action {
 
                 }
 
-
                 //단어 grid 설정 전 초기화 부분
-                resultDisplay.wordBoxItem.length=0;
+                resultDisplay.wordBoxItem.length = 0;
                 while (resultDisplay.resultWordBox.hasChildNodes()) {
                     resultDisplay.resultWordBox.removeChild(resultDisplay.resultWordBox.firstChild);
                 }
 
                 //단어 grid 설정
-                let totalSize = matchedList.length+unmatchedList.length;
-                if(totalSize<=5)
-                    resultDisplay.resultWordBox.style.gridTemplateColumns="repeat("+totalSize+",1fr)";
+                let totalSize = matchedList.length + unmatchedList.length;
+                if (totalSize <= 5)
+                    resultDisplay.resultWordBox.style.gridTemplateColumns = "repeat(" + totalSize + ",1fr)";
                 else
-                    resultDisplay.resultWordBox.style.gridTemplateColumns="repeat("+5+",1fr)";
+                    resultDisplay.resultWordBox.style.gridTemplateColumns = "repeat(" + 5 + ",1fr)";
 
                 for (let i = 0; i < totalSize; i++) {
                     const resultWordItem = document.createElement("div");
@@ -839,14 +921,14 @@ export class Action {
                     resultDisplay.wordBoxItem.push(resultWordItem);
                 }
                 //단어 맞춘 현황 설정
-                let wordCnt=0;
+                let wordCnt = 0;
                 for (let i = 0; i < matchedList.length; i++) {
-                    resultDisplay.wordBoxItem[wordCnt].setAttribute("class","resultWordItem_matched");
+                    resultDisplay.wordBoxItem[wordCnt].setAttribute("class", "resultWordItem_matched");
                     resultDisplay.wordBoxItem[wordCnt].textContent = matchedList[i];
                     wordCnt++;
                 }
                 for (let i = 0; i < unmatchedList.length; i++) {
-                    resultDisplay.wordBoxItem[wordCnt].setAttribute("class","resultWordItem_unmatched");
+                    resultDisplay.wordBoxItem[wordCnt].setAttribute("class", "resultWordItem_unmatched");
                     resultDisplay.wordBoxItem[wordCnt].textContent = unmatchedList[i];
                     wordCnt++;
                 }
@@ -898,7 +980,7 @@ export class Action {
                 // SettingBox.appendChild(ResetButton);
             },
             SETTINGSELECT: function (data) {
-            console.log("실행: settingselect");
+                console.log("실행: settingselect");
                 let sound = data.sound; //1. soundEffect 2.background sound
                 let onoff = data.onoff; //1.  0오면 off/1오면 on
                 if ((onoff == "0") && (sound == "SoundEffect")) {
@@ -945,13 +1027,13 @@ export class Action {
                 console.log("totalRank length : " + totalRank.length);
                 console.log("myRank : " + myRank);
 
-                for(let i = 0; i < 5; i++) {
+                for (let i = 0; i < 5; i++) {
                     const top5Box = document.createElement("div");
                     top5Box.setAttribute("class", "flex alignCenter");
                     rankingPage.leftBox.appendChild(top5Box);
 
                     const rankingCircle = document.createElement("div");
-                    if(i == 0) rankingCircle.setAttribute("class", "rankYellow circle boxShadow rankCircle center");
+                    if (i == 0) rankingCircle.setAttribute("class", "rankYellow circle boxShadow rankCircle center");
                     else rankingCircle.setAttribute("class", "rankBlue circle boxShadow rankCircle center");
                     top5Box.appendChild(rankingCircle);
 
@@ -975,7 +1057,7 @@ export class Action {
                     top5InfoBox.appendChild(top5Exp);
                 }
 
-                for(let i = 0; i < 8; i ++) {
+                for (let i = 0; i < 8; i++) {
                     const rank8Box = document.createElement("div");
                     rankingPage.rightBox.appendChild(rank8Box);
 
@@ -996,36 +1078,34 @@ export class Action {
                     rankExp.setAttribute("class", "font extraBoldText small rankYellowText rank8Exp");
                     rankInfoCircle.appendChild(rankExp);
 
-                    if(myRank <= 5) { //내가 상위 5위 안 일때
-                        rankNum.textContent = (i+6).toString(); //6~13위 출력
-                        rankMail.textContent = totalRank[i+5][0]; //6~13위의 mail
-                        rankExp.textContent = "Exp " + totalRank[i+5][1]; //6~13위의 exp
+                    if (myRank <= 5) { //내가 상위 5위 안 일때
+                        rankNum.textContent = (i + 6).toString(); //6~13위 출력
+                        rankMail.textContent = totalRank[i + 5][0]; //6~13위의 mail
+                        rankExp.textContent = "Exp " + totalRank[i + 5][1]; //6~13위의 exp
                         //진한 박스 없이(내가 상위5위 안이므로) 투명 박스만 8개(6~13위)
                         rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
                         rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
-                    } else if(myRank > 5 && myRank <= 8) { //내가 6~8등일 때
-                        rankNum.textContent = (i+6).toString(); //6~13위 출력
-                        rankMail.textContent = totalRank[i+5][0]; //6~13위의 mail
-                        rankExp.textContent = "Exp " + totalRank[i+5][1]; //6~13위의 exp
+                    } else if (myRank > 5 && myRank <= 8) { //내가 6~8등일 때
+                        rankNum.textContent = (i + 6).toString(); //6~13위 출력
+                        rankMail.textContent = totalRank[i + 5][0]; //6~13위의 mail
+                        rankExp.textContent = "Exp " + totalRank[i + 5][1]; //6~13위의 exp
                         //내 순위 진한 박스 1개, 내 위 아래로 투명 박스 7개
-                        if(i == (myRank - 6)) { //0, 1, 2
+                        if (i == (myRank - 6)) { //0, 1, 2
                             rankInfoCircle.setAttribute("class", "rankRound boxShadow rankBlue flex alignCenter");
                             rankMail.setAttribute("class", "rankYellowText font extraBoldText small rank8Mail")
-                        }
-                        else {
+                        } else {
                             rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
                             rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
                         }
-                    } else if(myRank >= (totalRank.length - 3) && myRank <= totalRank.length) { //내가 꼴등~꼴등-3 일때
+                    } else if (myRank >= (totalRank.length - 3) && myRank <= totalRank.length) { //내가 꼴등~꼴등-3 일때
                         rankNum.textContent = (totalRank.length - 7 + i).toString(); //꼴등-7~꼴등 위부터 출력
                         rankMail.textContent = totalRank[totalRank.length - 7 + i - 1][0]; //꼴등-7 ~ 꼴등의 mail
                         rankExp.textContent = "Exp " + totalRank[totalRank.length - 7 + i - 1][1]; //꼴등-7 ~ 꼴등의 exp
                         //내 순위 진한 박스 1개, 내 위 아래로 투명 박스 7개
-                        if(i == (myRank - (totalRank.length - 7))) { //4, 5, 6, 7
+                        if (i == (myRank - (totalRank.length - 7))) { //4, 5, 6, 7
                             rankInfoCircle.setAttribute("class", "rankRound boxShadow rankBlue flex alignCenter");
                             rankMail.setAttribute("class", "rankYellowText font extraBoldText small rank8Mail")
-                        }
-                        else {
+                        } else {
                             rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
                             rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
                         }
@@ -1034,11 +1114,10 @@ export class Action {
                         rankMail.textContent = totalRank[myRank - 3 + i - 1][0];
                         rankExp.textContent = "Exp " + totalRank[myRank - 3 + i - 1][1];
                         //내 순위 진한 박스 1개, 내 위 아래로 투명 박스 7개
-                        if(i == 3) {
+                        if (i == 3) {
                             rankInfoCircle.setAttribute("class", "rankRound boxShadow rankBlue flex alignCenter");
                             rankMail.setAttribute("class", "rankYellowText font extraBoldText small rank8Mail")
-                        }
-                        else {
+                        } else {
                             rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
                             rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
                         }
