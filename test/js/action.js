@@ -1018,7 +1018,9 @@ export class Action {
                     resultDisplay.resultText.setAttribute("class", "LEVELUP");
                 }
                 resultDisplay.resultLevelText.textContent = "Lv." + level;
-
+                resultDisplay.gainCoinInnerText.textContent = "";
+                resultDisplay.gainExpInnerText.textContent = "";
+                
                 //결과 값에 따른 아이콘 변경
                 if (islevelup) {
                     resultDisplay.resultIcon.setAttribute("src", "../image/ico-" + "levelup" + ".png");
