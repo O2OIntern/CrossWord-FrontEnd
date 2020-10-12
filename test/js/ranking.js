@@ -15,8 +15,7 @@ export class Ranking{
     doDisplay() {
         console.log("Ranking DoDisplay");
         const page = document.querySelector("#rankingBox");
-        if(page.style.display == 'none')
-            page.style.display = 'block';
+        page.style.display = 'block';
     }
 
     doNoneDisplay() {

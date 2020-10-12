@@ -977,7 +977,7 @@ export class Action {
                 usedHintList.length = 0;
                 usedHint = 0;
                 // document.querySelector("#coinBox").style.visibility = "visible";
-                bgMusic.autoplay = false;
+                bgMusic.pause();
 
                 container.style.backgroundImage = "url('../image/scene/default_bg.png')";
 
@@ -1200,12 +1200,14 @@ export class Action {
                 console.log("myRank : " + myRank);
 
                 function Mail(mail) { //mail 텍스트 정제
-                    mail = mail.replaceAll("\"", "");
+                    mail = mail.replace(/"/gi, "");
                     if(mail.length > 23) {
                         mail = mail.slice(0,20)+"...";
                     }
                     return mail;
                 }
+
+                rankingPage.doDisplay();
                 resultDisplay.doNoneDisplay();
                 mainFrame.doNoneDisplay();
                 shopPage.doNoneDisplay();
@@ -1331,8 +1333,6 @@ export class Action {
                     }
 
                 }
-
-                rankingPage.doDisplay();
 
             },
             SHOP: function (data) {
