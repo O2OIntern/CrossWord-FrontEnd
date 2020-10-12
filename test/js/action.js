@@ -272,6 +272,10 @@ export class Action {
         resultDisplay.init();
         resultDisplay.doNoneDisplay();
 
+        bgMusic.load();
+        bgMusic.autoplay = true;
+        bgMusic.loop = true;
+
         this.canvas = window.interactiveCanvas;
         this.scene = scene;
         this.commands = {
@@ -507,8 +511,7 @@ export class Action {
                 cnt = 0;
 
 
-                bgMusic.load();
-                bgMusic.autoplay = true;
+
 
 
                 //난이도별 설정
@@ -1131,10 +1134,11 @@ export class Action {
                 common.notDisplayUserInfoBox();
                 common.lowerBox.appendChild(settingPage.settingBox);
 
-                let backgroundsoundeffect = data.backgroundsound; //켜져있음
+                let backgroundsoundeffect = data.backgroundsound; //켜져있음 == 1 ==> 수정 필요함
                 let soundeffect = data.soundeffect; //1
 
-                console.log(soundeffect);
+                console.log("bg sound : " + backgroundsoundeffect);
+                console.log("sound effect : " + soundeffect);
 
                 settingPage.accountText.textContent = userEmail;
 
@@ -1150,6 +1154,7 @@ export class Action {
                     settingPage.bgSound.checked = false;
                 }
 
+
                 /**
                  * 초기화
                  */
@@ -1162,7 +1167,9 @@ export class Action {
                 console.log("실행: settingselect");
                 let sound = data.sound; //1. soundEffect 2.background sound
                 let onoff = data.onoff; //1.  0오면 off/1오면 on
+
                 if ((onoff == "0") && (sound == "SoundEffect")) {
+                    console.log("soundEffect off");
                     correctAudio.volume = 0;
                     wrongAudio.volume = 0;
                     successAudio.volume = 0;
@@ -1170,6 +1177,7 @@ export class Action {
                     settingPage.effectSound.checked = false;
                 }
                 if ((onoff == "1") && (sound == "SoundEffect")) {
+                    console.log("soundEffect on");
                     correctAudio.volume = 1;
                     wrongAudio.volume = 1;
                     successAudio.volume = 1;
@@ -1177,17 +1185,13 @@ export class Action {
                     settingPage.effectSound.checked = true;
                 }
                 if ((onoff == "0") && (sound == "BackGround")) {
-                    correctAudio.volume = 0;
-                    wrongAudio.volume = 0;
-                    successAudio.volume = 0;
-                    failAudio.volume = 0;
+                    console.log("backgroundMusic off");
+                    bgMusic.volume = 0;
                     settingPage.bgSound.checked = false;
                 }
                 if ((onoff == "1") && (sound == "BackGround")) {
-                    correctAudio.volume = 1;
-                    wrongAudio.volume = 1;
-                    successAudio.volume = 1;
-                    failAudio.volume = 1;
+                    console.log("backgroundMusic on");
+                    bgMusic.volume = 1;
                     settingPage.bgSound.checked = true;
                 }
             },
