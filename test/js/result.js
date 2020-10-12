@@ -96,7 +96,7 @@ export class Result {
         resultCoinBox.appendChild(this.#_gainCoinText1);
         this.#_gainCoinInnerText = document.createElement("div");
         this.#_gainCoinInnerText.setAttribute("id", "gainCoinInnerText");
-        this.#_gainCoinInnerText.textContent = "" + this.#_gainExp;
+        this.#_gainCoinInnerText.textContent = "";
         this.#_gainCoinText1.appendChild(this.#_gainCoinInnerText);
         // const gainCoinBox = document.createElement("div");
         // gainCoinBox.setAttribute("id","gainCoinBox");
@@ -126,7 +126,7 @@ export class Result {
         resultExpBox.appendChild(this.#_gainExpText1);
         this.#_gainExpInnerText = document.createElement("div");
         this.#_gainExpInnerText.setAttribute("id", "gainExpInnerText");
-        this.#_gainExpInnerText.textContent = "" + this.#_gainExp;
+        this.#_gainExpInnerText.textContent = "";
         this.#_gainExpText1.appendChild(this.#_gainExpInnerText);
 
         this.#_gainExpText2 = document.createElement("div");
