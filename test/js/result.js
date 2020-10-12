@@ -275,20 +275,19 @@ export class Result {
         let rst = new Result();
         console.log(gainCoin+" "+gainExp);
         intervalGainCoin = setInterval(() => {
-            if(gainCoin!=0)
-                rst.intervalCoin(Coin++);
-            if (Coin-1 === gainCoin) {
+            if (Coin === gainCoin) {
                 // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
                 clearInterval(intervalGainCoin);
             }
+            rst.intervalCoin(Coin++);
+
         }, 10);
         intervalGainExp = setInterval(() => {
-            if(gainExp!=0)
-                rst.intervalExp(Exp++);
-            if (Exp-1 === gainExp) {
+            if (Exp === gainExp) {
                 // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
                 clearInterval(intervalGainExp);
             }
+            rst.intervalExp(Exp++);
         }, 10);
         let intervalCoinZoom = null;
         let scale = 31.0;
