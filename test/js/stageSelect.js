@@ -34,10 +34,12 @@ export class StageSelect {
         this.#nextPage = document.createElement("img");
         this.#nextPage.setAttribute("id", "nextPage");
         this.#nextPage.setAttribute("src", "../image/btn-arrow-right.png");
+        this.#nextPage.style.visibility="hidden";
         this.#stepBox.appendChild(this.#nextPage);
         this.#lastPage = document.createElement("img");
         this.#lastPage.setAttribute("id", "lastPage");
         this.#lastPage.setAttribute("src", "../image/btn-arrow-left.png");
+        this.#lastPage.style.visibility="hidden";
         this.#stepBox.appendChild(this.#lastPage);
     }
 
@@ -61,6 +63,7 @@ export class StageSelect {
                     stepRow.appendChild(disableBox);
                     underBox.setAttribute("id", "disableUnderBox");
                     const upperBox = document.createElement("img");
+                    upperBox.setAttribute("id", "upperBox");
                     upperBox.setAttribute("id", "upperBox");
                     upperBox.setAttribute("src", "../image/ico-rock.png");
                     disableBox.appendChild(underBox);

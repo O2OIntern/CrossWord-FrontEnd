@@ -1120,6 +1120,7 @@ export class Action {
             SETTING: function (data) {
                 console.log("실행 : setting");
 
+                resultDisplay.doNoneDisplay();
                 mainFrame.doNoneDisplay();
                 rankingPage.doNoneDisplay();
                 shopPage.doNoneDisplay();
@@ -1205,7 +1206,7 @@ export class Action {
                     }
                     return mail;
                 }
-
+                resultDisplay.doNoneDisplay();
                 mainFrame.doNoneDisplay();
                 shopPage.doNoneDisplay();
                 settingPage.doNoneDisplay();
