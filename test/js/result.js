@@ -306,7 +306,8 @@ export class Result {
 
         if (gainCoin != 0) {
             intervalCoinZoom = setInterval(() => {
-                if (coinScale >= 66) {
+                console.log("coinScale: "+coinScale);
+                if(coinScale >= 66) {
                     // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
                     clearInterval(intervalCoinZoom);
                 }
@@ -319,9 +320,9 @@ export class Result {
         }
         if (gainExp != 0) {
             intervalExpZoom = setInterval(() => {
-                if (expScale >= 66) {
+                if(expScale >= 66) {
                     // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
-                    clearInterval(intervalCoinZoom);
+                    clearInterval(intervalExpZoom);
                 }
                 expScale += 0.125;
                 self.gainExpEffectText.textContent = "+" + (Exp-1);
