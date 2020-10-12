@@ -167,6 +167,8 @@ button {
     width: 2px;
     height: 15px;
     background-color: white;
+    position: relative;
+    top: 3px;
 }
 
 #levelFullExp {
