@@ -382,6 +382,8 @@ export class Action {
                  */
                 //container.removeChild(document.querySelector("#continue_stageButton"));
                 common.doDisplay();
+                common.displayUserInfoBox();
+                common.displayHigherBox();
                 mainFrame.doNoneDisplay();
                 stageSelect.doDisplay();
                 difficultySelect.doNoneDisplay();
@@ -407,6 +409,8 @@ export class Action {
                  * 단계 버튼 제거
                  */
                 common.doDisplay();
+                common.displayUserInfoBox();
+                common.displayHigherBox();
                 mainFrame.doNoneDisplay();
                 stageSelect.doNoneDisplay();
                 difficultySelect.doDisplay();
@@ -960,7 +964,8 @@ export class Action {
                     container.removeChild(document.querySelector("#hintButtonBox"));
                 }
 
-                common.doNoneDisplay();
+                common.doDisplay();
+                common.notDisplayHigherBox();
                 mainFrame.doNoneDisplay();
                 stageSelect.doNoneDisplay();
                 difficultySelect.doNoneDisplay();
@@ -1095,7 +1100,7 @@ export class Action {
                 settingPage.doDisplay();
 
                 common.notDisplayHigherBox();
-
+                common.notDisplayUserInfoBox();
                 common.lowerBox.appendChild(settingPage.settingBox);
 
                 let backgroundsoundeffect = data.backgroundsound; //켜져있음
@@ -1164,6 +1169,7 @@ export class Action {
                 shopPage.doNoneDisplay();
                 settingPage.doNoneDisplay();
                 common.notDisplayHigherBox();
+                common.notDisplayUserInfoBox();
 
                 common.lowerBox.appendChild(rankingPage.rankingBox);
 
