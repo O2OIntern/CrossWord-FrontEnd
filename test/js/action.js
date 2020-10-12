@@ -740,11 +740,12 @@ export class Action {
 
                 //다 맞추면 fulfillment로 textQuery 전송
                 if (finish) {
-                    Timer.stop();
-                    console.log("get success result");
                     setTimeout(function () {
+                        Timer.stop();
+                        console.log("get success result");
                         window.canvas.sendTextQuery("get success result");
                     }, 1000);
+
                 }
             },
             WRONG: function (data) {
@@ -1020,7 +1021,7 @@ export class Action {
                 resultDisplay.resultLevelText.textContent = "Lv." + level;
                 resultDisplay.gainCoinInnerText.textContent = "";
                 resultDisplay.gainExpInnerText.textContent = "";
-                
+
                 //결과 값에 따른 아이콘 변경
                 if (islevelup) {
                     resultDisplay.resultIcon.setAttribute("src", "../image/ico-" + "levelup" + ".png");

@@ -157,7 +157,7 @@ export class Result {
         resultContinueText.setAttribute("id", "resultContinueText");
         resultContinueText.textContent = "CONTINUE";
         resultContinueBox.addEventListener("click", function () {
-           // window.canvas.sendTextQuery("level"+);
+           window.canvas.sendTextQuery("continue");
         });
         resultContinueBox.appendChild(resultContinueText);
         const resultContinueIcon = document.createElement("img");
