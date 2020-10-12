@@ -39,12 +39,12 @@ export class Result {
     //UI Function
     intervalCoin(a) {
         console.log("log: " + a);
-        document.querySelector("#gainCoinInnerText").childNodes[0].textContent = "+" + a;
+        document.querySelector("#gainCoinInnerText").textContent = "+" + a;
     }
 
     intervalExp(a) {
         console.log("log: " + a);
-        document.querySelector("#gainExpInnerText").childNodes[0].textContent = "+" + a;
+        document.querySelector("#gainExpInnerText").textContent = "+" + a;
     }
 
 
@@ -96,7 +96,6 @@ export class Result {
         resultCoinBox.appendChild(this.#_gainCoinText1);
         this.#_gainCoinInnerText = document.createElement("div");
         this.#_gainCoinInnerText.setAttribute("id", "gainCoinInnerText");
-        this.#_gainCoinInnerText.textContent = "";
         this.#_gainCoinText1.appendChild(this.#_gainCoinInnerText);
         // const gainCoinBox = document.createElement("div");
         // gainCoinBox.setAttribute("id","gainCoinBox");
@@ -134,7 +133,6 @@ export class Result {
         this.#_gainExpText1.appendChild(this.#_gainExpText2);
         this.#_gainExpEffectText = document.createElement("div");
         this.#_gainExpEffectText.setAttribute("id", "gainExpEffectText");
-        this.#_gainExpEffectText.textContent = "";
         this.#_gainExpText2.appendChild(this.#_gainExpEffectText);
         //WordBox
         const wordBox = document.createElement("div");
@@ -157,9 +155,9 @@ export class Result {
         this.#_resultBox.appendChild(resultContinueBox);
         const resultContinueText = document.createElement("div");
         resultContinueText.setAttribute("id", "resultContinueText");
-        resultContinueText.textContent = "HOME";
-        resultContinueBox.addEventListener("click",function(){
-            window.canvas.sendTextQuery("home");
+        resultContinueText.textContent = "CONTINUE";
+        resultContinueBox.addEventListener("click", function () {
+           // window.canvas.sendTextQuery("level"+);
         });
         resultContinueBox.appendChild(resultContinueText);
         const resultContinueIcon = document.createElement("img");
@@ -273,41 +271,65 @@ export class Result {
         let Coin = 0;
         let Exp = 0;
         let rst = new Result();
-        console.log(gainCoin+" "+gainExp);
-        intervalGainCoin = setInterval(() => {
-            if(gainCoin!=0)
+        console.log(gainCoin + " " + gainExp);
+        document.querySelector("#gainCoinInnerText").textContent = "";
+        document.querySelector("#gainExpInnerText").textContent = "";
+        console.log("gainCoin: ",gainCoin);
+        console.log("gainExp: ",gainExp);
+        if(gainCoin!=0){
+            intervalGainCoin = setInterval(() => {
+                if (Coin === gainCoin) {
+                    // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
+                    clearInterval(intervalGainCoin);
+                }
                 rst.intervalCoin(Coin++);
-            if (Coin-1 === gainCoin) {
-                // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
-                clearInterval(intervalGainCoin);
-            }
-        }, 10);
-        intervalGainExp = setInterval(() => {
-            if(gainExp!=0)
+
+            }, 10);
+        }
+        if(gainExp!=0) {
+            intervalGainExp = setInterval(() => {
+                if (Exp === gainExp) {
+                    // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
+                    clearInterval(intervalGainExp);
+                }
                 rst.intervalExp(Exp++);
-            if (Exp-1 === gainExp) {
-                // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
-                clearInterval(intervalGainExp);
-            }
-        }, 10);
+            }, 10);
+        }
         let intervalCoinZoom = null;
-        let scale = 31.0;
-        let opacity = 1.0;
-        intervalCoinZoom = setInterval(() => {
-            scale += 0.125;
-            self.gainCoinEffectText.textContent = "+" + (Coin - 1);
-            self.gainCoinEffectText.style.fontSize = scale + "px";
-            self.gainExpEffectText.textContent = "+" + (Exp - 1);
-            self.gainExpEffectText.style.fontSize = scale + "px";
-            opacity -= 0.007;
-            console.log(self.gainCoinEffectText.style.opacity);
-            self.gainCoinEffectText.style.opacity = opacity;
-            self.gainExpEffectText.style.opacity = opacity;
-            if (scale >= 66) {
-                // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
-                clearInterval(intervalCoinZoom);
-            }
-        }, 1);
+        let intervalExpZoom = null;
+
+
+        let coinScale = 31.0;
+        let coinOpacity = 1.0;
+        let expScale = 31.0;
+        let expOpacity = 1.0;
+
+        if (gainCoin != 0) {
+            intervalCoinZoom = setInterval(() => {
+                if (coinScale >= 66) {
+                    // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
+                    clearInterval(intervalCoinZoom);
+                }
+                coinScale += 0.125;
+                self.gainCoinEffectText.textContent = "+" + (Coin-1);
+                self.gainCoinEffectText.style.fontSize = coinScale + "px";
+                coinOpacity -= 0.007;
+                self.gainCoinEffectText.style.opacity = coinOpacity;
+            }, 1);
+        }
+        if (gainExp != 0) {
+            intervalExpZoom = setInterval(() => {
+                if (expScale >= 66) {
+                    // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
+                    clearInterval(intervalCoinZoom);
+                }
+                expScale += 0.125;
+                self.gainExpEffectText.textContent = "+" + (Exp-1);
+                self.gainExpEffectText.style.fontSize = expScale + "px";
+                expOpacity -= 0.007;
+                self.gainExpEffectText.style.opacity = expOpacity;
+            }, 1);
+        }
     }
 
 }

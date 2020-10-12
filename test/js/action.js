@@ -653,6 +653,7 @@ export class Action {
                 for (let i = 0; i < 5; i++) {
                     const hintItem = document.createElement("div");
                     hintItem.setAttribute("class", "hintItem");
+                    hintItem.classList.add(container.getAttribute("value"));
                     hintCarousel.appendChild(hintItem);
                     const hintItemIcon = document.createElement("img");
                     hintItemIcon.setAttribute("id", "hintItemIcon")
@@ -1046,8 +1047,8 @@ export class Action {
                 }
 
                 //내 코인 및 exp 설정
-                resultDisplay.resultCoinText2.textContent = myCoin;
-                resultDisplay.resultExpText2.textContent = exp;
+                resultDisplay.resultCoinText2.textContent = data.myCoin;
+                resultDisplay.resultExpText2.textContent = data.myExp;
 
                 //결과에 따른 설정
                 //성공
