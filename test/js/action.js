@@ -104,7 +104,7 @@ function ranking() {
 
 //main에서 continue눌렀을 때
 function continuebutton() {
-    window.canvas.sendTextQuery("continue");
+    window.canvas.sendTextQuery("continue game");
 }
 
 //main에서 viewall 눌렀을 때
