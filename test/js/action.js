@@ -332,7 +332,12 @@ export class Action {
                 common.levelFullExp.textContent = fullExp;
                 common.hintText.textContent = myHint;
                 common.coinText.textContent = myCoin;
-                common.accountText.textContent = userEmail.slice(0,15)+"...";
+                if(userEmail.length>15){
+                    common.accountText.textContent = userEmail.slice(0,15)+"...";
+                }
+                else{
+                    common.accountText.textContent = userEmail;
+                }
                 common.inGameHintNumText.textContent = myHint;
 
                 //set onClick Function
@@ -966,6 +971,7 @@ export class Action {
 
                 common.doDisplay();
                 common.notDisplayHigherBox();
+                common.notDisplayUserInfoBox();
                 mainFrame.doNoneDisplay();
                 stageSelect.doNoneDisplay();
                 difficultySelect.doNoneDisplay();
