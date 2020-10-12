@@ -739,11 +739,11 @@ export class Action {
 
                 //다 맞추면 fulfillment로 textQuery 전송
                 if (finish) {
+                    Timer.stop();
+                    console.log("get success result");
                     setTimeout(function () {
                         window.canvas.sendTextQuery("get success result");
                     }, 1000);
-                    Timer.stop();
-                    console.log("get success result");
                 }
             },
             WRONG: function (data) {
