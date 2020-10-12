@@ -80,7 +80,7 @@ const Timer = (function () {
 })();
 
 function main() {
-    window.canvas.sendTextQuery("play");
+    window.canvas.sendTextQuery("start");
 }
 
 //상점으로 가는 함수
@@ -109,7 +109,7 @@ function continuebutton() {
 
 //main에서 viewall 눌렀을 때
 function viewallButton() {
-    window.canvas.sendTextQuery("view all");
+    window.canvas.sendTextQuery("choose level");
 }
 
 //result화면에서 retry눌렀을 때
