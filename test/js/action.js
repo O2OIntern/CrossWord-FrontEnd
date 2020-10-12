@@ -22,6 +22,7 @@ const Timer = (function () {
         timerHeight = remainHeight; //gameTimer 의 높이
         timerText = remainTime; //timeLimit == 이 판의 제한시간(80s .. )
         plusHeight = remainHeight / remainTime; //gameTimer 의 높이를 제한시간으로 나눔??
+        timerStart = 0;
         console.log(plusHeight);
     }
 
@@ -215,6 +216,11 @@ export class Action {
         failAudio.setAttribute("src", "https://actions.o2o.kr/devsvr1/audio/fail_sound.mp3");
         failAudio.volume = 1.0;
 
+        const bgMusic = document.createElement("audio");
+        bgMusic.canPlayType("audio/mp3");
+        bgMusic.setAttribute("src", "../audio/bg_music.mp3");
+        bgMusic.volume = 0.5;
+
 
         /**
          * Display Class Variable
@@ -265,6 +271,9 @@ export class Action {
 
         resultDisplay.init();
         resultDisplay.doNoneDisplay();
+
+        bgMusic.load();
+        bgMusic.autoplay = true;
 
 
         this.canvas = window.interactiveCanvas;
@@ -1181,10 +1190,15 @@ export class Action {
                 mainFrame.doNoneDisplay();
                 shopPage.doNoneDisplay();
                 settingPage.doNoneDisplay();
+                difficultySelect.doNoneDisplay();
+                stageSelect.doNoneDisplay();
                 common.notDisplayHigherBox();
                 common.notDisplayUserInfoBox();
 
                 common.lowerBox.appendChild(rankingPage.rankingBox);
+                if (document.querySelector("#bottomBox") != null) {
+                    rankingPage.rankingBox.removeChild(document.querySelector("#bottomBox"));
+                }
 
                 let totalRank = data.totalRank;
                 let myRank = data.myRank;
@@ -1192,10 +1206,23 @@ export class Action {
                 console.log("totalRank length : " + totalRank.length);
                 console.log("myRank : " + myRank);
 
+                const bottomBox = document.createElement("div");
+                bottomBox.setAttribute("id", "bottomBox");
+                bottomBox.setAttribute("class", "flex");
+                rankingPage.rankingBox.appendChild(bottomBox);
+
+                const leftBox = document.createElement("div");
+                bottomBox.appendChild(leftBox);
+
+                const rightBox = document.createElement("div");
+                rightBox.setAttribute("id", "rankRightBox");
+                bottomBox.appendChild(rightBox);
+
+
                 for (let i = 0; i < 5; i++) {
                     const top5Box = document.createElement("div");
                     top5Box.setAttribute("class", "flex alignCenter");
-                    rankingPage.leftBox.appendChild(top5Box);
+                    leftBox.appendChild(top5Box);
 
                     const rankingCircle = document.createElement("div");
                     if (i == 0) rankingCircle.setAttribute("class", "rankYellow circle boxShadow rankCircle center");
@@ -1224,7 +1251,7 @@ export class Action {
 
                 for (let i = 0; i < 8; i++) {
                     const rank8Box = document.createElement("div");
-                    rankingPage.rightBox.appendChild(rank8Box);
+                    rightBox.appendChild(rank8Box);
 
                     const rankInfoCircle = document.createElement("div");
                     rank8Box.appendChild(rankInfoCircle);
