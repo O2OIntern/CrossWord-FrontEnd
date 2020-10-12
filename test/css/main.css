@@ -995,6 +995,13 @@ button {
     top: 0px;
     background-color: #99c34b;
 }
+#hintBottomBox{
+    width: 540px;
+    height: 330px;
+    position : absolute;
+    left: 0px;
+    top: 90px;
+}
 #hintTopBoxText{
     position : absolute;
     left: 50%;
@@ -1014,16 +1021,17 @@ button {
 }
 #hintNotifyText{
     position : absolute;
-    left: 178px;
-    top : 241px;
-    width: 184px;
-    height: 28px;
+    left: 50%;
+    top : 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: auto;
     font-family: 'NanumSquare',sans-serif;
     font-size: 34.5px;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: 28px;
+    line-height: normal;
     letter-spacing: normal;
     text-align: center;
     color: #000000;

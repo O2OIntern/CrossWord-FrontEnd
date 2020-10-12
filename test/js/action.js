@@ -842,7 +842,7 @@ export class Action {
                                 document.querySelector("#hintArrowDownButton").style.visibility = "visible";
                                 document.querySelector("#hintArrowUpButton").style.visibility = "visible";
                             }
-                        }, 1000);
+                        }, 5000);
 
                         //사용자의 남은 힌트를 보여줌
                         if (myHint > 0) myHint--;
@@ -865,13 +865,16 @@ export class Action {
                         const hintTopBox = document.createElement("div");
                         hintTopBox.setAttribute("id", "hintTopBox");
                         hintModal.appendChild(hintTopBox);
+                        const hintBottomBox = document.createElement("div");
+                        hintBottomBox.setAttribute("id", "hintBottomBox");
+                        hintModal.appendChild(hintBottomBox);
                         const hintTopBoxText = document.createElement("div");
                         hintTopBoxText.setAttribute("id", "hintTopBoxText");
                         hintTopBox.appendChild(hintTopBoxText);
                         hintTopBoxText.textContent = "HINT";
                         const hintNotifyText = document.createElement("div");
                         hintNotifyText.setAttribute("id", "hintNotifyText");
-                        hintModal.appendChild(hintNotifyText);
+                        hintBottomBox.appendChild(hintNotifyText);
 
 
                         Timer.stop();
@@ -918,7 +921,7 @@ export class Action {
                                     document.querySelector("#hintArrowUpButton").style.visibility = "visible";
                                 }
                             }
-                        }, 1000);
+                        }, 5000);
                     }
                 } else if (myHint <= 0) {
                     //힌트 모달 생성
@@ -935,13 +938,16 @@ export class Action {
                     const hintTopBox = document.createElement("div");
                     hintTopBox.setAttribute("id", "hintTopBox");
                     hintModal.appendChild(hintTopBox);
+                    const hintBottomBox = document.createElement("div");
+                    hintBottomBox.setAttribute("id", "hintBottomBox");
+                    hintModal.appendChild(hintBottomBox);
                     const hintTopBoxText = document.createElement("div");
                     hintTopBoxText.setAttribute("id", "hintTopBoxText");
                     hintTopBox.appendChild(hintTopBoxText);
                     hintTopBoxText.textContent = "HINT";
                     const hintNotifyText = document.createElement("div");
                     hintNotifyText.setAttribute("id", "hintNotifyText");
-                    hintModal.appendChild(hintNotifyText);
+                    hintBottomBox.appendChild(hintNotifyText);
 
                     //사용자의 남은 힌트가 없다면 힌트를 보여주지 않음
                     hintNotifyText.textContent = "Please charge your hint";
