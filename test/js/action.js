@@ -8,6 +8,7 @@ import {Result} from "./result.js";
 import {Welcome} from "./welcome.js";
 import {Ranking} from "./ranking.js";
 
+
 const Timer = (function () {
     let intervalId = null;
     let timerHeightBox = 0;
@@ -133,7 +134,7 @@ function hardGame() {
 }
 
 function remove_welcome() {
-    const pages = document.querySelectorAll("#playbutton,#copyright,#o2ologo");
+    const pages = document.querySelectorAll("#playbutton");
     console.log("count: " + pages.length);
     for (let page of pages) {
         console.log("remove_welcome function()" + page.textContent);
@@ -186,7 +187,9 @@ export class Action {
 
         //ingame, correct에서 사용
         let cnt = 0;
-
+        let usedHint = 0;
+        let usedHintList = new Array();
+        let topHint = 0;
         //main -> 공통 화면
         let userEmail = "";
 
@@ -490,15 +493,13 @@ export class Action {
                 cnt = 0;
 
                 //난이도별 설정
-                if(difficulty == 1) {
+                if (difficulty == 1) {
                     container.style.backgroundImage = "url('../image/inGame/bg_easy.png')";
                     container.setAttribute("value", "easy");
-                }
-                else if(difficulty == 2) {
+                } else if (difficulty == 2) {
                     container.style.backgroundImage = "url('../image/inGame/bg_medium.png')";
                     container.setAttribute("value", "medium");
-                }
-                else {
+                } else {
                     container.style.backgroundImage = "url('../image/inGame/bg_hard.png')";
                     container.setAttribute("value", "hard");
                 }
@@ -544,15 +545,13 @@ export class Action {
 
 
                 /* data 로부터 선택한 level 받아오는 설정 필요 */
-                if(timeLimit <= 90) {
+                if (timeLimit <= 90) {
                     gameBoard.style.gridTemplateColumns = "repeat(6, 1fr)";
                     gameBoard.style.gridTemplateRows = "repeat(6, 1fr)";
-                }
-                else if(timeLimit <= 120 && timeLimit >= 95) {
+                } else if (timeLimit <= 120 && timeLimit >= 95) {
                     gameBoard.style.gridTemplateColumns = "repeat(7, 1fr)";
                     gameBoard.style.gridTemplateRows = "repeat(7, 1fr)";
-                }
-                else {
+                } else {
                     gameBoard.style.gridTemplateColumns = "repeat(8, 1fr)";
                     gameBoard.style.gridTemplateRows = "repeat(8, 1fr)";
                 }
@@ -614,24 +613,58 @@ export class Action {
                 gameProgressBox.setAttribute("class", "inGameBoxMargin");
                 gameProgress_HintBox.appendChild(gameProgressBox);
 
-                const usedHint = document.createElement("div");
-                usedHint.setAttribute("id", "usedHint");
-                usedHint.setAttribute("class", "inGameBoxMargin");
-                gameProgress_HintBox.appendChild(usedHint);
+                //힌트 캐러셀 리스트 생성
+                const hintListBox = document.createElement("div");
+                hintListBox.setAttribute("id", "hintListBox");
+                gameProgress_HintBox.appendChild(hintListBox);
+                const hintArrowUpButton = document.createElement("img");
+                hintArrowUpButton.setAttribute("id", "hintArrowUpButton");
+                hintArrowUpButton.setAttribute("src", "../image/arrow-up.png");
+                hintListBox.appendChild(hintArrowUpButton);
+                const hintCarousel = document.createElement("div");
+                hintCarousel.setAttribute("id", "hintCarousel");
+                hintListBox.appendChild(hintCarousel);
+                const hintArrowDownButton = document.createElement("img");
+                hintArrowDownButton.setAttribute("id", "hintArrowDownButton");
+                hintArrowDownButton.setAttribute("src", "../image/arrow-down.png");
 
-                const hint = document.createElement("p");
-                hint.textContent = "HINT";
-                usedHint.appendChild(hint);
-                usedHint.appendChild(document.createElement("hr"));
+                hintListBox.appendChild(hintArrowDownButton);
 
-                const hintScrollBox = document.createElement("div");
-                hintScrollBox.setAttribute("id", "hintScrollBox");
-                usedHint.appendChild(hintScrollBox);
+                //default hintItems Create
+                for (let i = 0; i < 5; i++) {
+                    const hintItem = document.createElement("div");
+                    hintItem.setAttribute("class", "hintItem");
+                    hintCarousel.appendChild(hintItem);
+                    const hintItemIcon = document.createElement("img");
+                    hintItemIcon.setAttribute("id", "hintItemIcon")
+                    hintItemIcon.setAttribute("src", "../image/ico-hint.png");
+                    hintItem.appendChild(hintItemIcon);
+                    const hintItemText = document.createElement("div");
+                    hintItemText.setAttribute("id", "hintItemText");
+                    hintItem.appendChild(hintItemText);
+                }
 
 
+                // const usedHint = document.createElement("div");
+                // usedHint.setAttribute("id", "usedHint");
+                // usedHint.setAttribute("class", "inGameBoxMargin");
+                // gameProgress_HintBox.appendChild(usedHint);
+                //
+                // const hint = document.createElement("p");
+                // hint.textContent = "HINT";
+                // usedHint.appendChild(hint);
+                // usedHint.appendChild(document.createElement("hr"));
+                //
+                // const hintScrollBox = document.createElement("div");
+                // hintScrollBox.setAttribute("id", "hintScrollBox");
+                // usedHint.appendChild(hintScrollBox);
+
+
+                hintListBox.style.height = (gameBoard.clientHeight * 3 / 5) + "px";
+                gameProgressBox.style.width = hintListBox.clientWidth + "px";
                 //게임보드에 높이 맞추기
-                usedHint.style.height = (gameBoard.clientHeight * 3 / 5) + "px";
-                gameProgressBox.style.width = usedHint.clientWidth + "px";
+                // usedHint.style.height = (gameBoard.clientHeight * 3 / 5) + "px";
+                // gameProgressBox.style.width = usedHint.clientWidth + "px";
                 //  0 0 0 0 0 형식
                 for (let i = 0; i < totalWord; i++) {
                     const gameProgress = document.createElement("img");
@@ -677,8 +710,8 @@ export class Action {
                 console.log("matchedWord[0] : " + matchedWord[0]);
                 for (let i = 0; i < matchedWord.length; i++) {
                     const alphabetBox = document.getElementById("box" + matchedWord[i]);
-                    if(difficulty == "easy") alphabetBox.style.backgroundImage = "linear-gradient(to top, #516afb, #a1efc8)";
-                    else if(difficulty == "medium") alphabetBox.style.backgroundImage = "linear-gradient(to top, #278336, #d8db48)";
+                    if (difficulty == "easy") alphabetBox.style.backgroundImage = "linear-gradient(to top, #516afb, #a1efc8)";
+                    else if (difficulty == "medium") alphabetBox.style.backgroundImage = "linear-gradient(to top, #278336, #d8db48)";
                     else alphabetBox.style.backgroundImage = "linear-gradient(to top, #563fcb, #cb93ff)";
                     alphabetBox.style.boxShadow = "-5.6px 8.3px 20px 0 rgba(0, 0, 0, 0.35)";
                     console.log(alphabetBox.getAttribute("value"));
@@ -726,6 +759,30 @@ export class Action {
                 // Timer.stop(); //demo를 위함
 
 
+                document.querySelector("#hintArrowDownButton").addEventListener("click", function () {
+                    console.log("click");
+                    if (topHint + 5 < usedHint) {
+                        let content = document.getElementsByClassName("hintItem");
+                        topHint += 1;
+                        let k = 0;
+                        for (let i = topHint; i < topHint + 5; i++) {
+                            content[k++].querySelector("#hintItemText").textContent = usedHintList[i];
+                        }
+                    }
+                });
+                document.querySelector("#hintArrowUpButton").addEventListener("click",  function () {
+                    console.log("click");
+                    if (topHint > 0) {
+                        let content = document.getElementsByClassName("hintItem");
+                        topHint -= 1;
+                        let k = 0;
+                        for (let i = topHint; i < topHint + 5; i++) {
+                            content[k++].querySelector("#hintItemText").textContent = usedHintList[i];
+                        }
+                    }
+                });
+
+
                 // const contentModal = document.createElement("div");
                 // contentModal.setAttribute("class", "contentModal");
                 // contentModal.style.height = document.querySelector("#gameBoard").clientHeight + "px";
@@ -739,14 +796,14 @@ export class Action {
                 // contentModal.appendChild(document.createElement("br"));
                 //사용자의 힌트 개수가 1개 이상인지 체크
                 if (myHint >= 1) {
-
+                    //힌트3 일 경우
                     if (hint.length == 1) {
                         backgroundModal.style.display = "none";
                         console.log(hint);
-                        for (let i = 0; i < document.getElementsByClassName("alphabetBox").length; i++){
+                        for (let i = 0; i < document.getElementsByClassName("alphabetBox").length; i++) {
                             console.log(document.getElementsByClassName("alphabetBox")[i].getAttribute("value"));
-                        if (document.getElementsByClassName("alphabetBox")[i].getAttribute("value") === hint)
-                            document.getElementsByClassName("alphabetBox")[i].style.backgroundColor = "#ffffff";
+                            if (document.getElementsByClassName("alphabetBox")[i].getAttribute("value") === hint)
+                                document.getElementsByClassName("alphabetBox")[i].style.backgroundColor = "#ffffff";
                         }
                         setTimeout(function () {
                             /*글자가 다시 원상태로 돌아오록 함, usedHint에 추가 "first alphabet : A"*/
@@ -754,11 +811,29 @@ export class Action {
                             for (let i = 0; i < document.getElementsByClassName("alphabetBox").length; i++)
                                 document.getElementsByClassName("alphabetBox")[i].style.backgroundColor = "rgba(67, 67, 67, 0.1)";
                             //힌트리스트박스에 추가
-                            const usedHint = document.querySelector("#hintScrollBox");
-                            const content = document.createElement("p");
-                            content.textContent = "first alphabet is \"" + hint.toUpperCase() + "\"";
-                            usedHint.appendChild(content);
-                        }, 5000);
+                            const content = document.getElementsByClassName("hintItem");
+                            usedHintList.push("first alphabet is \"" + hint.toUpperCase() + "\"");
+                            if (usedHint < 5) {
+                                content[usedHint].querySelector("#hintItemIcon").style.opacity = "1";
+                                content[usedHint].setAttribute("id", "hintItemFocus");
+                                for (let i = topHint; i <= usedHint; i++) {
+                                    content[i].querySelector("#hintItemText").textContent = usedHintList[i];
+                                }
+                            } else {
+                                topHint = usedHint - 4;
+                                let k = 0;
+                                for (let i = topHint; i < topHint + 5; i++) {
+                                    content[k++].querySelector("#hintItemText").textContent = usedHintList[i];
+                                }
+                            }
+
+                            console.log(hint);
+                            usedHint++;
+                            if (usedHint == 5) {
+                                document.querySelector("#hintArrowDownButton").style.visibility = "visible";
+                                document.querySelector("#hintArrowUpButton").style.visibility = "visible";
+                            }
+                        }, 1000);
 
                         //사용자의 남은 힌트를 보여줌
                         if (myHint > 0) myHint--;
@@ -810,13 +885,31 @@ export class Action {
                             Timer.resume();
                             //힌트 리스트 박스에 추가
                             if (hint != "noHint") {
-                                const usedHint = document.querySelector("#hintScrollBox");
-                                const content = document.createElement("p");
-                                content.textContent = hint;
+                                console.log("usedHint" + usedHint.toString());
+                                const content = document.getElementsByClassName("hintItem");
+                                usedHintList.push(hint);
+                                if (usedHint < 5) {
+                                    content[usedHint].querySelector("#hintItemIcon").style.opacity = "1";
+                                    content[usedHint].setAttribute("id", "hintItemFocus");
+                                    for (let i = topHint; i <= usedHint; i++) {
+                                        content[i].querySelector("#hintItemText").textContent = usedHintList[i];
+                                    }
+                                } else {
+                                    topHint = usedHint - 4;
+                                    let k = 0;
+                                    for (let i = topHint; i < topHint + 5; i++) {
+                                        console.log(usedHintList[i] + k);
+                                        content[k++].querySelector("#hintItemText").textContent = usedHintList[i];
+                                    }
+                                }
                                 console.log(hint);
-                                usedHint.appendChild(content);
+                                usedHint++;
+                                if (usedHint == 5) {
+                                    document.querySelector("#hintArrowDownButton").style.visibility = "visible";
+                                    document.querySelector("#hintArrowUpButton").style.visibility = "visible";
+                                }
                             }
-                        }, 5000);
+                        }, 1000);
                     }
                 } else if (myHint <= 0) {
                     //힌트 모달 생성
@@ -853,6 +946,9 @@ export class Action {
             },
             RESULT: function (data) {
                 console.log("실행 : result");
+                topHint = 0;
+                usedHintList.length = 0;
+                usedHint = 0;
                 // document.querySelector("#coinBox").style.visibility = "visible";
 
                 container.style.backgroundImage = "url('../image/scene/default_bg.png')";
@@ -1007,7 +1103,7 @@ export class Action {
 
                 console.log(soundeffect);
 
-                settingPage.accountText.textContent = userEmail;
+                settingPage.accountText.textContent = userEmail.slice(0,15)+"...";
 
                 //기초설정대로 보여주기
                 if (soundeffect == 1) {
