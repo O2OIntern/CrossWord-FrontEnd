@@ -194,16 +194,14 @@ export class Common {
         //this.#hintText.textContent = myHint;
         this.#_hintBox.appendChild(this.#_hintText);
 
-        this.#_hintPlus = document.createElement("div");
-        this.#_hintPlus.setAttribute("id", "hintPlus");
-        this.#_hintBox.appendChild(this.#_hintPlus);
-        //this.#_hintPlus.onclick = shop;
+        // this.#_hintPlus = document.createElement("div");
+        // this.#_hintPlus.setAttribute("id", "hintPlus");
+        // this.#_hintBox.appendChild(this.#_hintPlus);
 
-        this.#_hintPlusIcon = document.createElement("i");
-        this.#_hintPlusIcon.setAttribute("class", "fa fa-plus");
-        this.#_hintPlusIcon.setAttribute("id", "hintPlusIcon");
-        this.#_hintPlus.appendChild(this.#_hintPlusIcon);
-        //this.#_hintPlusIcon.onclick = shop;
+        // this.#_hintPlusIcon = document.createElement("i");
+        // this.#_hintPlusIcon.setAttribute("class", "fa fa-plus");
+        // this.#_hintPlusIcon.setAttribute("id", "hintPlusIcon");
+        // this.#_hintPlus.appendChild(this.#_hintPlusIcon);
 
 
         this.#_coinBox = document.createElement("div");
@@ -220,16 +218,14 @@ export class Common {
         //this.#coinText.textContent = myCoin;
         this.#_coinBox.appendChild(this.#_coinText);
 
-        this.#_coinPlus = document.createElement("div");
-        this.#_coinPlus.setAttribute("id", "coinPlus");
-        this.#_coinBox.appendChild(this.#_coinPlus);
-        //this.#_coinPlus.onclick = shop;
-
-        this.#_coinPlusIcon = document.createElement("i");
-        this.#_coinPlusIcon.setAttribute("class", "fa fa-plus");
-        this.#_coinPlusIcon.setAttribute("id", "coinPlusIcon");
-        this.#_coinPlus.appendChild(this.#_coinPlusIcon);
-        //this.#_coinPlusIcon.onclick = shop;
+        // this.#_coinPlus = document.createElement("div");
+        // this.#_coinPlus.setAttribute("id", "coinPlus");
+        // this.#_coinBox.appendChild(this.#_coinPlus);
+        //
+        // this.#_coinPlusIcon = document.createElement("i");
+        // this.#_coinPlusIcon.setAttribute("class", "fa fa-plus");
+        // this.#_coinPlusIcon.setAttribute("id", "coinPlusIcon");
+        // this.#_coinPlus.appendChild(this.#_coinPlusIcon);
 
 
         this.#_accountBox = document.createElement("div");
