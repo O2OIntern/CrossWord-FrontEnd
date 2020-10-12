@@ -332,7 +332,7 @@ export class Action {
                 common.levelFullExp.textContent = fullExp;
                 common.hintText.textContent = myHint;
                 common.coinText.textContent = myCoin;
-                common.accountText.textContent = userEmail;
+                common.accountText.textContent = userEmail.slice(0,15)+"...";
                 common.inGameHintNumText.textContent = myHint;
 
                 //set onClick Function
@@ -1103,7 +1103,7 @@ export class Action {
 
                 console.log(soundeffect);
 
-                settingPage.accountText.textContent = userEmail.slice(0,15)+"...";
+                settingPage.accountText.textContent = userEmail;
 
                 //기초설정대로 보여주기
                 if (soundeffect == 1) {
