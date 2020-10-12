@@ -14,15 +14,15 @@ export class Scene {
         this.#_playButton.textContent = "START"
         view.appendChild(this.#_playButton);
 
-        const copyright = document.createElement("span");
-        copyright.setAttribute("id", "copyright");
-        copyright.textContent = "COPYRIGHT O2O.INC. ALL RIGHT RESERVED";
-        view.appendChild(copyright);
-
-        const o2ologo = document.createElement("span");
-        o2ologo.setAttribute("id", "o2ologo");
-        o2ologo.textContent = "O2OCI";
-        view.appendChild(o2ologo);
+        // const copyright = document.createElement("span");
+        // copyright.setAttribute("id", "copyright");
+        // copyright.textContent = "COPYRIGHT O2O.INC. ALL RIGHT RESERVED";
+        // view.appendChild(copyright);
+        //
+        // const o2ologo = document.createElement("span");
+        // o2ologo.setAttribute("id", "o2ologo");
+        // o2ologo.textContent = "O2OCI";
+        // view.appendChild(o2ologo);
     }
 
     get playButton() {

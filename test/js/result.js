@@ -275,15 +275,17 @@ export class Result {
         let rst = new Result();
         console.log(gainCoin+" "+gainExp);
         intervalGainCoin = setInterval(() => {
-            rst.intervalCoin(Coin++);
-            if (Coin === gainCoin) {
+            if(gainCoin!=0)
+                rst.intervalCoin(Coin++);
+            if (Coin-1 === gainCoin) {
                 // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
                 clearInterval(intervalGainCoin);
             }
         }, 10);
         intervalGainExp = setInterval(() => {
-            rst.intervalExp(Exp++);
-            if (Exp === gainExp) {
+            if(gainExp!=0)
+                rst.intervalExp(Exp++);
+            if (Exp-1 === gainExp) {
                 // 현재 진행되고 있는 inter 란 이름을 가진 setInterval 메소드를 제거합니다.
                 clearInterval(intervalGainExp);
             }
