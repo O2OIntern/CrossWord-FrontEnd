@@ -272,10 +272,6 @@ export class Action {
         resultDisplay.init();
         resultDisplay.doNoneDisplay();
 
-        bgMusic.load();
-        bgMusic.autoplay = true;
-
-
         this.canvas = window.interactiveCanvas;
         this.scene = scene;
         this.commands = {
@@ -509,6 +505,11 @@ export class Action {
                 console.log("totalWord : " + totalWord);
                 console.log("difficulty : " + difficulty);
                 cnt = 0;
+
+
+                bgMusic.load();
+                bgMusic.autoplay = true;
+
 
                 //난이도별 설정
                 if (difficulty == 1) {
@@ -975,6 +976,7 @@ export class Action {
                 usedHintList.length = 0;
                 usedHint = 0;
                 // document.querySelector("#coinBox").style.visibility = "visible";
+                bgMusic.autoplay = false;
 
                 container.style.backgroundImage = "url('../image/scene/default_bg.png')";
 
@@ -1187,6 +1189,20 @@ export class Action {
             },
             RANKING: function (data) {
                 console.log("실행 : ranking");
+                let totalRank = data.totalRank;
+                let myRank = data.myRank;
+                console.log("totalRank : " + totalRank); //list.json
+                console.log("totalRank length : " + totalRank.length);
+                console.log("myRank : " + myRank);
+
+                function Mail(mail) { //mail 텍스트 정제
+                    mail = mail.replaceAll("\"", "");
+                    if(mail.length > 23) {
+                        mail = mail.slice(0,20)+"...";
+                    }
+                    return mail;
+                }
+
                 mainFrame.doNoneDisplay();
                 shopPage.doNoneDisplay();
                 settingPage.doNoneDisplay();
@@ -1196,15 +1212,10 @@ export class Action {
                 common.notDisplayUserInfoBox();
 
                 common.lowerBox.appendChild(rankingPage.rankingBox);
+
                 if (document.querySelector("#bottomBox") != null) {
                     rankingPage.rankingBox.removeChild(document.querySelector("#bottomBox"));
                 }
-
-                let totalRank = data.totalRank;
-                let myRank = data.myRank;
-                console.log("totalRank : " + totalRank); //list.json
-                console.log("totalRank length : " + totalRank.length);
-                console.log("myRank : " + myRank);
 
                 const bottomBox = document.createElement("div");
                 bottomBox.setAttribute("id", "bottomBox");
@@ -1240,7 +1251,7 @@ export class Action {
 
                     const top5Mail = document.createElement("div");
                     top5Mail.setAttribute("class", "rankBlueText font small");
-                    top5Mail.textContent = totalRank[i][0];
+                    top5Mail.textContent = Mail(totalRank[i][0]);
                     top5InfoBox.appendChild(top5Mail);
 
                     const top5Exp = document.createElement("div");
@@ -1272,14 +1283,14 @@ export class Action {
 
                     if (myRank <= 5) { //내가 상위 5위 안 일때
                         rankNum.textContent = (i + 6).toString(); //6~13위 출력
-                        rankMail.textContent = totalRank[i + 5][0]; //6~13위의 mail
+                        rankMail.textContent = Mail(totalRank[i+5][0]); //6~13위의 mail
                         rankExp.textContent = "Exp " + totalRank[i + 5][1]; //6~13위의 exp
                         //진한 박스 없이(내가 상위5위 안이므로) 투명 박스만 8개(6~13위)
                         rankInfoCircle.setAttribute("class", "rankRound rankBlueOpacity flex alignCenter");
                         rankMail.setAttribute("class", "rankBlueText font small rank8Mail")
                     } else if (myRank > 5 && myRank <= 8) { //내가 6~8등일 때
                         rankNum.textContent = (i + 6).toString(); //6~13위 출력
-                        rankMail.textContent = totalRank[i + 5][0]; //6~13위의 mail
+                        rankMail.textContent = Mail(totalRank[i + 5][0]); //6~13위의 mail
                         rankExp.textContent = "Exp " + totalRank[i + 5][1]; //6~13위의 exp
                         //내 순위 진한 박스 1개, 내 위 아래로 투명 박스 7개
                         if (i == (myRank - 6)) { //0, 1, 2
@@ -1291,7 +1302,7 @@ export class Action {
                         }
                     } else if (myRank >= (totalRank.length - 3) && myRank <= totalRank.length) { //내가 꼴등~꼴등-3 일때
                         rankNum.textContent = (totalRank.length - 7 + i).toString(); //꼴등-7~꼴등 위부터 출력
-                        rankMail.textContent = totalRank[totalRank.length - 7 + i - 1][0]; //꼴등-7 ~ 꼴등의 mail
+                        rankMail.textContent = Mail(totalRank[totalRank.length - 7 + i - 1][0]); //꼴등-7 ~ 꼴등의 mail
                         rankExp.textContent = "Exp " + totalRank[totalRank.length - 7 + i - 1][1]; //꼴등-7 ~ 꼴등의 exp
                         //내 순위 진한 박스 1개, 내 위 아래로 투명 박스 7개
                         if (i == (myRank - (totalRank.length - 7))) { //4, 5, 6, 7
@@ -1303,7 +1314,7 @@ export class Action {
                         }
                     } else { //그외 default
                         rankNum.textContent = (myRank - 3 + i).toString(); //나+3위 부터 출력
-                        rankMail.textContent = totalRank[myRank - 3 + i - 1][0];
+                        rankMail.textContent = Mail(totalRank[myRank - 3 + i - 1][0]);
                         rankExp.textContent = "Exp " + totalRank[myRank - 3 + i - 1][1];
                         //내 순위 진한 박스 1개, 내 위 아래로 투명 박스 7개
                         if (i == 3) {
