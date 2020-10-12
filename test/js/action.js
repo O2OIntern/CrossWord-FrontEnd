@@ -643,6 +643,7 @@ export class Action {
                 for (let i = 0; i < 5; i++) {
                     const hintItem = document.createElement("div");
                     hintItem.setAttribute("class", "hintItem");
+                    hintItem.classList.add(container.getAttribute("value"));
                     hintCarousel.appendChild(hintItem);
                     const hintItemIcon = document.createElement("img");
                     hintItemIcon.setAttribute("id", "hintItemIcon")

@@ -765,8 +765,9 @@ button {
     width: 378px;
     height: 60px;
     border-radius: 30px;
-    background-color: rgba(79,101,205,0.2);
+    opacity: 0.2;
 }
+
 #hintItemIcon{
     width: 31px;
     height: 32px;
@@ -794,12 +795,20 @@ button {
     text-align: left;
     color: #ffffff;
 }
-
 #hintItemFocus{
-    border-radius: 30px;
-    box-shadow: -5.6px 8.3px 20px 0 rgba(0, 0, 0, 0.2);
+    opacity: 1;
+}
+
+.easy{
     background-color: #4f65cd;
 }
+.medium{
+    background-color: #30a48e;
+}
+.hard{
+    background-color: #5843bf;
+}
+
 #hintArrowUpButton{
     margin-bottom: 19px;
     width: 30px;
