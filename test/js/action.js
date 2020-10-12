@@ -1045,8 +1045,8 @@ export class Action {
                 }
 
                 //내 코인 및 exp 설정
-                resultDisplay.resultCoinText2.textContent = myCoin;
-                resultDisplay.resultExpText2.textContent = exp;
+                resultDisplay.resultCoinText2.textContent = data.myCoin;
+                resultDisplay.resultExpText2.textContent = data.myCoin;
 
                 //결과에 따른 설정
                 //성공
