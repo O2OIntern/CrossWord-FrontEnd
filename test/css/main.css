@@ -167,6 +167,8 @@ button {
     width: 2px;
     height: 15px;
     background-color: white;
+    position: relative;
+    top: 3px;
 }
 
 #levelFullExp {
@@ -350,7 +352,7 @@ button {
 #bottomCommon {
     display: flex;
     flex-direction: column;
-    padding: 150px 0 0 15px;
+    padding: 150px 0 0 20px;
 }
 
 /*main frame*/
