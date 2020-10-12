@@ -80,7 +80,7 @@ const Timer = (function () {
 })();
 
 function main() {
-    window.canvas.sendTextQuery("play");
+    window.canvas.sendTextQuery("start");
 }
 
 //상점으로 가는 함수
@@ -109,7 +109,7 @@ function continuebutton() {
 
 //main에서 viewall 눌렀을 때
 function viewallButton() {
-    window.canvas.sendTextQuery("view all");
+    window.canvas.sendTextQuery("choose level");
 }
 
 //result화면에서 retry눌렀을 때
@@ -740,11 +740,12 @@ export class Action {
 
                 //다 맞추면 fulfillment로 textQuery 전송
                 if (finish) {
-                    Timer.stop();
-                    console.log("get success result");
                     setTimeout(function () {
+                        Timer.stop();
+                        console.log("get success result");
                         window.canvas.sendTextQuery("get success result");
                     }, 1000);
+
                 }
             },
             WRONG: function (data) {
@@ -1020,7 +1021,7 @@ export class Action {
                 resultDisplay.resultLevelText.textContent = "Lv." + level;
                 resultDisplay.gainCoinInnerText.textContent = "";
                 resultDisplay.gainExpInnerText.textContent = "";
-                
+
                 //결과 값에 따른 아이콘 변경
                 if (islevelup) {
                     resultDisplay.resultIcon.setAttribute("src", "../image/ico-" + "levelup" + ".png");
