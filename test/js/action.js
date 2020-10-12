@@ -346,10 +346,10 @@ export class Action {
                 common.inGameHintNumText.textContent = myHint;
 
                 //set onClick Function
-                common.hintPlus.onclick = shop;
-                common.hintPlusIcon.onclick = shop;
-                common.coinPlus.onclick = shop;
-                common.coinPlusIcon.onclick = shop;
+                // common.hintPlus.onclick = shop;
+                // common.hintPlusIcon.onclick = shop;
+                // common.coinPlus.onclick = shop;
+                // common.coinPlusIcon.onclick = shop;
                 common.mainButton.onclick = home;
                 common.rankingButton.onclick = ranking;
                 common.settingButton.onclick = setting;
