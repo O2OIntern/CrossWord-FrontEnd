@@ -33,10 +33,7 @@ export class Common {
     #_coinPlusIcon
     #_accountBox
     #_accountText
-    #_inGameHintBox
-    #_inGameHintIcon
-    #_inGameHintNumBox
-    #_inGameHintNumText
+
     /**
      * 우측 하단에
      * 메인, 랭킹, 설정
@@ -73,11 +70,6 @@ export class Common {
             }
             i++;
         }
-        this.isDisplay = !this.isDisplay //상태 변경
-
-        const page = document.querySelector("#inGameHintBox");
-        page.style.visibility = "hidden";
-
         console.log(this.isDisplay.toString());
     }
 
@@ -251,24 +243,6 @@ export class Common {
         this.#_leftLowerBox.setAttribute("id", "leftLowerBox");
         this.#_lowerBox.appendChild(this.#_leftLowerBox);
 
-        this.#_inGameHintBox = document.createElement("div");
-        this.#_inGameHintBox.setAttribute("id", "inGameHintBox");
-        this.#_leftLowerBox.appendChild(this.#_inGameHintBox);
-
-        this.#_inGameHintIcon = document.createElement("i");
-        this.#_inGameHintIcon.setAttribute("id", "inGameHintIcon");
-        this.#_inGameHintIcon.setAttribute("class", "fa fa-search");
-        this.#_inGameHintBox.appendChild(this.#_inGameHintIcon);
-
-        this.#_inGameHintNumBox = document.createElement("div");
-        this.#_inGameHintNumBox.setAttribute("id", "inGameHintNumBox");
-        this.#_inGameHintBox.appendChild(this.#_inGameHintNumBox);
-
-        this.#_inGameHintNumText = document.createElement("div");
-        this.#_inGameHintNumText.setAttribute("id", "inGameHintNumText");
-        //this.#inGameHintNumText.textContent = myHint;
-        this.#_inGameHintNumBox.appendChild(this.#_inGameHintNumText);
-
         this.#_bottomCommon = document.createElement("div");
         this.#_bottomCommon.setAttribute("id", "bottomCommon");
         this.#_leftLowerBox.appendChild(this.#_bottomCommon);
@@ -384,22 +358,6 @@ export class Common {
 
     get accountText() {
         return this.#_accountText;
-    }
-
-    get inGameHintBox() {
-        return this.#_inGameHintBox;
-    }
-
-    get inGameHintIcon() {
-        return this.#_inGameHintIcon;
-    }
-
-    get inGameHintNumBox() {
-        return this.#_inGameHintNumBox;
-    }
-
-    get inGameHintNumText() {
-        return this.#_inGameHintNumText;
     }
 
     get bottomCommon() {

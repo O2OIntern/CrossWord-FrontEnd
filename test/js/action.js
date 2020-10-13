@@ -151,9 +151,7 @@ function remove_welcome() {
 }
 
 function coin(num) {
-    console.log("num length : " + num.toString().length);
     if(num.toString().length > 6) {
-        console.log("if 후");
         if(num.toString().length > 9) num = num.toString().slice(0, -9) + "b";
         else num = num.toString().slice(0, -6) + "m";
         return num;
@@ -368,7 +366,6 @@ export class Action {
                 else{
                     common.accountText.textContent = userEmail;
                 }
-                common.inGameHintNumText.textContent = myHint;
 
                 //set onClick Function
                 // common.hintPlus.onclick = shop;
@@ -688,7 +685,7 @@ export class Action {
                     hintItem.classList.add(container.getAttribute("value"));
                     hintCarousel.appendChild(hintItem);
                     const hintItemIcon = document.createElement("img");
-                    hintItemIcon.setAttribute("id", "hintItemIcon")
+                    hintItemIcon.setAttribute("id", "hintItemIcon");
                     hintItemIcon.setAttribute("src", "../image/ico-hint.png");
                     hintItem.appendChild(hintItemIcon);
                     const hintItemText = document.createElement("div");
@@ -728,14 +725,6 @@ export class Action {
                     gameProgressBox.appendChild(gameProgress);
                 }
 
-
-                // if (difficulty == 1) {
-                //     document.querySelector("#coinText").textContent = myCoin - betMoney1;
-                // } else if (difficulty == 2) {
-                //     document.querySelector("#coinText").textContent = myCoin - betMoney2;
-                // } else if (difficulty == 3) {
-                //     document.querySelector("#coinText").textContent = myCoin - betMoney3;
-                // }
             },
             CORRECT: function (data) {
                 console.log("실행 : correct");

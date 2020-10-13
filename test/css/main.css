@@ -78,7 +78,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 0 0 0;
+    padding-top: 120px;
     height: fit-content;
     /*border-style: solid;*/
 }
@@ -752,6 +752,7 @@ button {
 }
 #hintItemFocus{
     opacity: 1;
+    box-shadow: -5.6px 8.3px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 .easy{
