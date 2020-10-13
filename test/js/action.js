@@ -150,6 +150,20 @@ function remove_welcome() {
     }
 }
 
+function coin(num) {
+    console.log("num length : " + num.toString().length);
+    if(num.toString().length > 6) {
+        console.log("if 후");
+        if(num.toString().length > 9) num = num.toString().slice(0, -9) + "b";
+        else num = num.toString().slice(0, -6) + "m";
+        return num;
+    }//million billion
+    else {
+        var regexp = /\B(?=(\d{3})+(?!\d))/g;
+        return num.toString().replace(regexp, ',');
+    }
+}
+
 /**
  * This class is used as a wrapper for Google Assistant Canvas Action class
  * along with its callbacks.
@@ -347,7 +361,7 @@ export class Action {
                 common.userExp.textContent = exp;
                 common.levelFullExp.textContent = fullExp;
                 common.hintText.textContent = myHint;
-                common.coinText.textContent = myCoin;
+                common.coinText.textContent = coin(myCoin);
                 if(userEmail.length>15){
                     common.accountText.textContent = userEmail.slice(0,15)+"...";
                 }
