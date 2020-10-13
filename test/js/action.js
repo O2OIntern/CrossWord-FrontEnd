@@ -12,23 +12,28 @@ import {Ranking} from "./ranking.js";
 const Timer = (function () {
     let intervalId = null;
     let timerHeightBox = 0;
-    let timerTextBox = 0;
+    let gameTimerText = 0;
     let timerHeight = 0;
     let timerText = 0;
     let plusHeight = 0;
     let timerStart = 0;
+    let percent = 0;
+    let plusPercent = 0;
 
     function setTimer(remainTime, remainHeight) { //시간을 정함.
         timerHeight = remainHeight; //gameTimer 의 높이
         timerText = remainTime; //timeLimit == 이 판의 제한시간(80s .. )
         plusHeight = remainHeight / remainTime; //gameTimer 의 높이를 제한시간으로 나눔??
         timerStart = 0;
+        percent = 0;
+        plusPercent = 100 / remainTime;
         console.log(plusHeight);
     }
 
     function initTimer() { //초기 타이머 설정
         timerHeightBox = document.querySelector("#remainTime");
-        timerTextBox = document.querySelector("#gameTimerText");
+        gameTimerText = document.querySelector("#gameTimerText");
+        document.querySelector("#gameTimerTextBox").style.backgroundColor = "#fed61a";
 
         if (timerHeightBox == null && timerTextBox == null) {
             throw "Element does not exists!";
@@ -37,10 +42,12 @@ const Timer = (function () {
 
     function update() { //setInterval(update, 1000) 을 통해 1000ms(1초) 간격으로 호출
         //console.log(timer);
-        // timerTextBox.textContent = timerText; //제한시간 출력
+        gameTimerText.textContent = timerText; //제한시간 출력
         timerHeightBox.style.height = timerStart + "px"; //계속해서 남은 시간을 표시하는 바의 높이가 늘어나도록
+        timerHeightBox.style.backgroundImage = "linear-gradient(to top, #fed61a, #54e7f5 " + percent + "%)";
         timerText -= 1; //1초에 1씩 줄어들도록
         timerStart += plusHeight; //gameTimer 의 높이를 제한시간만큼 나눈 것 == 1초에 늘어나야하는 높이
+        percent += plusPercent;
 
         if (timerText < 0) { //&& timerHeight = 0
             stopTimer();
@@ -499,6 +506,7 @@ export class Action {
                 const boardRow = data.board[0].length; //열
                 const boardCol = data.board.length; //행
                 const timeLimit = data.timeLimit;
+                // const timeLimit = 300;
                 const totalWord = data.totalWord;
                 // difficulty -> easy - 1 medium -2 hard -3
                 const difficulty = data.difficulty;
@@ -548,11 +556,18 @@ export class Action {
 
                 const remainTime = document.createElement("div");
                 remainTime.setAttribute("id", "remainTime");
+                remainTime.setAttribute("class", "center");
                 gameTimer.appendChild(remainTime);
+
+                const gameTimerTextBox = document.createElement("div");
+                gameTimerTextBox.setAttribute("id", "gameTimerTextBox");
+                gameTimerTextBox.setAttribute("class", "circle center");
+                gameTimerTextBox.style.transitionDuration = timeLimit + "s";
+                remainTime.appendChild(gameTimerTextBox);
 
                 const gameTimerText = document.createElement("div");
                 gameTimerText.setAttribute("id", "gameTimerText");
-                gameTimerBox.appendChild(gameTimerText);
+                gameTimerTextBox.appendChild(gameTimerText);
 
                 const remainHeight = document.querySelector("#gameTimer").clientHeight;
                 const gameTimerHeight = document.querySelector("#gameTimer").style.height;
