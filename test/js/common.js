@@ -180,18 +180,18 @@ export class Common {
         this.#_userInfoBox = document.createElement("div");
         this.#_userInfoBox.setAttribute("id", "userInfoBox");
         this.#_higherBox.appendChild(this.#_userInfoBox);
+
         this.#_hintBox = document.createElement("div");
-        this.#_hintBox.setAttribute("id", "hintBox");
+        this.#_hintBox.setAttribute("class", "commonRound commonShadow green flex alignCenter");
         this.#_userInfoBox.appendChild(this.#_hintBox);
 
-        this.#_hintIcon = document.createElement("i");
-        this.#_hintIcon.setAttribute("class", "fa fa-search");
-        this.#_hintIcon.setAttribute("id", "hintIcon");
+        this.#_hintIcon = document.createElement("img");
+        this.#_hintIcon.setAttribute("src", "../image/common/hint_icon.png");
+        this.#_hintIcon.setAttribute("class", "commonIcon");
         this.#_hintBox.appendChild(this.#_hintIcon);
 
         this.#_hintText = document.createElement("div");
-        this.#_hintText.setAttribute("id", "hintText");
-        //this.#hintText.textContent = myHint;
+        this.#_hintText.setAttribute("class", "font extraBoldText commonFontSize commonFontMargin");
         this.#_hintBox.appendChild(this.#_hintText);
 
         // this.#_hintPlus = document.createElement("div");
@@ -205,17 +205,16 @@ export class Common {
 
 
         this.#_coinBox = document.createElement("div");
-        this.#_coinBox.setAttribute("id", "coinBox");
+        this.#_coinBox.setAttribute("class", "commonRound commonShadow green flex alignCenter");
         this.#_userInfoBox.appendChild(this.#_coinBox);
 
         this.#_coinIcon = document.createElement("img");
-        this.#_coinIcon.setAttribute("id", "coinIcon");
+        this.#_coinIcon.setAttribute("class", "commonIcon");
         this.#_coinIcon.setAttribute("src", "../image/common/coin_icon.png");
         this.#_coinBox.appendChild(this.#_coinIcon);
 
         this.#_coinText = document.createElement("div");
-        this.#_coinText.setAttribute("id", "coinText");
-        //this.#coinText.textContent = myCoin;
+        this.#_coinText.setAttribute("class", "font extraBoldText commonFontSize commonFontMargin");
         this.#_coinBox.appendChild(this.#_coinText);
 
         // this.#_coinPlus = document.createElement("div");
@@ -230,11 +229,11 @@ export class Common {
 
         this.#_accountBox = document.createElement("div");
         this.#_accountBox.setAttribute("id", "accountBox");
+        this.#_accountBox.setAttribute("class", "commonRound center");
         this.#_userInfoBox.appendChild(this.#_accountBox);
 
         this.#_accountText = document.createElement("div");
-        this.#_accountText.setAttribute("id", "accountText");
-        //this.#accountText.textContent = userEmail;
+        this.#_accountText.setAttribute("class", "font extraBoldText greenText commonFontSize");
         this.#_accountBox.appendChild(this.#_accountText);
 
 

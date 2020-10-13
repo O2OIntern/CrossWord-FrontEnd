@@ -187,53 +187,44 @@ button {
 
 #userInfoBox {
     display: flex;
-    /*border-style: solid;*/
     justify-content: flex-end;
     padding: 50px 40px 0 0;
     flex-grow: 1;
 }
 
-#hintBox {
-    width: 100px;
-    height: 40px;
+.commonRound {
     border-radius: 15px;
+    height: 40px;
+    margin-right: 10px;
+    padding: 0 20px 0 10px;
+}
+
+.commonShadow {
     box-shadow: -5.6px 8.3px 20px 0 rgba(0, 0, 0, 0.2);
-    background-color: #7cbf5a;
-    margin: 0 10px 0 0;
-    display: flex;
 }
 
-#hintIcon, #coinIcon {
-    position: relative;
-    left: 11px;
-    top: 7px;
-    font-size: 25px;
-}
-
-#coinIcon {
-    width: 25px;
-    height: 25px;
-}
-
-#hintText, #coinText {
-    font-family: 'NanumSquare', sans-serif;
+.commonFontSize {
     font-size: 22px;
-    font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #ffffff;
+}
+
+.commonFontMargin {
+    margin-left: 10px;
+}
+
+.commonIcon {
+    height: 25px;
+    object-fit: contain;
     position: relative;
-    left: 20px;
-    top: 8px;
+    top: -1px;
 }
 
-#hintText {
-    width: 15px;
+#accountBox {
+    background-color: #324091;
+    padding: 0 30px 0 30px;
 }
 
+
+/*shop(store) 로 갈 수 있는 버튼*/
 #hintPlus, #coinPlus {
     width: 31px;
     height: 31px;
@@ -258,46 +249,8 @@ button {
     top: 7px;
     left: 8px;
 }
+/*common.js 에서 주석처리 되어있음*/
 
-#coinBox {
-    width: 150px;
-    height: 40px;
-    border-radius: 15px;
-    box-shadow: -5.6px 8.3px 20px 0 rgba(0, 0, 0, 0.2);
-    background-color: #7cbf5a;
-    display: flex;
-    margin: 0 10px 0 0;
-}
-
-#coinText {
-    width: 55px;
-}
-
-#accountBox {
-    width: 265px;
-    height: 40px;
-    border-radius: 15px;
-    background-color: #324091;
-    position: relative;
-}
-
-#accountText {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'NanumSquare', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #7cbf5a;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
 
 #inGameHintBox {
     width: 81px;
