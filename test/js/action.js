@@ -652,7 +652,7 @@ export class Action {
 
                 const hintBoxIcon = document.createElement("img");
                 hintBoxIcon.setAttribute("id", "hintBoxIcon");
-                hintBoxIcon.setAttribute("src", "../image/ico-hint.png");
+                hintBoxIcon.setAttribute("src", "../image/ico-hint@3x.png");
                 hintClickBox.appendChild(hintBoxIcon);
 
                 const hintCountBox = document.createElement("div");
