@@ -1241,6 +1241,27 @@ export class Action {
 
                 function Mail(mail) { //mail 텍스트 정제
                     mail = mail.replace(/"/gi, "");
+                    let id = mail.split("@")[0].toString();
+
+                    var maskingId = function(id) {
+                        if (id.length > 2) {
+                            var originId = id.split('');
+                            originId.forEach(function(name, i) {
+                                if (i === 0 || i === originId.length - 1) return;
+                                originId[i] = '*';
+                            });
+                            var joinId = originId.join();
+                            return joinId.replace(/,/g, '');
+                        } else {
+                            var pattern = /.$/; // 정규식
+                            return id.replace(pattern, '*');
+                        }
+                    };
+
+                    if(userEmail != mail) { //userEmail 이 없다면? trial 의 경우 고려 해야함
+                        mail = maskingId(id) + "@" + mail.split("@")[1];
+                    }
+
                     if(mail.length > 23) {
                         mail = mail.slice(0,20)+"...";
                     }
