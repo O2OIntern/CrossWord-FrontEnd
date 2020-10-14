@@ -69,17 +69,17 @@ button {
 }
 
 #lowerBox {
-    height: 50vh;
+    height: 100%;
     display: flex;
+    position: relative;
 }
 
 #leftLowerBox {
     width: 15vw;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 120px;
-    height: fit-content;
+    justify-content: center;
+    height: 100%;
+    position: relative;
     /*border-style: solid;*/
 }
 
@@ -89,6 +89,9 @@ button {
     height: 22.5vh;
     width: 15vw;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #backCircle {
@@ -96,15 +99,11 @@ button {
     height: 81px;
     box-shadow: -5.6px 8.3px 20px 0 rgba(25, 34, 61, 0.45);
     background-color: #ffffff;
-    border-radius: 40px;
+    border-radius: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 #levelText {
@@ -141,25 +140,15 @@ button {
 }
 
 #expBox {
-    width: 115px;
     display: flex;
-    justify-content: space-between;
     position: absolute;
     bottom: 0;
-    left: 42px;
 }
 
 #userExp {
-    width: 50px;
-    height: 15px;
     font-family: 'NanumSquare', sans-serif;
     font-size: 19.5px;
     font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: right;
     color: #a1cf79;
 }
 
@@ -169,19 +158,13 @@ button {
     background-color: white;
     position: relative;
     top: 3px;
+    margin: 0 5px;
 }
 
 #levelFullExp {
-    width: 50px;
-    height: 15px;
     font-family: 'NanumSquare', sans-serif;
     font-size: 19.5px;
     font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
     color: #2e3f82;
 }
 
@@ -296,7 +279,6 @@ button {
 }
 
 #ranking, #setting, #main{
-    display: flex;
     object-fit: contain;
     width: 50px;
     padding: 0 0 20px 0;
@@ -305,7 +287,9 @@ button {
 #bottomCommon {
     display: flex;
     flex-direction: column;
-    padding: 150px 0 0 20px;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 20px;
 }
 
 /*main frame*/
@@ -671,8 +655,9 @@ button {
 /*인게임 화면*/
 #inGameBox {
     display: flex;
-    position: relative;
+    position: absolute;
     top: -15vh;
+    left: 15vw;
 }
 
 #gameProgress_HintBox {
@@ -844,7 +829,6 @@ button {
     width: 22px;
     height: 554px;
     background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 1.1px 2.8px 10px 0 rgba(131, 148, 212, 0.74), inset -1.6px -2.5px 3px 0 rgba(184, 196, 232, 0.63);
     border-radius: 2vh;
     transform: rotate(180deg);
 }
@@ -877,7 +861,7 @@ button {
 /*힌트 열기*/
 #hintButtonBox{
     position:absolute;
-    left:60px;
+    left:56px;
     top:338px;
     width: 90px;
     height:90px;
@@ -1060,12 +1044,12 @@ button {
 /*ranking*/
 #rankingBox {
     position: relative;
-    top: -17vh;
+    flex-grow: 1;
 }
 
 #rankRightBox {
     position: absolute;
-    left: 390px;
+    left: 30vw;
 }
 
 #top5InfoBox {
@@ -1074,9 +1058,9 @@ button {
 }
 
 .topBox {
-    position: relative;
-    left: 285px;
-    padding-bottom: 30px;
+    position: absolute;
+    top: -15vh;
+    left: 29vw;
 }
 
 .flexColumn {

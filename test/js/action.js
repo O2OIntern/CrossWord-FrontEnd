@@ -318,6 +318,7 @@ export class Action {
 
                 common.doDisplay();
                 common.displayUserInfoBox();
+                common.displayHigherBox();
                 mainFrame.doDisplay();
                 stageSelect.doNoneDisplay();
                 difficultySelect.doNoneDisplay();
@@ -326,7 +327,10 @@ export class Action {
                 rankingPage.doNoneDisplay();
                 shopPage.doNoneDisplay();
 
-                common.displayHigherBox();
+                document.querySelector("#main").style.display = "none"; //main 화면이므로 main 아이콘 빼기
+                document.querySelector("#ranking").style.display = "block"; //ranking 아이콘 보이기
+                document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
+
                 /**
                  * 메인 화면에서 보여줄 사용자의
                  * 레벨, 경험치, 힌트, 코인
@@ -391,7 +395,7 @@ export class Action {
                     //빈칸 색
                     lineCap: 'round',
                     //그래프 끝
-                    thickness: 10
+                    thickness: 8
                     //그래프 두께
                 });
 
@@ -420,6 +424,11 @@ export class Action {
                 stageSelect.doDisplay();
                 difficultySelect.doNoneDisplay();
                 resultDisplay.doNoneDisplay();
+
+                document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
+                document.querySelector("#ranking").style.display = "block"; //ranking 아이콘 보이기
+                document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
+
                 /**
                  * 중앙에
                  * 선택할 수 있는 단계 보여줌
@@ -447,6 +456,10 @@ export class Action {
                 stageSelect.doNoneDisplay();
                 difficultySelect.doDisplay();
                 resultDisplay.doNoneDisplay();
+
+                document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
+                document.querySelector("#ranking").style.display = "block"; //ranking 아이콘 보이기
+                document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
                 /**
                  * 배팅머니, 획득머니, 시간제한 등을 fulfillment에서 가져옴
@@ -517,7 +530,7 @@ export class Action {
                 const boardRow = data.board[0].length; //열
                 const boardCol = data.board.length; //행
                 const timeLimit = data.timeLimit;
-                // const timeLimit = 300;
+                // const timeLimit = 900;
                 const totalWord = data.totalWord;
                 // difficulty -> easy - 1 medium -2 hard -3
                 const difficulty = data.difficulty;
@@ -1150,6 +1163,11 @@ export class Action {
 
                 common.notDisplayHigherBox();
                 common.notDisplayUserInfoBox();
+
+                document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
+                document.querySelector("#ranking").style.display = "block"; //ranking 아이콘 보이기
+                document.querySelector("#setting").style.display = "none"; //setting 아이콘 숨기기
+
                 common.lowerBox.appendChild(settingPage.settingBox);
 
                 let backgroundsoundeffect = data.backgroundsound; //켜져있음 == 1 ==> 수정 필요함
@@ -1238,6 +1256,10 @@ export class Action {
                 stageSelect.doNoneDisplay();
                 common.notDisplayHigherBox();
                 common.notDisplayUserInfoBox();
+
+                document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 숨기기
+                document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
                 common.lowerBox.appendChild(rankingPage.rankingBox);
 
@@ -1364,6 +1386,10 @@ export class Action {
                 mainFrame.doNoneDisplay();
                 settingPage.doNoneDisplay();
                 rankingPage.doNoneDisplay();
+
+                document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
+                document.querySelector("#ranking").style.display = "block"; //ranking 아이콘 보이기
+                document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
                 common.lowerBox.appendChild(shopPage.shopBox);
 
