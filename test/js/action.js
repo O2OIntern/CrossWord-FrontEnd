@@ -76,13 +76,18 @@ const Timer = (function () {
         }
         intervalId = setInterval(update, 1000);
     }
+    
+    function isRunning() {
+        return intervalId !== null;
+    }
 
     return {
         'setter': setTimer,
         'init': initTimer,
         'start': startTimer,
         'stop': stopTimer,
-        'resume': resumeTimer
+        'resume': resumeTimer,
+        'running': isRunning
     };
 })();
 
@@ -316,6 +321,16 @@ export class Action {
                 document.body.style.backgroundImage = "url('')";
                 container.style.backgroundImage = "url('../image/scene/default_bg.png')";
 
+                //inGame 화면에서 main(home)으로 바로 나온 경우
+                if(Timer.running()) Timer.stop();
+
+                if (document.querySelector("#inGameBox") != null) {
+                    common.lowerBox.removeChild(document.querySelector("#inGameBox"));
+                }
+                if (document.querySelector("#hintButtonBox") != null) {
+                    container.removeChild(document.querySelector("#hintButtonBox"));
+                }
+
                 common.doDisplay();
                 common.displayUserInfoBox();
                 common.displayHigherBox();
@@ -426,7 +441,7 @@ export class Action {
                 resultDisplay.doNoneDisplay();
 
                 document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
-                document.querySelector("#ranking").style.display = "block"; //ranking 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 보이기
                 document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
                 /**
@@ -458,7 +473,7 @@ export class Action {
                 resultDisplay.doNoneDisplay();
 
                 document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
-                document.querySelector("#ranking").style.display = "block"; //ranking 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 보이기
                 document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
                 /**
@@ -522,6 +537,9 @@ export class Action {
                 stageSelect.doNoneDisplay();
                 difficultySelect.doNoneDisplay();
                 resultDisplay.doNoneDisplay();
+
+                document.querySelector("#ranking").style.display = "none";
+
                 /**
                  * 게임판, 게임판 행과 열, 시간제한, 맞춰야 할 모든 단어 수는 변경되면 안 되서 상수 선언
                  * 맞춰야 하는 단어 수는 변경되어야 하므로 let 선언 -> correct에서도 사용할 변수
@@ -1031,6 +1049,8 @@ export class Action {
                 resultDisplay.doDisplay();
                 settingPage.doNoneDisplay();
 
+                document.querySelector("#ranking").style.display = "block";
+
                 const result = data.result;
                 let islevelup = false;
                 //레벨값 세팅
@@ -1165,7 +1185,7 @@ export class Action {
                 common.notDisplayUserInfoBox();
 
                 document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
-                document.querySelector("#ranking").style.display = "block"; //ranking 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 보이기
                 document.querySelector("#setting").style.display = "none"; //setting 아이콘 숨기기
 
                 common.lowerBox.appendChild(settingPage.settingBox);
@@ -1409,7 +1429,7 @@ export class Action {
                 rankingPage.doNoneDisplay();
 
                 document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
-                document.querySelector("#ranking").style.display = "block"; //ranking 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 보이기
                 document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
                 common.lowerBox.appendChild(shopPage.shopBox);
