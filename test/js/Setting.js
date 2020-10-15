@@ -49,6 +49,24 @@ export class Setting{
         page.style.display = 'none';
     }
 
+    setDisplayFromInGame() {
+        console.log("inGame -> setting display");
+        this.#_userAccountBox.style.visibility = "hidden";
+        this.#_gameResetText.textContent = "GAME RESUME";
+        this.#_resetText.textContent = "RESUME";
+        this.#_resetIcon.style.display = "none";
+    }
+
+    setDisplayDefault() { //reset 버튼에 reset 쿼리 달기
+        console.log("default setting display");
+        this.#_userAccountBox.style.visibility = "visible";
+        this.#_gameResetText.textContent = "GAME RESET";
+        this.#_resetText.textContent = "RESET";
+        this.#_resetIcon.style.display = "block";
+    }
+
+
+
     init() {
 
         this.#_settingBox = document.createElement("div");
@@ -163,7 +181,6 @@ export class Setting{
 
         this.#_accountText = document.createElement("span");
         this.#_accountText.setAttribute("class", "settingSmallText");
-        this.#_accountText.textContent = "o2o@o2o.kr";
         this.#_userAccountBox.appendChild(this.#_accountText);
 
         this.#_gameResetText = document.createElement("span");
@@ -204,6 +221,10 @@ export class Setting{
 
     get bgSound() {
         return this.#_bgSound;
+    }
+
+    get gameResetButton() {
+        return this.#_gameResetButton;
     }
 
 }
