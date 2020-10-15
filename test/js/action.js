@@ -12,23 +12,28 @@ import {Ranking} from "./ranking.js";
 const Timer = (function () {
     let intervalId = null;
     let timerHeightBox = 0;
-    let timerTextBox = 0;
+    let gameTimerText = 0;
     let timerHeight = 0;
     let timerText = 0;
     let plusHeight = 0;
     let timerStart = 0;
+    let percent = 0;
+    let plusPercent = 0;
 
     function setTimer(remainTime, remainHeight) { //시간을 정함.
         timerHeight = remainHeight; //gameTimer 의 높이
         timerText = remainTime; //timeLimit == 이 판의 제한시간(80s .. )
         plusHeight = remainHeight / remainTime; //gameTimer 의 높이를 제한시간으로 나눔??
         timerStart = 0;
+        percent = 0;
+        plusPercent = 100 / remainTime;
         console.log(plusHeight);
     }
 
     function initTimer() { //초기 타이머 설정
         timerHeightBox = document.querySelector("#remainTime");
-        timerTextBox = document.querySelector("#gameTimerText");
+        gameTimerText = document.querySelector("#gameTimerText");
+        document.querySelector("#gameTimerTextBox").style.backgroundColor = "#fed61a";
 
         if (timerHeightBox == null && timerTextBox == null) {
             throw "Element does not exists!";
@@ -37,10 +42,12 @@ const Timer = (function () {
 
     function update() { //setInterval(update, 1000) 을 통해 1000ms(1초) 간격으로 호출
         //console.log(timer);
-        // timerTextBox.textContent = timerText; //제한시간 출력
+        gameTimerText.textContent = timerText; //제한시간 출력
         timerHeightBox.style.height = timerStart + "px"; //계속해서 남은 시간을 표시하는 바의 높이가 늘어나도록
+        timerHeightBox.style.backgroundImage = "linear-gradient(to top, #fed61a, #54e7f5 " + percent + "%)";
         timerText -= 1; //1초에 1씩 줄어들도록
         timerStart += plusHeight; //gameTimer 의 높이를 제한시간만큼 나눈 것 == 1초에 늘어나야하는 높이
+        percent += plusPercent;
 
         if (timerText < 0) { //&& timerHeight = 0
             stopTimer();
@@ -69,13 +76,18 @@ const Timer = (function () {
         }
         intervalId = setInterval(update, 1000);
     }
+    
+    function isRunning() {
+        return intervalId !== null;
+    }
 
     return {
         'setter': setTimer,
         'init': initTimer,
         'start': startTimer,
         'stop': stopTimer,
-        'resume': resumeTimer
+        'resume': resumeTimer,
+        'running': isRunning
     };
 })();
 
@@ -140,6 +152,18 @@ function remove_welcome() {
     for (let page of pages) {
         console.log("remove_welcome function()" + page.textContent);
         page.parentNode.removeChild(page);
+    }
+}
+
+function coin(num) {
+    if(num.toString().length > 6) {
+        if(num.toString().length > 9) num = num.toString().slice(0, -9) + "b";
+        else num = num.toString().slice(0, -6) + "m";
+        return num;
+    }//million billion
+    else {
+        var regexp = /\B(?=(\d{3})+(?!\d))/g;
+        return num.toString().replace(regexp, ',');
     }
 }
 
@@ -273,6 +297,10 @@ export class Action {
         resultDisplay.init();
         resultDisplay.doNoneDisplay();
 
+        bgMusic.load();
+        bgMusic.autoplay = true;
+        bgMusic.loop = true;
+
         this.canvas = window.interactiveCanvas;
         this.scene = scene;
         this.commands = {
@@ -294,8 +322,19 @@ export class Action {
                 document.body.style.backgroundImage = "url('')";
                 container.style.backgroundImage = "url('../image/scene/default_bg.png')";
 
+                //inGame 화면에서 main(home)으로 바로 나온 경우
+                if(Timer.running()) Timer.stop();
+
+                if (document.querySelector("#inGameBox") != null) {
+                    common.lowerBox.removeChild(document.querySelector("#inGameBox"));
+                }
+                if (document.querySelector("#hintButtonBox") != null) {
+                    container.removeChild(document.querySelector("#hintButtonBox"));
+                }
+
                 common.doDisplay();
                 common.displayUserInfoBox();
+                common.displayHigherBox();
                 mainFrame.doDisplay();
                 stageSelect.doNoneDisplay();
                 difficultySelect.doNoneDisplay();
@@ -304,7 +343,10 @@ export class Action {
                 rankingPage.doNoneDisplay();
                 shopPage.doNoneDisplay();
 
-                common.displayHigherBox();
+                document.querySelector("#main").style.display = "none"; //main 화면이므로 main 아이콘 빼기
+                document.querySelector("#ranking").style.display = "block"; //ranking 아이콘 보이기
+                document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
+
                 /**
                  * 메인 화면에서 보여줄 사용자의
                  * 레벨, 경험치, 힌트, 코인
@@ -337,14 +379,13 @@ export class Action {
                 common.userExp.textContent = exp;
                 common.levelFullExp.textContent = fullExp;
                 common.hintText.textContent = myHint;
-                common.coinText.textContent = myCoin;
+                common.coinText.textContent = coin(myCoin);
                 if(userEmail.length>15){
                     common.accountText.textContent = userEmail.slice(0,15)+"...";
                 }
                 else{
                     common.accountText.textContent = userEmail;
                 }
-                common.inGameHintNumText.textContent = myHint;
 
                 //set onClick Function
                 // common.hintPlus.onclick = shop;
@@ -370,7 +411,7 @@ export class Action {
                     //빈칸 색
                     lineCap: 'round',
                     //그래프 끝
-                    thickness: 10
+                    thickness: 8
                     //그래프 두께
                 });
 
@@ -399,6 +440,11 @@ export class Action {
                 stageSelect.doDisplay();
                 difficultySelect.doNoneDisplay();
                 resultDisplay.doNoneDisplay();
+
+                document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 보이기
+                document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
+
                 /**
                  * 중앙에
                  * 선택할 수 있는 단계 보여줌
@@ -426,6 +472,10 @@ export class Action {
                 stageSelect.doNoneDisplay();
                 difficultySelect.doDisplay();
                 resultDisplay.doNoneDisplay();
+
+                document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 보이기
+                document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
                 /**
                  * 배팅머니, 획득머니, 시간제한 등을 fulfillment에서 가져옴
@@ -488,6 +538,9 @@ export class Action {
                 stageSelect.doNoneDisplay();
                 difficultySelect.doNoneDisplay();
                 resultDisplay.doNoneDisplay();
+
+                document.querySelector("#ranking").style.display = "none";
+
                 /**
                  * 게임판, 게임판 행과 열, 시간제한, 맞춰야 할 모든 단어 수는 변경되면 안 되서 상수 선언
                  * 맞춰야 하는 단어 수는 변경되어야 하므로 let 선언 -> correct에서도 사용할 변수
@@ -496,6 +549,7 @@ export class Action {
                 const boardRow = data.board[0].length; //열
                 const boardCol = data.board.length; //행
                 const timeLimit = data.timeLimit;
+                // const timeLimit = 900;
                 const totalWord = data.totalWord;
                 // difficulty -> easy - 1 medium -2 hard -3
                 const difficulty = data.difficulty;
@@ -508,8 +562,7 @@ export class Action {
                 cnt = 0;
 
 
-                bgMusic.load();
-                bgMusic.autoplay = true;
+
 
 
                 //난이도별 설정
@@ -546,11 +599,18 @@ export class Action {
 
                 const remainTime = document.createElement("div");
                 remainTime.setAttribute("id", "remainTime");
+                remainTime.setAttribute("class", "center");
                 gameTimer.appendChild(remainTime);
+
+                const gameTimerTextBox = document.createElement("div");
+                gameTimerTextBox.setAttribute("id", "gameTimerTextBox");
+                gameTimerTextBox.setAttribute("class", "circle center");
+                gameTimerTextBox.style.transitionDuration = timeLimit + "s";
+                remainTime.appendChild(gameTimerTextBox);
 
                 const gameTimerText = document.createElement("div");
                 gameTimerText.setAttribute("id", "gameTimerText");
-                gameTimerBox.appendChild(gameTimerText);
+                gameTimerTextBox.appendChild(gameTimerText);
 
                 const remainHeight = document.querySelector("#gameTimer").clientHeight;
                 const gameTimerHeight = document.querySelector("#gameTimer").style.height;
@@ -611,7 +671,7 @@ export class Action {
 
                 const hintBoxIcon = document.createElement("img");
                 hintBoxIcon.setAttribute("id", "hintBoxIcon");
-                hintBoxIcon.setAttribute("src", "../image/ico-hint.png");
+                hintBoxIcon.setAttribute("src", "../image/ico-hint@3x.png");
                 hintClickBox.appendChild(hintBoxIcon);
 
                 const hintCountBox = document.createElement("div");
@@ -657,7 +717,7 @@ export class Action {
                     hintItem.classList.add(container.getAttribute("value"));
                     hintCarousel.appendChild(hintItem);
                     const hintItemIcon = document.createElement("img");
-                    hintItemIcon.setAttribute("id", "hintItemIcon")
+                    hintItemIcon.setAttribute("id", "hintItemIcon");
                     hintItemIcon.setAttribute("src", "../image/ico-hint.png");
                     hintItem.appendChild(hintItemIcon);
                     const hintItemText = document.createElement("div");
@@ -697,14 +757,6 @@ export class Action {
                     gameProgressBox.appendChild(gameProgress);
                 }
 
-
-                // if (difficulty == 1) {
-                //     document.querySelector("#coinText").textContent = myCoin - betMoney1;
-                // } else if (difficulty == 2) {
-                //     document.querySelector("#coinText").textContent = myCoin - betMoney2;
-                // } else if (difficulty == 3) {
-                //     document.querySelector("#coinText").textContent = myCoin - betMoney3;
-                // }
             },
             CORRECT: function (data) {
                 console.log("실행 : correct");
@@ -998,6 +1050,8 @@ export class Action {
                 resultDisplay.doDisplay();
                 settingPage.doNoneDisplay();
 
+                document.querySelector("#ranking").style.display = "block";
+
                 const result = data.result;
                 let islevelup = false;
                 //레벨값 세팅
@@ -1130,12 +1184,18 @@ export class Action {
 
                 common.notDisplayHigherBox();
                 common.notDisplayUserInfoBox();
+
+                document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 보이기
+                document.querySelector("#setting").style.display = "none"; //setting 아이콘 숨기기
+
                 common.lowerBox.appendChild(settingPage.settingBox);
 
-                let backgroundsoundeffect = data.backgroundsound; //켜져있음
+                let backgroundsoundeffect = data.backgroundsound; //켜져있음 == 1 ==> 수정 필요함
                 let soundeffect = data.soundeffect; //1
 
-                console.log(soundeffect);
+                console.log("bg sound : " + backgroundsoundeffect);
+                console.log("sound effect : " + soundeffect);
 
                 settingPage.accountText.textContent = userEmail;
 
@@ -1151,6 +1211,7 @@ export class Action {
                     settingPage.bgSound.checked = false;
                 }
 
+
                 /**
                  * 초기화
                  */
@@ -1163,7 +1224,9 @@ export class Action {
                 console.log("실행: settingselect");
                 let sound = data.sound; //1. soundEffect 2.background sound
                 let onoff = data.onoff; //1.  0오면 off/1오면 on
+
                 if ((onoff == "0") && (sound == "SoundEffect")) {
+                    console.log("soundEffect off");
                     correctAudio.volume = 0;
                     wrongAudio.volume = 0;
                     successAudio.volume = 0;
@@ -1171,6 +1234,7 @@ export class Action {
                     settingPage.effectSound.checked = false;
                 }
                 if ((onoff == "1") && (sound == "SoundEffect")) {
+                    console.log("soundEffect on");
                     correctAudio.volume = 1;
                     wrongAudio.volume = 1;
                     successAudio.volume = 1;
@@ -1178,17 +1242,13 @@ export class Action {
                     settingPage.effectSound.checked = true;
                 }
                 if ((onoff == "0") && (sound == "BackGround")) {
-                    correctAudio.volume = 0;
-                    wrongAudio.volume = 0;
-                    successAudio.volume = 0;
-                    failAudio.volume = 0;
+                    console.log("backgroundMusic off");
+                    bgMusic.volume = 0;
                     settingPage.bgSound.checked = false;
                 }
                 if ((onoff == "1") && (sound == "BackGround")) {
-                    correctAudio.volume = 1;
-                    wrongAudio.volume = 1;
-                    successAudio.volume = 1;
-                    failAudio.volume = 1;
+                    console.log("backgroundMusic on");
+                    bgMusic.volume = 1;
                     settingPage.bgSound.checked = true;
                 }
             },
@@ -1202,6 +1262,27 @@ export class Action {
 
                 function Mail(mail) { //mail 텍스트 정제
                     mail = mail.replace(/"/gi, "");
+                    let id = mail.split("@")[0].toString();
+
+                    var maskingId = function(id) {
+                        if (id.length > 2) {
+                            var originId = id.split('');
+                            originId.forEach(function(name, i) {
+                                if (i === 0 || i === originId.length - 1) return;
+                                originId[i] = '*';
+                            });
+                            var joinId = originId.join();
+                            return joinId.replace(/,/g, '');
+                        } else {
+                            var pattern = /.$/; // 정규식
+                            return id.replace(pattern, '*');
+                        }
+                    };
+
+                    if(userEmail != mail) { //userEmail 이 없다면? trial 의 경우 고려 해야함
+                        mail = maskingId(id) + "@" + mail.split("@")[1];
+                    }
+
                     if(mail.length > 23) {
                         mail = mail.slice(0,20)+"...";
                     }
@@ -1217,6 +1298,10 @@ export class Action {
                 stageSelect.doNoneDisplay();
                 common.notDisplayHigherBox();
                 common.notDisplayUserInfoBox();
+
+                document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 숨기기
+                document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
                 common.lowerBox.appendChild(rankingPage.rankingBox);
 
@@ -1343,6 +1428,10 @@ export class Action {
                 mainFrame.doNoneDisplay();
                 settingPage.doNoneDisplay();
                 rankingPage.doNoneDisplay();
+
+                document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 보이기
+                document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
                 common.lowerBox.appendChild(shopPage.shopBox);
 

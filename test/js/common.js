@@ -33,10 +33,7 @@ export class Common {
     #_coinPlusIcon
     #_accountBox
     #_accountText
-    #_inGameHintBox
-    #_inGameHintIcon
-    #_inGameHintNumBox
-    #_inGameHintNumText
+
     /**
      * 우측 하단에
      * 메인, 랭킹, 설정
@@ -73,11 +70,6 @@ export class Common {
             }
             i++;
         }
-        this.isDisplay = !this.isDisplay //상태 변경
-
-        const page = document.querySelector("#inGameHintBox");
-        page.style.visibility = "hidden";
-
         console.log(this.isDisplay.toString());
     }
 
@@ -180,18 +172,18 @@ export class Common {
         this.#_userInfoBox = document.createElement("div");
         this.#_userInfoBox.setAttribute("id", "userInfoBox");
         this.#_higherBox.appendChild(this.#_userInfoBox);
+
         this.#_hintBox = document.createElement("div");
-        this.#_hintBox.setAttribute("id", "hintBox");
+        this.#_hintBox.setAttribute("class", "commonRound commonShadow green flex alignCenter");
         this.#_userInfoBox.appendChild(this.#_hintBox);
 
-        this.#_hintIcon = document.createElement("i");
-        this.#_hintIcon.setAttribute("class", "fa fa-search");
-        this.#_hintIcon.setAttribute("id", "hintIcon");
+        this.#_hintIcon = document.createElement("img");
+        this.#_hintIcon.setAttribute("src", "../image/common/hint_icon.png");
+        this.#_hintIcon.setAttribute("class", "commonIcon");
         this.#_hintBox.appendChild(this.#_hintIcon);
 
         this.#_hintText = document.createElement("div");
-        this.#_hintText.setAttribute("id", "hintText");
-        //this.#hintText.textContent = myHint;
+        this.#_hintText.setAttribute("class", "font extraBoldText commonFontSize commonFontMargin");
         this.#_hintBox.appendChild(this.#_hintText);
 
         // this.#_hintPlus = document.createElement("div");
@@ -205,17 +197,16 @@ export class Common {
 
 
         this.#_coinBox = document.createElement("div");
-        this.#_coinBox.setAttribute("id", "coinBox");
+        this.#_coinBox.setAttribute("class", "commonRound commonShadow green flex alignCenter");
         this.#_userInfoBox.appendChild(this.#_coinBox);
 
         this.#_coinIcon = document.createElement("img");
-        this.#_coinIcon.setAttribute("id", "coinIcon");
+        this.#_coinIcon.setAttribute("class", "commonIcon");
         this.#_coinIcon.setAttribute("src", "../image/common/coin_icon.png");
         this.#_coinBox.appendChild(this.#_coinIcon);
 
         this.#_coinText = document.createElement("div");
-        this.#_coinText.setAttribute("id", "coinText");
-        //this.#coinText.textContent = myCoin;
+        this.#_coinText.setAttribute("class", "font extraBoldText commonFontSize commonFontMargin");
         this.#_coinBox.appendChild(this.#_coinText);
 
         // this.#_coinPlus = document.createElement("div");
@@ -230,11 +221,11 @@ export class Common {
 
         this.#_accountBox = document.createElement("div");
         this.#_accountBox.setAttribute("id", "accountBox");
+        this.#_accountBox.setAttribute("class", "commonRound center");
         this.#_userInfoBox.appendChild(this.#_accountBox);
 
         this.#_accountText = document.createElement("div");
-        this.#_accountText.setAttribute("id", "accountText");
-        //this.#accountText.textContent = userEmail;
+        this.#_accountText.setAttribute("class", "font extraBoldText greenText commonFontSize");
         this.#_accountBox.appendChild(this.#_accountText);
 
 
@@ -251,24 +242,6 @@ export class Common {
         this.#_leftLowerBox = document.createElement("div");
         this.#_leftLowerBox.setAttribute("id", "leftLowerBox");
         this.#_lowerBox.appendChild(this.#_leftLowerBox);
-
-        this.#_inGameHintBox = document.createElement("div");
-        this.#_inGameHintBox.setAttribute("id", "inGameHintBox");
-        this.#_leftLowerBox.appendChild(this.#_inGameHintBox);
-
-        this.#_inGameHintIcon = document.createElement("i");
-        this.#_inGameHintIcon.setAttribute("id", "inGameHintIcon");
-        this.#_inGameHintIcon.setAttribute("class", "fa fa-search");
-        this.#_inGameHintBox.appendChild(this.#_inGameHintIcon);
-
-        this.#_inGameHintNumBox = document.createElement("div");
-        this.#_inGameHintNumBox.setAttribute("id", "inGameHintNumBox");
-        this.#_inGameHintBox.appendChild(this.#_inGameHintNumBox);
-
-        this.#_inGameHintNumText = document.createElement("div");
-        this.#_inGameHintNumText.setAttribute("id", "inGameHintNumText");
-        //this.#inGameHintNumText.textContent = myHint;
-        this.#_inGameHintNumBox.appendChild(this.#_inGameHintNumText);
 
         this.#_bottomCommon = document.createElement("div");
         this.#_bottomCommon.setAttribute("id", "bottomCommon");
@@ -385,22 +358,6 @@ export class Common {
 
     get accountText() {
         return this.#_accountText;
-    }
-
-    get inGameHintBox() {
-        return this.#_inGameHintBox;
-    }
-
-    get inGameHintIcon() {
-        return this.#_inGameHintIcon;
-    }
-
-    get inGameHintNumBox() {
-        return this.#_inGameHintNumBox;
-    }
-
-    get inGameHintNumText() {
-        return this.#_inGameHintNumText;
     }
 
     get bottomCommon() {
