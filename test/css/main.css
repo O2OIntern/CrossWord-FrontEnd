@@ -845,10 +845,14 @@ button {
     box-shadow: 2.8px 4.1px 10px 0 rgba(47, 47, 47, 0.45);
     width: 50px;
     height: 50px;
-    background-color: #54e7f5;
     position: absolute;
     bottom: -20px;
-    transition-property: background-color;
+    animation-name: color;
+}
+
+@keyframes color {
+    from {background-color: #54e7f5;}
+    to {background-color: #fed61a;}
 }
 
 #gameTimerText {
@@ -1238,7 +1242,6 @@ button {
 
 .resetText {
     font-size: 20px;
-    padding-right: 10px;
 }
 
 .settingCircle {
@@ -1302,6 +1305,7 @@ button {
 #resetIcon {
     width: 35px;
     height: 35px;
+    margin-left: 10px;
 }
 
 .center {

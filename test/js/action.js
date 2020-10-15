@@ -19,6 +19,7 @@ const Timer = (function () {
     let timerStart = 0;
     let percent = 0;
     let plusPercent = 0;
+    let gameTimerTextBox;
 
     function setTimer(remainTime, remainHeight) { //시간을 정함.
         timerHeight = remainHeight; //gameTimer 의 높이
@@ -33,8 +34,7 @@ const Timer = (function () {
     function initTimer() { //초기 타이머 설정
         timerHeightBox = document.querySelector("#remainTime");
         gameTimerText = document.querySelector("#gameTimerText");
-        document.querySelector("#gameTimerTextBox").style.backgroundColor = "#fed61a";
-
+        gameTimerTextBox = document.querySelector("#gameTimerTextBox");
         if (timerHeightBox == null && timerTextBox == null) {
             throw "Element does not exists!";
         }
@@ -68,6 +68,7 @@ const Timer = (function () {
         }
         clearInterval(intervalId);
         intervalId = null;
+        gameTimerTextBox.style.animationPlayState = "paused";
     }
 
     function resumeTimer() {
@@ -75,6 +76,8 @@ const Timer = (function () {
             throw "Timer is already running";
         }
         intervalId = setInterval(update, 1000);
+        gameTimerTextBox.style.animationPlayState = "running";
+        console.log("게임 재실행");
     }
     
     function isRunning() {
@@ -441,7 +444,7 @@ export class Action {
                 resultDisplay.doNoneDisplay();
 
                 document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
-                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 숨기기
                 document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
                 /**
@@ -473,7 +476,7 @@ export class Action {
                 resultDisplay.doNoneDisplay();
 
                 document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
-                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 숨기기
                 document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
                 /**
@@ -526,234 +529,239 @@ export class Action {
                 //level 선택했는지 확인
             },
             INGAME: function (data) {
-                console.log("실행 : inGame");
-
-                common.doDisplay();
-                common.notDisplayUserInfoBox();
-                mainFrame.doNoneDisplay();
-                settingPage.doNoneDisplay();
-                rankingPage.doNoneDisplay();
-                shopPage.doNoneDisplay();
-                stageSelect.doNoneDisplay();
-                difficultySelect.doNoneDisplay();
-                resultDisplay.doNoneDisplay();
 
                 document.querySelector("#ranking").style.display = "none";
+                document.querySelector("#main").style.display = "block";
+                document.querySelector("#setting").style.display = "block";
 
-                /**
-                 * 게임판, 게임판 행과 열, 시간제한, 맞춰야 할 모든 단어 수는 변경되면 안 되서 상수 선언
-                 * 맞춰야 하는 단어 수는 변경되어야 하므로 let 선언 -> correct에서도 사용할 변수
-                 */
-                const board = data.board;
-                const boardRow = data.board[0].length; //열
-                const boardCol = data.board.length; //행
-                const timeLimit = data.timeLimit;
-                // const timeLimit = 900;
-                const totalWord = data.totalWord;
-                // difficulty -> easy - 1 medium -2 hard -3
-                const difficulty = data.difficulty;
-                console.log("board : " + board);
-                console.log("boardRow : " + boardRow);
-                console.log("boardCol : " + boardCol);
-                console.log("timeLimit : " + timeLimit);
-                console.log("totalWord : " + totalWord);
-                console.log("difficulty : " + difficulty);
-                cnt = 0;
+                //setting 에서 돌아와서 기억하고 있던 정보로 다시 resume 해야함
+                if(document.querySelector("#inGameBox") != null) { //setting 에서 돌아왔을 경우
+                    console.log("실행 : setting -> inGame");
 
+                    settingPage.doNoneDisplay();
+                    common.displayHigherBox();
+                    container.style.backgroundImage = "url('../image/inGame/bg_" + container.getAttribute("value") + ".png')";
+                    document.querySelector("#inGameBox").style.display = "flex";
+                    document.querySelector("#hintButtonBox").style.display = "block";
 
+                    Timer.resume();
+                } else { //일반적으로 difficulty select 이후에 넘어왔을 경우
+                    console.log("실행 : inGame");
 
-
-
-                //난이도별 설정
-                if (difficulty == 1) {
-                    container.style.backgroundImage = "url('../image/inGame/bg_easy.png')";
-                    container.setAttribute("value", "easy");
-                } else if (difficulty == 2) {
-                    container.style.backgroundImage = "url('../image/inGame/bg_medium.png')";
-                    container.setAttribute("value", "medium");
-                } else {
-                    container.style.backgroundImage = "url('../image/inGame/bg_hard.png')";
-                    container.setAttribute("value", "hard");
-                }
+                    common.doDisplay();
+                    common.notDisplayUserInfoBox();
+                    mainFrame.doNoneDisplay();
+                    settingPage.doNoneDisplay();
+                    rankingPage.doNoneDisplay();
+                    shopPage.doNoneDisplay();
+                    stageSelect.doNoneDisplay();
+                    difficultySelect.doNoneDisplay();
+                    resultDisplay.doNoneDisplay();
 
 
-                const inGameBox = document.createElement("div");
-                inGameBox.setAttribute("id", "inGameBox");
-                common.lowerBox.appendChild(inGameBox);
+                    /**
+                     * 게임판, 게임판 행과 열, 시간제한, 맞춰야 할 모든 단어 수는 변경되면 안 되서 상수 선언
+                     * 맞춰야 하는 단어 수는 변경되어야 하므로 let 선언 -> correct에서도 사용할 변수
+                     */
+                    const board = data.board;
+                    const boardRow = data.board[0].length; //열
+                    const boardCol = data.board.length; //행
+                    // const timeLimit = data.timeLimit;
+                    const timeLimit = 900;
+                    const totalWord = data.totalWord;
+                    // data.difficulty -> easy : 1, medium : 2, hard : 3
+                    const difficulty = difficultySelect.difficulty[data.difficulty - 1]; //easy, medium, hard
+                    console.log("board : " + board);
+                    console.log("boardRow : " + boardRow);
+                    console.log("boardCol : " + boardCol);
+                    console.log("timeLimit : " + timeLimit);
+                    console.log("totalWord : " + totalWord);
+                    console.log("difficulty : " + difficulty);
+                    cnt = 0;
 
-                const gameBoardBox = document.createElement("div");
-                gameBoardBox.setAttribute("id", "gameBoardBox");
-                gameBoardBox.setAttribute("class", "inGameBoxMargin");
-                inGameBox.appendChild(gameBoardBox);
-
-                //main의 게임판 좌측에 타이머 배치
-                const gameTimerBox = document.createElement("div");
-                gameTimerBox.setAttribute("id", "gameTimerBox");
-                gameBoardBox.appendChild(gameTimerBox);
-
-                const gameTimer = document.createElement("div");
-                gameTimer.setAttribute("id", "gameTimer");
-                console.log(gameTimer.style.height);
-                gameTimerBox.appendChild(gameTimer);
-
-                const remainTime = document.createElement("div");
-                remainTime.setAttribute("id", "remainTime");
-                remainTime.setAttribute("class", "center");
-                gameTimer.appendChild(remainTime);
-
-                const gameTimerTextBox = document.createElement("div");
-                gameTimerTextBox.setAttribute("id", "gameTimerTextBox");
-                gameTimerTextBox.setAttribute("class", "circle center");
-                gameTimerTextBox.style.transitionDuration = timeLimit + "s";
-                remainTime.appendChild(gameTimerTextBox);
-
-                const gameTimerText = document.createElement("div");
-                gameTimerText.setAttribute("id", "gameTimerText");
-                gameTimerTextBox.appendChild(gameTimerText);
-
-                const remainHeight = document.querySelector("#gameTimer").clientHeight;
-                const gameTimerHeight = document.querySelector("#gameTimer").style.height;
-                console.log(gameTimerHeight);
-                console.log(remainHeight);
-                Timer.setter(timeLimit, remainHeight);
-                Timer.init();
-                Timer.start();
-
-                const gameBoard = document.createElement("div");
-                gameBoard.setAttribute("id", "gameBoard");
+                    //난이도별 설정
+                    container.style.backgroundImage = "url('../image/inGame/bg_" + difficulty + ".png')";
+                    container.setAttribute("value", difficulty);
 
 
-                /* data 로부터 선택한 level 받아오는 설정 필요 */
-                if (timeLimit <= 90) {
-                    gameBoard.style.gridTemplateColumns = "repeat(6, 1fr)";
-                    gameBoard.style.gridTemplateRows = "repeat(6, 1fr)";
-                } else if (timeLimit <= 120 && timeLimit >= 95) {
-                    gameBoard.style.gridTemplateColumns = "repeat(7, 1fr)";
-                    gameBoard.style.gridTemplateRows = "repeat(7, 1fr)";
-                } else {
-                    gameBoard.style.gridTemplateColumns = "repeat(8, 1fr)";
-                    gameBoard.style.gridTemplateRows = "repeat(8, 1fr)";
-                }
+                    const inGameBox = document.createElement("div");
+                    inGameBox.setAttribute("id", "inGameBox");
+                    common.lowerBox.appendChild(inGameBox);
+
+                    const gameBoardBox = document.createElement("div");
+                    gameBoardBox.setAttribute("id", "gameBoardBox");
+                    gameBoardBox.setAttribute("class", "inGameBoxMargin");
+                    inGameBox.appendChild(gameBoardBox);
+
+                    //main의 게임판 좌측에 타이머 배치
+                    const gameTimerBox = document.createElement("div");
+                    gameTimerBox.setAttribute("id", "gameTimerBox");
+                    gameBoardBox.appendChild(gameTimerBox);
+
+                    const gameTimer = document.createElement("div");
+                    gameTimer.setAttribute("id", "gameTimer");
+                    console.log(gameTimer.style.height);
+                    gameTimerBox.appendChild(gameTimer);
+
+                    const remainTime = document.createElement("div");
+                    remainTime.setAttribute("id", "remainTime");
+                    remainTime.setAttribute("class", "center");
+                    gameTimer.appendChild(remainTime);
+
+                    const gameTimerTextBox = document.createElement("div");
+                    gameTimerTextBox.setAttribute("id", "gameTimerTextBox");
+                    gameTimerTextBox.setAttribute("class", "circle center");
+                    gameTimerTextBox.style.animationDuration = timeLimit + "s";
+                    remainTime.appendChild(gameTimerTextBox);
+
+                    const gameTimerText = document.createElement("div");
+                    gameTimerText.setAttribute("id", "gameTimerText");
+                    gameTimerTextBox.appendChild(gameTimerText);
+
+                    const remainHeight = document.querySelector("#gameTimer").clientHeight;
+                    const gameTimerHeight = document.querySelector("#gameTimer").style.height;
+                    console.log(gameTimerHeight);
+                    console.log(remainHeight);
+                    Timer.setter(timeLimit, remainHeight);
+                    Timer.init();
+                    Timer.start();
+
+                    const gameBoard = document.createElement("div");
+                    gameBoard.setAttribute("id", "gameBoard");
 
 
-                gameBoardBox.appendChild(gameBoard);
-
-                for (let col = 0; col < boardCol; col++) {
-                    for (let row = 0; row < boardRow; row++) {
-
-                        //알파벳 이미지 담을 배경(네모박스)
-                        const alphabetBox = document.createElement("div");
-                        alphabetBox.setAttribute("class", "alphabetBox");
-
-                        alphabetBox.setAttribute("id", "box" + col + "," + row);
-                        alphabetBox.setAttribute("value", board[col][row].toLowerCase());
-                        gameBoard.appendChild(alphabetBox);
-
-                        //알파벳 이미지
-                        const alphabet = document.createElement("img");
-                        alphabet.setAttribute("src", "../image/inGame/alphabet/" + board[col][row].toLowerCase() + ".png");
-                        alphabet.setAttribute("class", "alphabet");
-                        alphabetBox.appendChild(alphabet);
+                    /* data 로부터 선택한 level 받아오는 설정 필요 */
+                    if (timeLimit <= 90) {
+                        gameBoard.style.gridTemplateColumns = "repeat(6, 1fr)";
+                        gameBoard.style.gridTemplateRows = "repeat(6, 1fr)";
+                    } else if (timeLimit <= 120 && timeLimit >= 95) {
+                        gameBoard.style.gridTemplateColumns = "repeat(7, 1fr)";
+                        gameBoard.style.gridTemplateRows = "repeat(7, 1fr)";
+                    } else {
+                        gameBoard.style.gridTemplateColumns = "repeat(8, 1fr)";
+                        gameBoard.style.gridTemplateRows = "repeat(8, 1fr)";
                     }
-                }
-                //좌측 힌트 버튼 생성
-                const hintButtonBox = document.createElement("div");
-                hintButtonBox.setAttribute("id", "hintButtonBox");
-                container.appendChild(hintButtonBox);
-
-                const hintClickBox = document.createElement("div");
-                hintClickBox.setAttribute("id", "hintClickBox");
-                hintButtonBox.appendChild(hintClickBox);
-                hintClickBox.addEventListener("click", function () {
-                    window.canvas.sendTextQuery("open hint");
-                });
-
-                const hintBoxIcon = document.createElement("img");
-                hintBoxIcon.setAttribute("id", "hintBoxIcon");
-                hintBoxIcon.setAttribute("src", "../image/ico-hint@3x.png");
-                hintClickBox.appendChild(hintBoxIcon);
-
-                const hintCountBox = document.createElement("div");
-                hintCountBox.setAttribute("id", "hintCountBox");
-                hintButtonBox.appendChild(hintCountBox);
-
-                const hintCountText = document.createElement("div");
-                hintCountText.setAttribute("id", "hintCountText");
-                hintCountBox.appendChild(hintCountText);
-                hintCountText.textContent = myHint;
-
-                //우측 힌트 리스트 생성
-                const gameProgress_HintBox = document.createElement("div");
-                gameProgress_HintBox.setAttribute("id", "gameProgress_HintBox");
-                inGameBox.appendChild(gameProgress_HintBox);
-
-                const gameProgressBox = document.createElement("div");
-                gameProgressBox.setAttribute("id", "gameProgressBox");
-                gameProgressBox.setAttribute("class", "inGameBoxMargin");
-                gameProgress_HintBox.appendChild(gameProgressBox);
-
-                //힌트 캐러셀 리스트 생성
-                const hintListBox = document.createElement("div");
-                hintListBox.setAttribute("id", "hintListBox");
-                gameProgress_HintBox.appendChild(hintListBox);
-                const hintArrowUpButton = document.createElement("img");
-                hintArrowUpButton.setAttribute("id", "hintArrowUpButton");
-                hintArrowUpButton.setAttribute("src", "../image/arrow-up.png");
-                hintListBox.appendChild(hintArrowUpButton);
-                const hintCarousel = document.createElement("div");
-                hintCarousel.setAttribute("id", "hintCarousel");
-                hintListBox.appendChild(hintCarousel);
-                const hintArrowDownButton = document.createElement("img");
-                hintArrowDownButton.setAttribute("id", "hintArrowDownButton");
-                hintArrowDownButton.setAttribute("src", "../image/arrow-down.png");
-
-                hintListBox.appendChild(hintArrowDownButton);
-
-                //default hintItems Create
-                for (let i = 0; i < 5; i++) {
-                    const hintItem = document.createElement("div");
-                    hintItem.setAttribute("class", "hintItem");
-                    hintItem.classList.add(container.getAttribute("value"));
-                    hintCarousel.appendChild(hintItem);
-                    const hintItemIcon = document.createElement("img");
-                    hintItemIcon.setAttribute("id", "hintItemIcon");
-                    hintItemIcon.setAttribute("src", "../image/ico-hint.png");
-                    hintItem.appendChild(hintItemIcon);
-                    const hintItemText = document.createElement("div");
-                    hintItemText.setAttribute("id", "hintItemText");
-                    hintItem.appendChild(hintItemText);
-                }
 
 
-                // const usedHint = document.createElement("div");
-                // usedHint.setAttribute("id", "usedHint");
-                // usedHint.setAttribute("class", "inGameBoxMargin");
-                // gameProgress_HintBox.appendChild(usedHint);
-                //
-                // const hint = document.createElement("p");
-                // hint.textContent = "HINT";
-                // usedHint.appendChild(hint);
-                // usedHint.appendChild(document.createElement("hr"));
-                //
-                // const hintScrollBox = document.createElement("div");
-                // hintScrollBox.setAttribute("id", "hintScrollBox");
-                // usedHint.appendChild(hintScrollBox);
+                    gameBoardBox.appendChild(gameBoard);
+
+                    for (let col = 0; col < boardCol; col++) {
+                        for (let row = 0; row < boardRow; row++) {
+
+                            //알파벳 이미지 담을 배경(네모박스)
+                            const alphabetBox = document.createElement("div");
+                            alphabetBox.setAttribute("class", "alphabetBox");
+
+                            alphabetBox.setAttribute("id", "box" + col + "," + row);
+                            alphabetBox.setAttribute("value", board[col][row].toLowerCase());
+                            gameBoard.appendChild(alphabetBox);
+
+                            //알파벳 이미지
+                            const alphabet = document.createElement("img");
+                            alphabet.setAttribute("src", "../image/inGame/alphabet/" + board[col][row].toLowerCase() + ".png");
+                            alphabet.setAttribute("class", "alphabet");
+                            alphabetBox.appendChild(alphabet);
+                        }
+                    }
+                    //좌측 힌트 버튼 생성
+                    const hintButtonBox = document.createElement("div");
+                    hintButtonBox.setAttribute("id", "hintButtonBox");
+                    container.appendChild(hintButtonBox);
+
+                    const hintClickBox = document.createElement("div");
+                    hintClickBox.setAttribute("id", "hintClickBox");
+                    hintButtonBox.appendChild(hintClickBox);
+                    hintClickBox.addEventListener("click", function () {
+                        window.canvas.sendTextQuery("open hint");
+                    });
+
+                    const hintBoxIcon = document.createElement("img");
+                    hintBoxIcon.setAttribute("id", "hintBoxIcon");
+                    hintBoxIcon.setAttribute("src", "../image/ico-hint@3x.png");
+                    hintClickBox.appendChild(hintBoxIcon);
+
+                    const hintCountBox = document.createElement("div");
+                    hintCountBox.setAttribute("id", "hintCountBox");
+                    hintButtonBox.appendChild(hintCountBox);
+
+                    const hintCountText = document.createElement("div");
+                    hintCountText.setAttribute("id", "hintCountText");
+                    hintCountBox.appendChild(hintCountText);
+                    hintCountText.textContent = myHint;
+
+                    //우측 힌트 리스트 생성
+                    const gameProgress_HintBox = document.createElement("div");
+                    gameProgress_HintBox.setAttribute("id", "gameProgress_HintBox");
+                    inGameBox.appendChild(gameProgress_HintBox);
+
+                    const gameProgressBox = document.createElement("div");
+                    gameProgressBox.setAttribute("id", "gameProgressBox");
+                    gameProgressBox.setAttribute("class", "inGameBoxMargin");
+                    gameProgress_HintBox.appendChild(gameProgressBox);
+
+                    //힌트 캐러셀 리스트 생성
+                    const hintListBox = document.createElement("div");
+                    hintListBox.setAttribute("id", "hintListBox");
+                    gameProgress_HintBox.appendChild(hintListBox);
+                    const hintArrowUpButton = document.createElement("img");
+                    hintArrowUpButton.setAttribute("id", "hintArrowUpButton");
+                    hintArrowUpButton.setAttribute("src", "../image/arrow-up.png");
+                    hintListBox.appendChild(hintArrowUpButton);
+                    const hintCarousel = document.createElement("div");
+                    hintCarousel.setAttribute("id", "hintCarousel");
+                    hintListBox.appendChild(hintCarousel);
+                    const hintArrowDownButton = document.createElement("img");
+                    hintArrowDownButton.setAttribute("id", "hintArrowDownButton");
+                    hintArrowDownButton.setAttribute("src", "../image/arrow-down.png");
+
+                    hintListBox.appendChild(hintArrowDownButton);
+
+                    //default hintItems Create
+                    for (let i = 0; i < 5; i++) {
+                        const hintItem = document.createElement("div");
+                        hintItem.setAttribute("class", "hintItem");
+                        hintItem.classList.add(container.getAttribute("value"));
+                        hintCarousel.appendChild(hintItem);
+                        const hintItemIcon = document.createElement("img");
+                        hintItemIcon.setAttribute("id", "hintItemIcon");
+                        hintItemIcon.setAttribute("src", "../image/ico-hint.png");
+                        hintItem.appendChild(hintItemIcon);
+                        const hintItemText = document.createElement("div");
+                        hintItemText.setAttribute("id", "hintItemText");
+                        hintItem.appendChild(hintItemText);
+                    }
 
 
-                hintListBox.style.height = (gameBoard.clientHeight * 3 / 5) + "px";
-                gameProgressBox.style.width = hintListBox.clientWidth + "px";
-                //게임보드에 높이 맞추기
-                // usedHint.style.height = (gameBoard.clientHeight * 3 / 5) + "px";
-                // gameProgressBox.style.width = usedHint.clientWidth + "px";
-                //  0 0 0 0 0 형식
-                for (let i = 0; i < totalWord; i++) {
-                    const gameProgress = document.createElement("img");
-                    gameProgress.setAttribute("src", "../image/inGame/count.png");
-                    // gameProgress.style.width = gameProgressBox.clientWidth / totalWord + "px";
-                    gameProgress.setAttribute("id", "progress" + i);
-                    gameProgress.setAttribute("class", "gameProgress");
-                    gameProgress.style.opacity = "0.1";
-                    gameProgressBox.appendChild(gameProgress);
+                    // const usedHint = document.createElement("div");
+                    // usedHint.setAttribute("id", "usedHint");
+                    // usedHint.setAttribute("class", "inGameBoxMargin");
+                    // gameProgress_HintBox.appendChild(usedHint);
+                    //
+                    // const hint = document.createElement("p");
+                    // hint.textContent = "HINT";
+                    // usedHint.appendChild(hint);
+                    // usedHint.appendChild(document.createElement("hr"));
+                    //
+                    // const hintScrollBox = document.createElement("div");
+                    // hintScrollBox.setAttribute("id", "hintScrollBox");
+                    // usedHint.appendChild(hintScrollBox);
+
+
+                    hintListBox.style.height = (gameBoard.clientHeight * 3 / 5) + "px";
+                    gameProgressBox.style.width = hintListBox.clientWidth + "px";
+                    //게임보드에 높이 맞추기
+                    // usedHint.style.height = (gameBoard.clientHeight * 3 / 5) + "px";
+                    // gameProgressBox.style.width = usedHint.clientWidth + "px";
+                    //  0 0 0 0 0 형식
+                    for (let i = 0; i < totalWord; i++) {
+                        const gameProgress = document.createElement("img");
+                        gameProgress.setAttribute("src", "../image/inGame/count.png");
+                        // gameProgress.style.width = gameProgressBox.clientWidth / totalWord + "px";
+                        gameProgress.setAttribute("id", "progress" + i);
+                        gameProgress.setAttribute("class", "gameProgress");
+                        gameProgress.style.opacity = "0.1";
+                        gameProgressBox.appendChild(gameProgress);
+                    }
                 }
 
             },
@@ -1174,6 +1182,10 @@ export class Action {
             SETTING: function (data) {
                 console.log("실행 : setting");
 
+                container.style.backgroundImage = "url('../image/scene/default_bg.png')";
+
+                settingPage.setDisplayDefault();
+
                 resultDisplay.doNoneDisplay();
                 mainFrame.doNoneDisplay();
                 rankingPage.doNoneDisplay();
@@ -1184,11 +1196,35 @@ export class Action {
                 common.notDisplayHigherBox();
                 common.notDisplayUserInfoBox();
 
+                common.lowerBox.appendChild(settingPage.settingBox);
+
                 document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
-                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 숨기기
                 document.querySelector("#setting").style.display = "none"; //setting 아이콘 숨기기
 
-                common.lowerBox.appendChild(settingPage.settingBox);
+                /*
+                 * inGame 에서 setting 으로 넘어왔을 경우
+                 * Timer 시간이 흐르고 있음 -> 멈춤
+                 * 게임 화면 가림
+                 * 돌아가기(resume) 버튼 만들고 거기에 sendTextQuery 붙임
+                 */
+                if(Timer.running()) {
+
+                    console.log("실행 : inGame -> Setting");
+
+                    Timer.stop();
+                    settingPage.setDisplayFromInGame();
+
+                    document.querySelector("#inGameBox").style.display = "none"; //inGame 화면 가리기
+                    document.querySelector("#main").style.display = "none"; //main 아이콘 숨기기
+                    document.querySelector("#hintButtonBox").style.display = "none"; //inGame 내 hint box 숨기기
+
+                    settingPage.gameResetButton.addEventListener("click", function () {
+                        console.log("게임으로 돌아가기");
+                        window.canvas.sendTextQuery(container.getAttribute("value"));
+                    })
+                }
+
 
                 let backgroundsoundeffect = data.backgroundsound; //켜져있음 == 1 ==> 수정 필요함
                 let soundeffect = data.soundeffect; //1
@@ -1429,7 +1465,7 @@ export class Action {
                 rankingPage.doNoneDisplay();
 
                 document.querySelector("#main").style.display = "block"; //main 아이콘 보이기
-                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 보이기
+                document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 숨기기
                 document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
                 common.lowerBox.appendChild(shopPage.shopBox);
