@@ -164,6 +164,7 @@ export class Action {
         };
         headerheight().then(function (result) {
             console.log(result);
+            document.body.setAttribute("style","height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
             container.setAttribute("style", "margin-top: " + result + "px; " + "height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
             console.log(window.innerHeight - result);
             console.log(window.innerWidth);

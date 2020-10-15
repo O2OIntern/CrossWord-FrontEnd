@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+</head>
+
+<body>
+<div>    폰번호 입력해주세요~ :
+    <input id='number'/>
+</div>
+
+
+
+ <div id="os_name"></div>
+    
+
+ <h1><a href="#" onclick="appStart()" data-role="button">전화를 겁니다!</a></h1>
+<iframe id="checkframe" name="checkframe" src="check.html" width="0" height="0" style="display:none"></iframe>
+
+</body>
+
+<script>
+// OS 확인
+var uAgent = navigator.userAgent.toLocaleLowerCase();
+if(uAgent.indexOf("android") != -1)  
+ OSName = "android";
+else if(uAgent.indexOf("iphone") != -1 || uAgent.indexOf("ipad") != -1 || uAgent.indexOf("ipod") != -1) 
+ OSName="ios";
+else 
+ OSName="is not mobile";
+
+// 확인한 OS이름을 HTML에 표시 
+document.getElementById("os_name").innerHTML="<h1>Your os : "+OSName+"</h1>";
+
+
+// 어플 실행
+function appStart(){
+ if("ios" == OSName || "android" == OSName){
+    let number = document.getElementById("number").value;
+    document.checkframe.location = "calltest://o2o?phoneNumber="+number;
+    setTimeout("checkApplicationInstall_callback()", 1500);
+ }else{
+  // 어플 실행하지 않고 종료 
+  return;
+ } 
+}
+
+// Android의경우 어플실행 확인 및 설치페이지 이동
+// IOS의 경우 어플실행명령 후 1.5초 후에 설치페이지 이동에 대한 확인창 발생
+function checkApplicationInstall_callback() {
+ 
+ if("android"==OSName){
+  try {
+   var s = document.checkframe.document.body.innerHTML;
+   // 어플리케이션 설치되어있음
+  } catch (e) {
+   // 어플리케이션 설치 안 되어있음
+   // IOS 는 이영역으로 넘어오질 않음.. 
+   if (window.confirm("Not installed - android ")){
+    var android_url = "market://details?id=com.xxx.app";
+    location.href = android_url;
+   }
+  }
+ }
+ 
+ if("ios" == OSName){
+  if (window.confirm("Not installed - ios")){
+   var ios_url = "https://appsto.re/kr/asdfg";
+   location.href = ios_url;
+  }
+ }
+}
+</script>
+</html> 

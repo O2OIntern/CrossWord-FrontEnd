@@ -1,0 +1,1789 @@
+
+@import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css);
+@media ( orientation: portrait ) {
+    html {
+        transform: rotate(-90deg);
+        transform-origin: top left;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100vh;
+        height: 100vw;
+        font-size: 62.5%;
+    }
+}
+
+body {
+    background-image : url("../../image/welcome/bg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    object-fit: cover;
+    margin: 0;
+    font-size: 1em;
+}
+
+
+button {
+    background-color: cornflowerblue;
+    color: white;
+}
+
+/*화면 전체*/
+.container {
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+/*처음 화면*/
+
+#playbutton {
+    position: absolute;
+    bottom: 7vh;
+    margin-left: 38.4vw;
+    margin-right: 38.3vw;
+    width: 23.4vw;
+    height: 11vh;
+    border-radius: 5vh;
+    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+    background-color: #00b3fe;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "NanumSquare", sans-serif;
+    font-size: 2.4rem;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+#copyright {
+    position: absolute;
+    bottom: 0vh;
+    left: 5vw;
+    font-size: 3vh;
+}
+#o2ologo {
+    position: absolute;
+    bottom: 0vh;
+    right: 5vw;
+    font-size: 3vh;
+}
+
+#higherBox {
+    display: flex;
+    /*border-style: solid;*/
+}
+
+#lowerBox {
+    height: 50vh;
+    display: flex;
+}
+
+#leftLowerBox {
+    width: 15vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0 0 0;
+    height: fit-content;
+    /*border-style: solid;*/
+}
+
+/*common*/
+#levelBox {
+    /*border-style: solid;*/
+    height: 22.5vh;
+    width: 15vw;
+    position: relative;
+}
+
+#backCircle {
+    width: 81px;
+    height: 81px;
+    box-shadow: -5.6px 8.3px 20px 0 rgba(25, 34, 61, 0.45);
+    background-color: #ffffff;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#levelText {
+    width: 30px;
+    height: 10px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #066666;
+    padding: 10px 0 5px 0;
+}
+
+#userLevel {
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 44.5px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #324091;
+}
+
+#progress {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -48%);
+}
+
+#expBox {
+    width: 115px;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    left: 42px;
+}
+
+#userExp {
+    width: 50px;
+    height: 15px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 19.5px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: #a1cf79;
+}
+
+#expBar {
+    width: 2px;
+    height: 15px;
+    background-color: white;
+    position: relative;
+    top: 3px;
+}
+
+#levelFullExp {
+    width: 50px;
+    height: 15px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 19.5px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #2e3f82;
+}
+
+#userInfoBox {
+    display: flex;
+    /*border-style: solid;*/
+    justify-content: flex-end;
+    padding: 50px 40px 0 0;
+    flex-grow: 1;
+}
+
+#hintBox {
+    width: 100px;
+    height: 40px;
+    border-radius: 15px;
+    box-shadow: -5.6px 8.3px 20px 0 rgba(0, 0, 0, 0.2);
+    background-color: #7cbf5a;
+    margin: 0 10px 0 0;
+    display: flex;
+}
+
+#hintIcon, #coinIcon {
+    position: relative;
+    left: 11px;
+    top: 7px;
+    font-size: 25px;
+}
+
+#coinIcon {
+    width: 25px;
+    height: 25px;
+}
+
+#hintText, #coinText {
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+    position: relative;
+    left: 20px;
+    top: 8px;
+}
+
+#hintText {
+    width: 15px;
+}
+
+#hintPlus, #coinPlus {
+    width: 31px;
+    height: 31px;
+    box-shadow: 0px 5px 15px 0 rgba(0, 0, 0, 0.35);
+    background-color: #ffba00;
+    border-radius: 50%;
+    position: relative;
+    bottom: 17px;
+}
+
+#hintPlus {
+    left: 35px;
+}
+
+#coinPlus {
+    left: 40px;
+}
+
+#hintPlusIcon, #coinPlusIcon {
+    font-size: 19px;
+    position: absolute;
+    top: 7px;
+    left: 8px;
+}
+
+#coinBox {
+    width: 150px;
+    height: 40px;
+    border-radius: 15px;
+    box-shadow: -5.6px 8.3px 20px 0 rgba(0, 0, 0, 0.2);
+    background-color: #7cbf5a;
+    display: flex;
+    margin: 0 10px 0 0;
+}
+
+#coinText {
+    width: 55px;
+}
+
+#accountBox {
+    width: 265px;
+    height: 40px;
+    border-radius: 15px;
+    background-color: #324091;
+    position: relative;
+}
+
+#accountText {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #7cbf5a;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#inGameHintBox {
+    width: 81px;
+    height: 80px;
+    box-shadow: -5.6px 8.3px 20px 0 rgba(0, 0, 0, 0.2);
+    background-color: #7cbf5a;
+    border-radius: 50%;
+}
+
+#inGameHintIcon {
+    font-size: 42px;
+    position: relative;
+    top: 19px;
+    left: 18px;
+}
+
+#inGameHintNumBox {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: -2.8px 4.1px 10px 0 rgba(33, 68, 93, 0.4);
+    background-color: #ffba00;
+    position: relative;
+    bottom: 49px;
+    left: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#inGameHintNumText {
+    width: 13px;
+    height: 18px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 23.5px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+
+#ranking, #setting, #main{
+    display: flex;
+    object-fit: contain;
+    width: 50px;
+    padding: 0 0 20px 0;
+}
+
+#bottomCommon {
+    display: flex;
+    flex-direction: column;
+    padding: 150px 0 0 20px;
+}
+
+/*main frame*/
+#playBox {
+    display: flex;
+    /*border-style: solid;*/
+    flex-grow: 1;
+    padding: 40px 0 0 150px;
+}
+
+.mainTwoBox {
+    padding: 0 178px 0 0;
+}
+
+.mainText {
+    font-size: 56.5px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 30px 0;
+    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
+}
+
+.extraBoldText {
+    font-weight: 800;
+}
+
+.mainCircle {
+    width: 90px;
+    height: 91px;
+    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+    border-radius: 50%;
+}
+
+.mainIcon {
+    width: 70px;
+    position: relative;
+    left: 10px;
+    top: 10px;
+}
+
+#gameContinueIcon {
+    top: 12px;
+    left: 14px;
+}
+
+#chooseLevelIcon {
+    top: 19px;
+    left: 10px;
+}
+
+#gameContinueCircle {
+    background-color: #00b4ff;
+}
+
+#chooseLevelCircle {
+    background-color: #2652d2;
+}
+
+/*단계 선택 화면*/
+
+#stepBox {
+    position: absolute;
+    height: 321px;
+    width: 1030px;
+    left: 14vw;
+    top: 40vh;
+}
+
+#stepButton {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, minmax(131px, auto));
+    position: absolute;
+    height: 321px;
+    width: 770px;
+    left: 10vw;
+    top: 0vh;
+    right: 10vw;
+}
+
+#nextPage {
+    width: 36px;
+    height: 63px;
+    object-fit: contain;
+    position: absolute;
+    top: 16vh;
+    right: 0vw;
+}
+
+#lastPage {
+    width: 36px;
+    height: 63px;
+    object-fit: contain;
+    position: absolute;
+    top: 16vh;
+    left: 0vw;
+}
+
+#stepRow {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(5, 1fr);
+    width: 770px;
+    height: 131px;
+    margin-bottom: 7.4vh;
+}
+
+#ableBox {
+    position: relative;
+    width: 130px;
+    height: 131px;
+    margin-right: 2.3vw;
+}
+
+#disableBox {
+    position: relative;
+    width: 130px;
+    height: 131px;
+    margin-right: 2.3vw;
+}
+
+/*자물쇠 아이콘*/
+#upperBox {
+    position: absolute;
+    top: 25px;
+    left: 40px;
+    width: 51px;
+    height: 73px;
+    object-fit: contain;
+}
+
+/*레벨 숫자 텍스트 */
+#stepText {
+    position: absolute;
+    top: 50px;
+    left: 47px;
+    display: inline-block;
+    width: 30px;
+    height: 41px;
+    text-shadow: 0px 10px 25px rgba(0, 0, 0, 0.5);
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 56.5px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 41px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    z-index: 2;
+}
+
+#ableUnderBox {
+    width: 130px;
+    height: 131px;
+    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+    background-image: linear-gradient(to top, #516afb, #a1efc8);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+#disableUnderBox {
+    position: absolute;
+    width: 130px;
+    height: 131px;
+    background-image: linear-gradient(to top, #1c2973, #3657a5);
+    border-radius: 50%;
+}
+
+
+/*난이도 선택 화면*/
+#difficultyBox {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 107px;
+    position: absolute;
+    left: 22.1vw;
+    right: 12.9vw;
+    /*top: 32.4vh;*/
+    bottom: 21.1vh;
+    width: 827px;
+    height: 305px;
+}
+
+#boxItem {
+    display: flex;
+    flex-direction: column;
+}
+
+#button {
+    position: relative;
+    border-radius: 50%;
+    width: 130px;
+    height: 131px;
+    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+}
+
+#difficultyText{
+    position:absolute;
+    width: 74px;
+    height: 16px;
+    font-family: 'NanumSquare', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 16px;
+    letter-spacing: normal;
+    text-align: center;
+    left: 28px;
+    bottom: 19px;
+    color: #ffffff;
+}
+
+#expTextBox {
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 213px;
+    height: 41px;
+    margin-bottom: 31px;
+    margin-top: 29px;
+}
+
+#expText1 {
+    width: 95px;
+    height: 41px;
+    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
+    font-family: 'NanumSquare', sans-serif;
+    font-weight: 400;
+    font-size: 56.5px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+
+#expText2 {
+    width: 62px;
+    height: 41px;
+    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
+    font-family: 'NanumSquare', sans-serif;
+    font-weight: 800;
+    font-size: 56.5px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+}
+
+#timeBox {
+    display: flex;
+    flex-direction: row;
+    height: 41px;
+    align-items: center;
+}
+
+#timeIcon {
+    width: 28px;
+    height: 28px;
+    margin-right: 0.6vw;
+}
+
+#timeText1 {
+    width: 95px;
+    height: 16px;
+    font-family: 'NanumSquare', sans-serif;
+    font-weight: 400;
+    font-size: 19.5px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+    margin-right: 1vw;
+}
+
+#timeText2 {
+    width: 34px;
+    height: 15px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 19.5px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000000;
+}
+
+#feeBox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 41px;
+}
+
+#feeIcon {
+    width: 28px;
+    height: 28px;
+    margin-right: 0.6vw;
+}
+
+#feeText1 {
+    width: 95px;
+    height: 16px;
+    font-family: 'NanumSquare', sans-serif;
+    font-weight: 400;
+    font-size: 19.5px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+    margin-right: 1vw;
+}
+
+#feeText2 {
+    width: 34px;
+    height: 15px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 19.5px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000000;
+}
+
+.button1 {
+    background-image: linear-gradient(to top, #516afb, #a1efc8);
+}
+
+.button2 {
+    background-image: linear-gradient(to top, #369f8c, #d1ed5f);
+}
+
+.button3 {
+    background-image: linear-gradient(to top, #695fcc, #c4a6ed);
+}
+
+.expText2_1 {
+    color: #a9f2d4;
+}
+
+.expText2_2 {
+    color: #c7e862;
+}
+
+.expText2_3 {
+    color: #c2a4ec;
+}
+
+/*인게임 화면*/
+#inGameBox {
+    display: flex;
+    position: relative;
+    top: -15vh;
+}
+
+#gameProgress_HintBox {
+    display: flex;
+    flex-direction: column;
+}
+
+#gameProgressBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 2vw;
+
+}
+
+.gameProgress {
+    margin-right: 10px;
+    width: 55px;
+    object-fit: contain;
+}
+
+.inGameBoxMargin {
+    margin-right: 2.3vw;
+}
+/**
+힌트 스크롤 리스트
+ */
+#hintListBox{
+    height:413px;
+    width: 378px;
+    display:flex;
+    flex-direction: column;
+    position: absolute;
+    top:110px;
+    align-items: center;
+}
+#hintCarousel{
+    height:340px;
+    width:378px;
+}
+.hintItem{
+    margin-bottom: 10px;
+    position:relative;
+    width: 378px;
+    height: 60px;
+    border-radius: 30px;
+    opacity: 0.2;
+}
+
+#hintItemIcon{
+    width: 31px;
+    height: 32px;
+    object-fit: contain;
+    position:absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    opacity: 0.5;
+    left : 15px;
+}
+#hintItemText{
+    width: 307px;
+    height: 18px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left:72px;
+    font-family: 'NanumSquare',sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 18px;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+#hintItemFocus{
+    opacity: 1;
+}
+
+.easy{
+    background-color: #4f65cd;
+}
+.medium{
+    background-color: #30a48e;
+}
+.hard{
+    background-color: #5843bf;
+}
+
+#hintArrowUpButton{
+    margin-bottom: 19px;
+    width: 30px;
+    height: 17px;
+    object-fit: contain;
+    visibility: hidden;
+}
+#hintArrowDownButton{
+    margin-top: 19px;
+    width: 30px;
+    height: 17px;
+    object-fit: contain;
+    visibility: hidden;
+}
+#usedHint {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 2px solid white;
+    white-space: pre;
+    text-align: center;
+    padding: 1vh;
+    width: 18vw;
+    border-radius: 1vh;
+}
+
+#hintScrollBox {
+    height: 30vh;
+    overflow: auto;
+}
+
+#hintScrollBox::-webkit-scrollbar {
+    width: 0.5vw;
+}
+
+#hintScrollBox::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 0.5vw;
+}
+
+#hintScrollBox::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 0.5vw;
+}
+
+#gameBoardBox {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+}
+
+#gameBoard {
+    width: 554px;
+    height: 554px;
+    display: grid;
+    gap: 1%;
+}
+
+.alphabetBox {
+    border-radius: 20px;
+    background-color: rgba(67, 67, 67, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alphabet {
+    height: 45px;
+    object-fit: contain;
+}
+
+#gameTimerBox {
+    display: flex;
+    flex-direction: column;
+    margin: 0 44px 0 10px;
+}
+
+#gameTimer {
+    width: 22px;
+    height: 554px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border: white;
+    border-radius: 2vh;
+    transform: rotate(180deg);
+}
+
+#remainTime {
+    width: 22px;
+    background-image: linear-gradient(to top, #fed61a, #54e7f5);
+    border-radius: 2vh;
+    transform: rotate(180deg);
+    position: absolute;
+    bottom: 0;
+}
+
+/*#gameTimerText {*/
+/*    text-align: center;*/
+/*    border: 2px solid white;*/
+/*    padding: 0.2vw;*/
+/*    width: 3vw;*/
+/*    height: 5vh;*/
+/*    margin: 2vw;*/
+/*}*/
+
+/*힌트 열기*/
+#hintButtonBox{
+    position:absolute;
+    left:60px;
+    top:338px;
+    width: 90px;
+    height:90px;
+
+}
+#hintClickBox{
+    border-radius: 50%;
+    position:absolute;
+    left :0px;
+    top : 0px;
+    width: 81px;
+    height: 80px;
+    box-shadow: -5.6px 8.3px 20px 0 rgba(0, 0, 0, 0.2);
+    background-color: #7cbf5a;
+}
+/**
+좌측 힌트버튼
+ */
+#hintBoxIcon{
+    position:absolute;
+    left :18px;
+    top : 19px;
+    width: 42px;
+    height: 41px;
+    object-fit: contain;
+}
+#hintCountBox{
+    border-radius: 50%;
+    position:absolute;
+    right : 0px;
+    top :  0px;
+    width: 40px;
+    height: 40px;
+    box-shadow: -2.8px 4.1px 10px 0 rgba(33, 68, 93, 0.4);
+    background-color: #ffba00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#hintCountText{
+    font-family: 'NanumSquare',sans-serif;
+    font-size: 23.5px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 18px;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+/**
+힌트 모달
+ */
+#hintModalBox{
+    position : absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width:540px;
+    height:460px;
+    z-index : 2;
+}
+#hintModal{
+    position : absolute;
+    left: 0px;
+    top: 40px;
+    width: 540px;
+    height: 420px;
+    border-radius: 20px;
+    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+    background-color: #ffffff;
+}
+#hintModalIcon{
+    position : absolute;
+    left: 228px;
+    top: 0px;
+    width: 69px;
+    height: 71px;
+    object-fit: contain;
+}
+#hintTopBox{
+    width: 540px;
+    height: 90px;
+    border-radius: 15px 15px 0px 0px;
+    position : absolute;
+    left: 0px;
+    top: 0px;
+    background-color: #99c34b;
+}
+#hintBottomBox{
+    width: 540px;
+    height: 330px;
+    position : absolute;
+    left: 0px;
+    top: 90px;
+}
+#hintTopBoxText{
+    position : absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 67px;
+    height: 22px;
+    font-family: 'NanumSquare',sans-serif;
+    font-size: 31px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 22px;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+#hintNotifyText{
+    position : absolute;
+    left: 50%;
+    top : 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: auto;
+    font-family: 'NanumSquare',sans-serif;
+    font-size: 34.5px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000000;
+}
+
+.backgroundModal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.contentModal {
+    font-size: 4vh;
+    text-align: center;
+    color: black;
+    background-color: #ccff99;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    position: relative;
+    top: 4.5vh;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*wrong*/
+.shake {
+    animation: shake 1s;
+    animation-iteration-count: 1;
+}
+
+/*ranking*/
+#rankingBox {
+    position: relative;
+    top: -17vh;
+}
+
+#rankRightBox {
+    position: absolute;
+    left: 390px;
+}
+
+#top5InfoBox {
+    position: relative;
+    top: -10px;
+}
+
+.topBox {
+    position: relative;
+    left: 285px;
+    padding-bottom: 30px;
+}
+
+.flexColumn {
+    flex-direction: column;
+}
+
+.rankYellow {
+    background-color: #f7d119;
+}
+
+.rankYellowText {
+    color: #f7d119;
+}
+
+.rankBlue {
+    background-color: #324091;
+}
+
+.rankBlueText {
+    color: #324091;
+    padding-bottom: 8px;
+}
+
+.rankCircle {
+    width: 80px;
+    height: 80px;
+    margin: 0 20px 15px 0;
+}
+
+.top5Num {
+    font-size: 42.5px;
+}
+
+.rankCirclePadding {
+    margin-bottom: 20px;
+}
+
+#rankingIcon {
+    width: 76px;
+    object-fit: contain;
+    padding-bottom: 10px;
+}
+
+.rankRound {
+    width: 639px;
+    height: 46px;
+    border-radius: 23px;
+    position: relative;
+    margin-bottom: 13px;
+}
+
+.rankBlueOpacity {
+    background-color: rgba(50, 64, 145, 0.1);
+}
+
+.rank8NumPadding {
+    padding-left: 33px;
+}
+
+.rank8Mail {
+    position: absolute;
+    left: 141px;
+}
+
+.rank8Exp {
+    position: absolute;
+    left: 475px;
+}
+
+/*shop*/
+#shopBox {
+    display: flex;
+    /*border-style: solid;*/
+    flex-grow: 1;
+    padding: 40px 0 0 150px;
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.shopCircle {
+    width: 130px;
+    height: 131px;
+    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+}
+
+.yellow {
+    background-color: #ffba00;
+}
+
+.green {
+    background-color: #7cbf5a;
+}
+
+.blackText {
+    color: #000000;
+}
+
+.yellowText {
+    color: #ffba00;
+}
+
+.greenText {
+    color: #7cbf5a;
+}
+
+.shopIcon {
+    width: 120px;
+    position: relative;
+    left: 6px;
+    top: 17px;
+}
+
+.miniCoinIcon {
+    width: 50px;
+}
+
+.shopText {
+    font-size: 56.5px;
+}
+
+.font {
+    font-family: "NanumSquare", sans-serif;
+}
+
+.textShadow {
+    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
+}
+
+.small {
+    font-size: 19.5px;
+}
+
+.shopTwoBox {
+    padding: 0 200px 0 0;
+}
+
+.shopTextBox {
+    padding: 30px 0 0 0;
+}
+
+.lowerTextBox {
+    display: flex;
+    position: relative;
+    right: 10px;
+}
+
+.shopSmallText {
+    padding: 10px 0 0 0;
+}
+
+.textSpace {
+    padding: 0 20px 0 0;
+}
+
+/*setting*/
+#settingBox {
+    display: flex;
+    position: relative;
+    top: -8vh;
+    padding-left: 130px;
+}
+
+.rightBox {
+    padding-left: 180px;
+    position: relative;
+    top: -15px;
+}
+
+.settingText {
+    font-size: 31px;
+    padding-bottom: 68px;
+}
+
+.resetText {
+    font-size: 20px;
+    padding-right: 10px;
+}
+
+.settingCircle {
+    width: 50px;
+    height: 50px;
+}
+
+#accountIcon {
+    width: 55px;
+    position: relative;
+    left: -2px;
+}
+
+.accountBoxPadding {
+    padding-bottom: 25px;
+}
+
+.accountPadding {
+    padding-right: 18px;
+}
+
+.resetButtonPadding {
+    padding-top: 130px;
+}
+
+.resetTextBoxPadding {
+    padding-top: 60px;
+}
+
+.flex {
+    display: flex;
+}
+
+.alignCenter {
+    align-items: center;
+}
+
+.settingSmallText {
+    font-family: "NanumSquare", sans-serif;
+    font-size: 19.5px;
+    color: #303e8c;
+}
+
+.settingButton {
+    width: 160px;
+    height: 60px;
+}
+
+.boxShadow {
+    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+}
+
+.settingRound {
+    border-radius: 30px;
+}
+
+.blue {
+    background-color: #313f8f;
+}
+
+#resetIcon {
+    width: 35px;
+    height: 35px;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+.label {
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    width: 160px;
+    height: 60px;
+    border-radius: 30px;
+    background-color: rgba(50, 64, 145, 0.2);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all .3s;
+    margin-bottom: 45px;
+}
+
+.label > * {
+    vertical-align: sub;
+    transition: all .3s;
+    font-size: 20px;
+    font-family: "NanumSquare", sans-serif;
+}
+
+.label .marble {
+    position: absolute;
+    top: 10px;
+    left: 17px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.label .on {
+    display: none;
+    padding: 18px 0 0 28px;
+}
+
+.label .off {
+    padding-left:95px;
+    position: relative;
+    top: 15px;
+}
+
+.input:checked + .label {
+    background-color: #7cbf5a;
+    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+}
+
+.input:checked + .label .on {
+    display: inline-block;
+}
+
+.input:checked + .label .off {
+    display: none;
+}
+
+.input:checked + .label .marble {
+    left: 105px;
+}
+
+/*result*/
+#levelUpBox{
+    position: absolute;
+    left: 245px;
+    right: 270px;
+    top: 148px;
+    width: 333px;
+    height: 300px;
+}
+#levelUpIcon{
+    position: absolute;
+    left: 19px;
+    right: 25px;
+    width: 300px;
+    height: 300px;
+}
+#levelUpText{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 158px;
+    height: 37px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 51px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #00b4ff;
+}
+#levelUpEffectText{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    opacity: 0.3;
+    transform: translate(-50%, -50%);
+    /*width: 333px;*/
+    /*height: 75px;*/
+    width: 158px;
+    height: 37px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 51px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 100%;
+    letter-spacing: normal;
+    text-align: center;
+    color: #00b4ff;
+}
+
+#resultBox {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 65.6vw;
+    height: 596px;
+    justify-content: flex-start;
+    align-items: center;
+    top: 18vh;
+    left: 17.2vw;
+    bottom: 40px;
+}
+
+#resultNotifyBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 46px;
+}
+
+#resultIcon {
+    width: 78px;
+    height: 71px;
+    object-fit: fill;
+}
+
+#resultText {
+    width: 150px;
+    height: 23px;
+    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 31px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 23px;
+    letter-spacing: normal;
+    text-align: center;
+}
+.LEVELUP{
+    color: #f7d119;
+}
+.SUCCESS{
+    color: #ffffff;
+}
+.FAIL{
+    color: #99c34b;
+}
+
+#resultLevelBox {
+    width: 156px;
+    height: 22px;
+    border-radius: 25px;
+    background-color: #324091;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+#resultLevelText {
+    height: 23px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 22px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #f7d119;
+}
+
+#resultCoinBox {
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;
+    margin-left: 20.5vw;
+    justify-content: flex-start;
+    width: 33.2vw;
+    height: 113px;
+}
+
+
+#resultCoinText1 {
+    align-self: flex-end;
+    display: inline-flex;
+    width: 9vw;
+    margin-right: 5.1vw;
+    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 56.5px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 56.5px;
+    letter-spacing: normal;
+    text-align: left;
+    vertical-align: bottom;
+    color: #ffffff;
+}
+
+#resultCoinText2 {
+    display: inline-flex;
+    align-self: flex-end;
+    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 56.5px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 56.5px;
+    letter-spacing: normal;
+    text-align: center;
+    color: #f7d119;
+}
+
+#gainCoinText1 ,#gainExpText1{
+    padding-bottom:30px;
+    position: relative;
+    align-self: flex-start;
+    display: inline-flex;
+    width: 54px;
+    height: 75px;
+    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
+    font-family: "NanumSquare", sans-serif;
+    font-size: 31px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 75px;
+    letter-spacing: normal;
+    text-align: left;
+    color: #a9f2d4;
+    z-index: 1;
+}
+
+#gainCoinEffectText,#gainExpEffectText{
+    height: 49px;
+    padding-bottom: 32px;
+    line-height: 49px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#gainCoinInnerText,#gainExpInnerText{
+    height: 23px;
+    padding-bottom: 32px;
+    line-height: 23px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#gainCoinText2 ,#gainExpText2{
+    padding-bottom:30px;
+    position: absolute;
+    align-self: flex-start;
+    display: inline-flex;
+    width: 114px;
+    height: 75px;
+    opacity: 1;
+    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
+    font-family: "NanumSquare", sans-serif;
+    font-size: 31px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 75px;
+    letter-spacing: normal;
+    text-align: left;
+    z-index: 2;
+    /*color: rgba(169, 242, 212, 0.1);*/
+}
+
+#resultExpBox {
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;
+    margin-left: 20.5vw;
+    justify-content: flex-start;
+    width: 33.2vw;
+    height: 113px;
+    margin-bottom: 51px;
+}
+
+#resultExpText1 {
+    align-self: flex-end;
+    width: 9vw;
+    margin-right: 5.1vw;
+    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 56.5px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+
+#resultExpText2 {
+    align-self: flex-end;
+    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 56.5px;
+    font-weight: 800;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #f7d119;
+}
+
+#wordBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 110px;
+    width: 65.6vw;
+    margin-bottom: 48px;
+
+}
+#resultWordBox {
+    display: grid;
+    grid-row-gap: 10px;
+    grid-column-gap: 0.8vw;
+    grid-template-columns: repeat(5, 1fr);
+}
+
+.resultWordItem_matched {
+    background-color: #324091;
+    color: #ffffff;
+}
+
+.resultWordItem_unmatched {
+    background-color: rgba(0, 64, 145, 0.1);
+    color: #324091;
+}
+
+#resultWordItem {
+    width: 12.5vw;
+    height: 50px;
+    border-radius: 10px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 50px;
+    letter-spacing: normal;
+    text-align: center;
+}
+
+#resultContinueText {
+    width: 94px;
+    height: 16px;
+    font-family: 'NanumSquare', sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+    line-height: 16px;
+}
+
+#resultContinueIcon {
+    width: 24px;
+    height: 31px;
+    object-fit: contain;
+}
+
+#resultContinueBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 14.8vw;
+    height: 26px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border-radius: 30px;
+    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+    background-color: #00b4ff;
+}

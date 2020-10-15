@@ -3,6 +3,7 @@
 
 body {
     background-image : url("../../image/welcome/bg.png");
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     object-fit: cover;
     margin: 0;
