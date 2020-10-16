@@ -424,14 +424,10 @@ body {
 #difficultyBox {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 107px;
+    grid-column-gap: 1rem;
     position: absolute;
-    left: 22.1vw;
-    right: 12.9vw;
-    /*top: 32.4vh;*/
-    bottom: 21.1vh;
-    width: 827px;
-    height: 305px;
+    left: 18rem;
+    top: 14rem;
 }
 
 #boxItem {
@@ -439,153 +435,58 @@ body {
     flex-direction: column;
 }
 
-#button {
+.difficultyButton {
     position: relative;
-    border-radius: 50%;
-    width: 130px;
-    height: 131px;
-    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+    width: 5.8rem;
+    height: 5.8rem;
+    margin-bottom: .5rem;
 }
 
-#difficultyText{
-    position:absolute;
-    width: 74px;
-    height: 16px;
-    font-family: 'NanumSquare', sans-serif;
-    font-weight: 400;
-    font-size: 20px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 16px;
-    letter-spacing: normal;
-    text-align: center;
-    left: 28px;
-    bottom: 19px;
-    color: #ffffff;
+.difficultyIcon {
+    width: 5rem;
+    position: relative;
+}
+
+.difficultyText{
+    position:relative;
+    left: .2rem;
+    bottom: 2.5rem;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.numberText {
+    position: absolute;
+    left: 9rem;
 }
 
 #expTextBox {
     justify-content: space-between;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 213px;
-    height: 41px;
-    margin-bottom: 31px;
-    margin-top: 29px;
 }
 
-#expText1 {
-    width: 95px;
-    height: 41px;
-    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
-    font-family: 'NanumSquare', sans-serif;
-    font-weight: 400;
-    font-size: 56.5px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #ffffff;
+.expText {
+    font-size: 3rem;
+    margin-right: 2rem;
 }
 
-#expText2 {
-    width: 62px;
-    height: 41px;
-    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
-    font-family: 'NanumSquare', sans-serif;
-    font-weight: 800;
-    font-size: 56.5px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
+.difficultyTimeFeeIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
 }
 
-#timeBox {
-    display: flex;
-    flex-direction: row;
-    height: 41px;
-    align-items: center;
+.difficultySmallText {
+    font-size: 1.3rem;
+    margin-right: 0.5rem;
 }
 
-#timeIcon {
-    width: 28px;
-    height: 28px;
-    margin-right: 0.6vw;
+.difficultyMargin {
+    margin-bottom: 0.5rem;
 }
 
-#timeText1 {
-    width: 95px;
-    height: 16px;
-    font-family: 'NanumSquare', sans-serif;
-    font-weight: 400;
-    font-size: 19.5px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #ffffff;
-    margin-right: 1vw;
-}
-
-#timeText2 {
-    width: 34px;
-    height: 15px;
-    font-family: 'NanumSquare', sans-serif;
-    font-size: 19.5px;
-    font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #000000;
-}
-
-#feeBox {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 41px;
-}
-
-#feeIcon {
-    width: 28px;
-    height: 28px;
-    margin-right: 0.6vw;
-}
-
-#feeText1 {
-    width: 95px;
-    height: 16px;
-    font-family: 'NanumSquare', sans-serif;
-    font-weight: 400;
-    font-size: 19.5px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #ffffff;
-    margin-right: 1vw;
-}
-
-#feeText2 {
-    width: 34px;
-    height: 15px;
-    font-family: 'NanumSquare', sans-serif;
-    font-size: 19.5px;
-    font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #000000;
+.relative {
+    position: relative;
 }
 
 .button1 {

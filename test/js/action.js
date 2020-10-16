@@ -1224,26 +1224,35 @@ export class Action {
                     })
                 }
 
+                let bgm = data.bgmOn; //유저의 bgm 설정 정보 얻어옴(db)
+                let foley = data.foleyOn; //유저의 foley 설정 정보 얻어옴(db)
 
-                let backgroundsoundeffect = data.backgroundsound; //켜져있음 == 1 ==> 수정 필요함
-                let soundeffect = data.soundeffect; //1
-
-                console.log("bg sound : " + backgroundsoundeffect);
-                console.log("sound effect : " + soundeffect);
+                console.log("bgm : " + bgm);
+                console.log("foley : " + foley);
 
                 settingPage.accountText.textContent = userEmail;
 
                 //기초설정대로 보여주기
-                if (soundeffect == 1) {
+                if (foley) {
                     settingPage.effectSound.checked = true;
                 } else {
                     settingPage.effectSound.checked = false;
                 }
-                if (backgroundsoundeffect == 1) {
+                if (bgm) {
                     settingPage.bgSound.checked = true;
                 } else {
                     settingPage.bgSound.checked = false;
                 }
+
+                settingPage.effectSound.onclick = function () {
+                    if(foley) window.canvas.sendTextQuery("soundeffect off");
+                    else window.canvas.sendTextQuery("soundeffect on");
+                };
+
+                settingPage.bgSound.onclick = function () {
+                    if(bgm) window.canvas.sendTextQuery("backgroundsound off");
+                    else window.canvas.sendTextQuery("backgroundsound on");
+                };
 
 
                 /**
@@ -1256,31 +1265,33 @@ export class Action {
             },
             SETTINGSELECT: function (data) {
                 console.log("실행: settingselect");
-                let sound = data.sound; //1. soundEffect 2.background sound
-                let onoff = data.onoff; //1.  0오면 off/1오면 on
+                let bgm = data.bgmOn; //유저의 bgm 설정 정보 얻어옴(db)
+                let foley = data.foleyOn; //유저의 foley 설정 정보 얻어옴(db)
 
-                if ((onoff == "0") && (sound == "SoundEffect")) {
-                    console.log("soundEffect off");
+                console.log("ss bgm : " + bgm);
+                console.log("ss foley : " + bgm);
+
+                if (!foley) {
+                    console.log("foley off");
                     correctAudio.volume = 0;
                     wrongAudio.volume = 0;
                     successAudio.volume = 0;
                     failAudio.volume = 0;
                     settingPage.effectSound.checked = false;
-                }
-                if ((onoff == "1") && (sound == "SoundEffect")) {
-                    console.log("soundEffect on");
+                } else {
+                    console.log("foley on");
                     correctAudio.volume = 1;
                     wrongAudio.volume = 1;
                     successAudio.volume = 1;
                     failAudio.volume = 1;
                     settingPage.effectSound.checked = true;
                 }
-                if ((onoff == "0") && (sound == "BackGround")) {
+
+                if (!bgm) {
                     console.log("backgroundMusic off");
                     bgMusic.volume = 0;
                     settingPage.bgSound.checked = false;
-                }
-                if ((onoff == "1") && (sound == "BackGround")) {
+                } else {
                     console.log("backgroundMusic on");
                     bgMusic.volume = 1;
                     settingPage.bgSound.checked = true;
