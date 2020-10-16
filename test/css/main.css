@@ -461,153 +461,55 @@ body {
     flex-direction: column;
 }
 
-#button {
+.difficultyButton {
     position: relative;
-    border-radius: 50%;
     width: 130px;
-    height: 131px;
-    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+    height: 130px;
+    margin-bottom: 30px;
 }
 
-#difficultyText{
-    position:absolute;
-    width: 74px;
-    height: 16px;
-    font-family: 'NanumSquare', sans-serif;
-    font-weight: 400;
+.difficultyIcon {
+    width: 130px;
+    position: relative;
+}
+
+.difficultyText{
+    position: relative;
+    bottom: 40px;
     font-size: 20px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 16px;
-    letter-spacing: normal;
-    text-align: center;
-    left: 28px;
-    bottom: 19px;
-    color: #ffffff;
 }
 
 #expTextBox {
     justify-content: space-between;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 213px;
-    height: 41px;
-    margin-bottom: 31px;
-    margin-top: 29px;
 }
 
-#expText1 {
-    width: 95px;
-    height: 41px;
-    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
-    font-family: 'NanumSquare', sans-serif;
-    font-weight: 400;
+.numberText {
+    position: absolute;
+    left: 144px;
+}
+
+.expText {
     font-size: 56.5px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #ffffff;
+    margin-bottom: 29px;
 }
 
-#expText2 {
-    width: 62px;
-    height: 41px;
-    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
-    font-family: 'NanumSquare', sans-serif;
-    font-weight: 800;
-    font-size: 56.5px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
+.relative {
+    position: relative;
 }
 
-#timeBox {
-    display: flex;
-    flex-direction: row;
-    height: 41px;
-    align-items: center;
-}
-
-#timeIcon {
+.difficultyTimeFeeIcon {
     width: 28px;
     height: 28px;
     margin-right: 0.6vw;
 }
 
-#timeText1 {
-    width: 95px;
-    height: 16px;
-    font-family: 'NanumSquare', sans-serif;
-    font-weight: 400;
+.difficultySmallText {
     font-size: 19.5px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #ffffff;
-    margin-right: 1vw;
 }
 
-#timeText2 {
-    width: 34px;
-    height: 15px;
-    font-family: 'NanumSquare', sans-serif;
-    font-size: 19.5px;
-    font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #000000;
-}
-
-#feeBox {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 41px;
-}
-
-#feeIcon {
-    width: 28px;
-    height: 28px;
-    margin-right: 0.6vw;
-}
-
-#feeText1 {
-    width: 95px;
-    height: 16px;
-    font-family: 'NanumSquare', sans-serif;
-    font-weight: 400;
-    font-size: 19.5px;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #ffffff;
-    margin-right: 1vw;
-}
-
-#feeText2 {
-    width: 34px;
-    height: 15px;
-    font-family: 'NanumSquare', sans-serif;
-    font-size: 19.5px;
-    font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    text-align: left;
-    color: #000000;
+.difficultyMargin {
+    margin-bottom: 12px;
 }
 
 .button1 {

@@ -565,8 +565,8 @@ export class Action {
                     const board = data.board;
                     const boardRow = data.board[0].length; //열
                     const boardCol = data.board.length; //행
-                    // const timeLimit = data.timeLimit;
-                    const timeLimit = 900;
+                    const timeLimit = data.timeLimit;
+                    // const timeLimit = 900;
                     const totalWord = data.totalWord;
                     // data.difficulty -> easy : 1, medium : 2, hard : 3
                     const difficulty = difficultySelect.difficulty[data.difficulty - 1]; //easy, medium, hard
@@ -1189,6 +1189,7 @@ export class Action {
                 mainFrame.doNoneDisplay();
                 rankingPage.doNoneDisplay();
                 shopPage.doNoneDisplay();
+                difficultySelect.doNoneDisplay();
 
                 settingPage.doDisplay();
 
