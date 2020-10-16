@@ -11,6 +11,7 @@ export class Scene {
 
         this.#_playButton = document.createElement("div");
         this.#_playButton.setAttribute("id", "playbutton");
+        this.#_playButton.setAttribute("class", "center font extraBoldText boxShadow");
         this.#_playButton.textContent = "START"
         view.appendChild(this.#_playButton);
 

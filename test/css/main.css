@@ -9,13 +9,6 @@ body {
     margin: 0;
 }
 
-
-button {
-    background-color: cornflowerblue;
-
-    color: white;
-}
-
 /*화면 전체*/
 .container {
     background-repeat: no-repeat;
@@ -51,18 +44,6 @@ button {
     color: #ffffff;
 }
 
-#copyright {
-    position: absolute;
-    bottom: 0vh;
-    left: 5vw;
-    font-size: 3vh;
-}
-#o2ologo {
-    position: absolute;
-    bottom: 0vh;
-    right: 5vw;
-    font-size: 3vh;
-}
 
 #higherBox {
     display: flex;

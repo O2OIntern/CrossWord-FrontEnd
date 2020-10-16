@@ -126,6 +126,7 @@ export class Common {
 
         this.#_levelBox = document.createElement("div");
         this.#_levelBox.setAttribute("id", "levelBox");
+        this.#_levelBox.setAttribute("class", "center");
         this.#_higherBox.appendChild(this.#_levelBox);
 
         this.#_backCircle = document.createElement("div");

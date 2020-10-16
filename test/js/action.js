@@ -315,8 +315,6 @@ export class Action {
                 userEmail = data.inputemail;
 
                 scene.playButton.onclick = main;
-
-
             },
             MAIN: function (data) {
                 console.log("실행 : main");
@@ -400,7 +398,7 @@ export class Action {
                 common.settingButton.onclick = setting;
 
                 $('#progress').circleProgress({
-                    size: 110,
+                    size: 50, //수정필요
                     //그래프 크기
                     startAngle: -Math.PI / 2,
                     //시작지점 (기본값 Math.PI)
@@ -414,7 +412,7 @@ export class Action {
                     //빈칸 색
                     lineCap: 'round',
                     //그래프 끝
-                    thickness: 8
+                    thickness: 5 //수정필요
                     //그래프 두께
                 });
 
