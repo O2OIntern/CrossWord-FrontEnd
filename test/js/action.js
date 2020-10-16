@@ -176,6 +176,7 @@ function coin(num) {
  */
 export class Action {
 
+
     /**
      * @param {*} scene which serves as a container of all visual elements
      */
@@ -221,6 +222,7 @@ export class Action {
         let topHint = 0;
         //main -> 공통 화면
         let userEmail = "";
+
 
 
         const correctAudio = document.createElement("audio");
@@ -304,6 +306,7 @@ export class Action {
         bgMusic.autoplay = true;
         bgMusic.loop = true;
 
+        let bgm, foley;
         this.canvas = window.interactiveCanvas;
         this.scene = scene;
         this.commands = {
@@ -1225,33 +1228,33 @@ export class Action {
                     })
                 }
 
-                let bgm = data.bgmOn; //유저의 bgm 설정 정보 얻어옴(db)
-                let foley = data.foleyOn; //유저의 foley 설정 정보 얻어옴(db)
+                let bgmOn = data.bgmOn; //유저의 bgm 설정 정보 얻어옴(db)
+                let foleyOn = data.foleyOn; //유저의 foley 설정 정보 얻어옴(db)
 
-                console.log("bgm : " + bgm);
-                console.log("foley : " + foley);
+                console.log("bgm : " + bgmOn);
+                console.log("foley : " + foleyOn);
 
                 settingPage.accountText.textContent = userEmail;
 
                 //기초설정대로 보여주기
-                if (foley) {
+                if (foleyOn == "true") {
                     settingPage.effectSound.checked = true;
                 } else {
                     settingPage.effectSound.checked = false;
                 }
-                if (bgm) {
+                if (bgmOn == "true") {
                     settingPage.bgSound.checked = true;
                 } else {
                     settingPage.bgSound.checked = false;
                 }
 
                 settingPage.effectSound.onclick = function () {
-                    if(foley) window.canvas.sendTextQuery("soundeffect off");
+                    if(foleyOn == "true") window.canvas.sendTextQuery("soundeffect off");
                     else window.canvas.sendTextQuery("soundeffect on");
                 };
 
                 settingPage.bgSound.onclick = function () {
-                    if(bgm) window.canvas.sendTextQuery("backgroundsound off");
+                    if(bgmOn == "true") window.canvas.sendTextQuery("backgroundsound off");
                     else window.canvas.sendTextQuery("backgroundsound on");
                 };
 
@@ -1266,13 +1269,23 @@ export class Action {
             },
             SETTINGSELECT: function (data) {
                 console.log("실행: settingselect");
-                let bgm = data.bgmOn; //유저의 bgm 설정 정보 얻어옴(db)
-                let foley = data.foleyOn; //유저의 foley 설정 정보 얻어옴(db)
+                let bgmOn = data.bgmOn; //유저의 bgm 설정 정보 얻어옴(db)
+                let foleyOn = data.foleyOn; //유저의 foley 설정 정보 얻어옴(db)
 
-                console.log("ss bgm : " + bgm);
-                console.log("ss foley : " + bgm);
+                console.log("ss bgm : " + bgmOn);
+                console.log("ss foley : " + foleyOn);
 
-                if (!foley) {
+                settingPage.effectSound.onclick = function () {
+                    if(foleyOn == "true") window.canvas.sendTextQuery("soundeffect off");
+                    else window.canvas.sendTextQuery("soundeffect on");
+                };
+
+                settingPage.bgSound.onclick = function () {
+                    if(bgmOn == "true") window.canvas.sendTextQuery("backgroundsound off");
+                    else window.canvas.sendTextQuery("backgroundsound on");
+                };
+
+                if (foleyOn != "true") {
                     console.log("foley off");
                     correctAudio.volume = 0;
                     wrongAudio.volume = 0;
@@ -1288,13 +1301,13 @@ export class Action {
                     settingPage.effectSound.checked = true;
                 }
 
-                if (!bgm) {
+                if (bgmOn != "true") {
                     console.log("backgroundMusic off");
                     bgMusic.volume = 0;
                     settingPage.bgSound.checked = false;
                 } else {
                     console.log("backgroundMusic on");
-                    bgMusic.volume = 1;
+                    bgMusic.volume = 0.5;
                     settingPage.bgSound.checked = true;
                 }
             },
