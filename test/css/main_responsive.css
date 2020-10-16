@@ -33,7 +33,7 @@ body {
 
 #higherBox {
     display: flex;
-    border-style: solid;
+    /*border-style: solid;*/
     height: 8rem;
 }
 
@@ -49,17 +49,18 @@ body {
     justify-content: center;
     height: 100%;
     position: relative;
-    border-style: solid;
+    /*border-style: solid;*/
 }
 
 /*common*/
 #levelBox {
-    border-style: solid;
+    /*border-style: solid;*/
     width: 15vw;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 9rem;
 }
 
 #backCircle {
@@ -132,9 +133,9 @@ body {
 #userInfoBox {
     display: flex;
     justify-content: flex-end;
-    padding-top: 1.5rem;
+    padding: 1.5rem 1rem 0 0;
     flex-grow: 1;
-    border-style: solid;
+    /*border-style: solid;*/
     border-color: black;
 }
 
@@ -241,8 +242,8 @@ body {
 
 #ranking, #setting, #main{
     object-fit: contain;
-    width: 50px;
-    padding: 0 0 20px 0;
+    width: 3.5rem;
+    padding-bottom: 1rem;
 }
 
 #bottomCommon {
@@ -250,7 +251,7 @@ body {
     flex-direction: column;
     position: absolute;
     bottom: 0;
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
 }
 
 /*main frame*/
@@ -258,18 +259,18 @@ body {
     display: flex;
     /*border-style: solid;*/
     flex-grow: 1;
-    padding: 40px 0 0 150px;
+    padding-left: 10rem;
 }
 
 .mainTwoBox {
-    padding: 0 178px 0 0;
+    padding-right: 8rem;
 }
 
 .mainText {
-    font-size: 56.5px;
+    font-size: 3rem;
     display: flex;
     flex-direction: column;
-    padding: 0 0 30px 0;
+    padding-bottom: 1rem;
     text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
 }
 
@@ -278,27 +279,25 @@ body {
 }
 
 .mainCircle {
-    width: 90px;
-    height: 91px;
+    width: 5rem;
+    height: 5rem;
     box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
     border-radius: 50%;
 }
 
 .mainIcon {
-    width: 70px;
+    width: 4rem;
     position: relative;
-    left: 10px;
-    top: 10px;
 }
 
 #gameContinueIcon {
-    top: 12px;
-    left: 14px;
+    left: 0.7rem;
+    top: .5rem;
 }
 
 #chooseLevelIcon {
-    top: 19px;
-    left: 10px;
+    top: 1rem;
+    left: .6rem;
 }
 
 #gameContinueCircle {
@@ -1187,49 +1186,45 @@ body {
     display: flex;
     position: relative;
     top: -8vh;
-    padding-left: 130px;
+    padding-left: 9rem;
 }
 
 .rightBox {
-    padding-left: 180px;
+    padding-left: 5rem;
     position: relative;
-    top: -15px;
+    top: -.5rem;
 }
 
 .settingText {
-    font-size: 31px;
-    padding-bottom: 68px;
+    font-size: 2rem;
+    padding-bottom: 2rem;
 }
 
 .resetText {
-    font-size: 20px;
+    font-size: 1.5rem;
 }
 
 .settingCircle {
-    width: 50px;
-    height: 50px;
+    width: 3rem;
+    height: 3rem;
 }
 
 #accountIcon {
-    width: 55px;
+    width: 3.5rem;
     position: relative;
-    left: -2px;
+    left: -.2rem;
 }
 
 .accountBoxPadding {
-    padding-bottom: 25px;
+    padding-bottom: .5rem;
 }
 
 .accountPadding {
-    padding-right: 18px;
+    padding-right: 1rem;
 }
 
 .resetButtonPadding {
-    padding-top: 130px;
-}
-
-.resetTextBoxPadding {
-    padding-top: 60px;
+    padding-top: 3rem;
 }
 
 .flex {
@@ -1242,13 +1237,13 @@ body {
 
 .settingSmallText {
     font-family: "NanumSquare", sans-serif;
-    font-size: 19.5px;
+    font-size: 1.5rem;
     color: #303e8c;
 }
 
 .settingButton {
-    width: 160px;
-    height: 60px;
+    width: 8rem;
+    height: 3rem;
 }
 
 .boxShadow {
@@ -1256,7 +1251,7 @@ body {
 }
 
 .settingRound {
-    border-radius: 30px;
+    border-radius: 2rem;
 }
 
 .blue {
@@ -1264,9 +1259,9 @@ body {
 }
 
 #resetIcon {
-    width: 35px;
-    height: 35px;
-    margin-left: 10px;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: .2rem
 }
 
 .center {
@@ -1283,44 +1278,44 @@ input[type="checkbox"] {
     overflow: hidden;
     position: relative;
     display: inline-block;
-    width: 160px;
-    height: 60px;
-    border-radius: 30px;
+    width: 8rem;
+    height: 3rem;
+    border-radius: 2rem;
     background-color: rgba(50, 64, 145, 0.2);
     color: #fff;
     font-weight: bold;
     cursor: pointer;
     transition: all .3s;
-    margin-bottom: 45px;
+    margin-bottom: 1.2rem;
 }
 
 .label > * {
     vertical-align: sub;
     transition: all .3s;
-    font-size: 20px;
+    font-size: 1.5rem;
     font-family: "NanumSquare", sans-serif;
 }
 
 .label .marble {
     position: absolute;
-    top: 10px;
-    left: 17px;
+    left: .6rem;
+    top: .45rem;
     display: block;
-    width: 40px;
-    height: 40px;
+    width: 2rem;
+    height: 2rem;
     background-color: #fff;
     border-radius: 50%;
 }
 
 .label .on {
     display: none;
-    padding: 18px 0 0 28px;
+    padding: .7rem 0 0 1.4rem;
 }
 
 .label .off {
-    padding-left:95px;
+    padding-left: 3.7rem;
     position: relative;
-    top: 15px;
+    top: .6rem;
 }
 
 .input:checked + .label {
@@ -1337,7 +1332,7 @@ input[type="checkbox"] {
 }
 
 .input:checked + .label .marble {
-    left: 105px;
+    left: 5.4rem;
 }
 
 /*result*/
