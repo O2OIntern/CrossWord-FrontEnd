@@ -193,13 +193,14 @@ export class Action {
         headerheight().then(function (result) {
             console.log(result);
 
-            document.body.setAttribute("style","height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
-            container.setAttribute("style", "margin-top: " + result + "px; " + "height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
-
             window.addEventListener("resize", function () {
                 document.body.setAttribute("style","height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
                 container.setAttribute("style", "margin-top: " + result + "px; " + "height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
             });
+
+            document.body.setAttribute("style","height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
+            container.setAttribute("style", "margin-top: " + result + "px; " + "height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
+
             console.log(window.innerHeight - result);
             console.log(window.innerWidth);
         });
@@ -1380,10 +1381,12 @@ export class Action {
                 rankingPage.rankingBox.appendChild(bottomBox);
 
                 const leftBox = document.createElement("div");
+                leftBox.setAttribute("class", "scroll");
                 bottomBox.appendChild(leftBox);
 
                 const rightBox = document.createElement("div");
                 rightBox.setAttribute("id", "rankRightBox");
+                rightBox.setAttribute("class", "scroll");
                 bottomBox.appendChild(rightBox);
 
 
@@ -1412,7 +1415,7 @@ export class Action {
                     top5InfoBox.appendChild(top5Mail);
 
                     const top5Exp = document.createElement("div");
-                    top5Exp.setAttribute("class", "rankYellowText font small extraBoldText");
+                    top5Exp.setAttribute("class", "rankYellowText font small extraBoldText top5Margin");
                     top5Exp.textContent = "Exp " + totalRank[i][1];
                     top5InfoBox.appendChild(top5Exp);
                 }

@@ -911,20 +911,27 @@ body {
     flex-grow: 1;
 }
 
+#bottomBox {
+    height: 15rem;
+    position: relative;
+    left: -2rem;
+}
+
+
 #rankRightBox {
-    position: absolute;
-    left: 30vw;
+    position: relative;
+    left: 1rem;
 }
 
 #top5InfoBox {
     position: relative;
-    top: -10px;
+    top: -1rem;
 }
 
 .topBox {
     position: absolute;
-    top: -15vh;
-    left: 29vw;
+    top: -6.5rem;
+    left: 20rem;
 }
 
 .flexColumn {
@@ -945,35 +952,30 @@ body {
 
 .rankBlueText {
     color: #324091;
-    padding-bottom: 8px;
 }
 
 .rankCircle {
-    width: 80px;
-    height: 80px;
-    margin: 0 20px 15px 0;
+    width: 4rem;
+    height: 4rem;
+    margin: 0 1rem 1.5rem 0;
 }
 
 .top5Num {
-    font-size: 42.5px;
-}
-
-.rankCirclePadding {
-    margin-bottom: 20px;
+    font-size: 2rem;
 }
 
 #rankingIcon {
-    width: 76px;
+    width: 4rem;
     object-fit: contain;
-    padding-bottom: 10px;
+    padding-bottom: .5rem;
 }
 
 .rankRound {
-    width: 639px;
-    height: 46px;
-    border-radius: 23px;
+    width: 32rem;
+    height: 3rem;
+    border-radius: 2rem;
     position: relative;
-    margin-bottom: 13px;
+    margin-bottom: .7rem;
 }
 
 .rankBlueOpacity {
@@ -981,18 +983,34 @@ body {
 }
 
 .rank8NumPadding {
-    padding-left: 33px;
+    padding-left: 2rem;
 }
 
 .rank8Mail {
     position: absolute;
-    left: 141px;
+    left: 8rem;
 }
 
 .rank8Exp {
     position: absolute;
-    left: 475px;
+    left: 23rem;
 }
+
+.top5Margin {
+    margin-top: .1rem;
+}
+
+.scroll {
+    overflow: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    padding-left: 2rem;
+}
+
+.scroll::-webkit-scrollbar {
+    display: none;
+}
+
 
 /*shop*/
 #shopBox {
@@ -1056,7 +1074,7 @@ body {
 }
 
 .small {
-    font-size: 19.5px;
+    font-size: 1.3rem;
 }
 
 .shopTwoBox {

@@ -969,7 +969,10 @@ body {
 
 .rankBlueText {
     color: #324091;
-    padding-bottom: 8px;
+}
+
+.top5Margin {
+    margin-top: 8px;
 }
 
 .rankCircle {
