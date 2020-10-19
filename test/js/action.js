@@ -192,8 +192,14 @@ export class Action {
         };
         headerheight().then(function (result) {
             console.log(result);
+
             document.body.setAttribute("style","height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
             container.setAttribute("style", "margin-top: " + result + "px; " + "height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
+
+            window.addEventListener("resize", function () {
+                document.body.setAttribute("style","height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
+                container.setAttribute("style", "margin-top: " + result + "px; " + "height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
+            });
             console.log(window.innerHeight - result);
             console.log(window.innerWidth);
         });
@@ -302,10 +308,6 @@ export class Action {
         resultDisplay.init();
         resultDisplay.doNoneDisplay();
 
-        bgMusic.load();
-        bgMusic.autoplay = true;
-        bgMusic.loop = true;
-
         let bgm, foley;
         this.canvas = window.interactiveCanvas;
         this.scene = scene;
@@ -401,7 +403,7 @@ export class Action {
                 common.settingButton.onclick = setting;
 
                 $('#progress').circleProgress({
-                    size: 50, //수정필요
+                    size: 110, //수정필요
                     //그래프 크기
                     startAngle: -Math.PI / 2,
                     //시작지점 (기본값 Math.PI)
@@ -415,7 +417,7 @@ export class Action {
                     //빈칸 색
                     lineCap: 'round',
                     //그래프 끝
-                    thickness: 5 //수정필요
+                    thickness: 8 //수정필요
                     //그래프 두께
                 });
 
@@ -535,6 +537,10 @@ export class Action {
                 document.querySelector("#ranking").style.display = "none";
                 document.querySelector("#main").style.display = "block";
                 document.querySelector("#setting").style.display = "block";
+
+                bgMusic.load();
+                bgMusic.autoplay = true;
+                bgMusic.loop = true;
 
                 //setting 에서 돌아와서 기억하고 있던 정보로 다시 resume 해야함
                 if(document.querySelector("#inGameBox") != null) { //setting 에서 돌아왔을 경우
