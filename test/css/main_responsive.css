@@ -312,8 +312,8 @@ body {
 
 #stepBox {
     position: absolute;
-    height: 321px;
-    width: 1030px;
+    height: 17.0625rem;
+    width: 60.375rem;
     left: 14vw;
     top: 40vh;
 }
@@ -321,10 +321,10 @@ body {
 #stepButton {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(2, minmax(131px, auto));
+    grid-template-rows: repeat(2, minmax(8.1875rem, auto));
     position: absolute;
-    height: 321px;
-    width: 770px;
+    height: 17.9rem;
+    width: 48.125rem;
     left: 10vw;
     top: 0vh;
     right: 10vw;
@@ -352,46 +352,52 @@ body {
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(5, 1fr);
-    width: 770px;
-    height: 131px;
-    margin-bottom: 7.4vh;
+    width: 48.125rem;
+    height: 8.1875rem;
+    /* margin-bottom: 7.4vh; */
 }
 
 #ableBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    width: 130px;
-    height: 131px;
+    width: 8.125rem;
+    height: 8.1875rem;
     margin-right: 2.3vw;
 }
 
 #disableBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    width: 130px;
-    height: 131px;
+    width: 8.125rem;
+    height: 8.1875rem;
     margin-right: 2.3vw;
 }
 
 /*자물쇠 아이콘*/
 #upperBox {
     position: absolute;
-    top: 25px;
-    left: 40px;
-    width: 51px;
-    height: 73px;
+    /* top: 1rem; */
+    /* left: 1.9rem; */
+    width: 26.5px;
+    height: 41px;
     object-fit: contain;
 }
 
 /*레벨 숫자 텍스트 */
 #stepText {
     position: absolute;
-    top: 50px;
-    left: 47px;
+    /* top: 2.1rem; */
+    /* left: 2.6rem; */
     display: inline-block;
     width: 30px;
     height: 41px;
     text-shadow: 0px 10px 25px rgba(0, 0, 0, 0.5);
     font-family: 'NanumSquare', sans-serif;
-    font-size: 56.5px;
+    font-size: 3.3rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
@@ -403,8 +409,11 @@ body {
 }
 
 #ableUnderBox {
-    width: 130px;
-    height: 131px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6.125rem;
+    height: 6.1875rem;
     box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
     background-image: linear-gradient(to top, #516afb, #a1efc8);
     border-radius: 50%;
@@ -412,9 +421,12 @@ body {
 }
 
 #disableUnderBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
-    width: 130px;
-    height: 131px;
+    width: 6.125rem;
+    height: 6.1875rem;
     background-image: linear-gradient(to top, #1c2973, #3657a5);
     border-radius: 50%;
 }
