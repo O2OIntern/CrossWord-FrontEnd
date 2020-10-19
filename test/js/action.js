@@ -628,8 +628,6 @@ export class Action {
                     gameTimerTextBox.appendChild(gameTimerText);
 
                     const remainHeight = document.querySelector("#gameTimer").clientHeight;
-                    const gameTimerHeight = document.querySelector("#gameTimer").style.height;
-                    console.log(gameTimerHeight);
                     console.log(remainHeight);
                     Timer.setter(timeLimit, remainHeight);
                     Timer.init();
@@ -638,19 +636,8 @@ export class Action {
                     const gameBoard = document.createElement("div");
                     gameBoard.setAttribute("id", "gameBoard");
 
-
-                    /* data 로부터 선택한 level 받아오는 설정 필요 */
-                    if (timeLimit <= 90) {
-                        gameBoard.style.gridTemplateColumns = "repeat(6, 1fr)";
-                        gameBoard.style.gridTemplateRows = "repeat(6, 1fr)";
-                    } else if (timeLimit <= 120 && timeLimit >= 95) {
-                        gameBoard.style.gridTemplateColumns = "repeat(7, 1fr)";
-                        gameBoard.style.gridTemplateRows = "repeat(7, 1fr)";
-                    } else {
-                        gameBoard.style.gridTemplateColumns = "repeat(8, 1fr)";
-                        gameBoard.style.gridTemplateRows = "repeat(8, 1fr)";
-                    }
-
+                    gameBoard.style.gridTemplateColumns = "repeat(" + boardCol +", 1fr)";
+                    gameBoard.style.gridTemplateRows = "repeat(" + boardRow + ", 1fr)";
 
                     gameBoardBox.appendChild(gameBoard);
 
@@ -705,7 +692,6 @@ export class Action {
 
                     const gameProgressBox = document.createElement("div");
                     gameProgressBox.setAttribute("id", "gameProgressBox");
-                    gameProgressBox.setAttribute("class", "inGameBoxMargin");
                     gameProgress_HintBox.appendChild(gameProgressBox);
 
                     //힌트 캐러셀 리스트 생성
@@ -755,9 +741,6 @@ export class Action {
                     // hintScrollBox.setAttribute("id", "hintScrollBox");
                     // usedHint.appendChild(hintScrollBox);
 
-
-                    hintListBox.style.height = (gameBoard.clientHeight * 3 / 5) + "px";
-                    gameProgressBox.style.width = hintListBox.clientWidth + "px";
                     //게임보드에 높이 맞추기
                     // usedHint.style.height = (gameBoard.clientHeight * 3 / 5) + "px";
                     // gameProgressBox.style.width = usedHint.clientWidth + "px";

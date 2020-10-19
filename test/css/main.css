@@ -555,7 +555,7 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 2vw;
-
+    width: 378px;
 }
 
 .gameProgress {

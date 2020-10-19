@@ -516,7 +516,7 @@ body {
 #inGameBox {
     display: flex;
     position: absolute;
-    top: -15vh;
+    top: -6.5rem;
     left: 15vw;
 }
 
@@ -530,47 +530,40 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    font-size: 2vw;
-
+    margin-bottom: .5rem;
 }
 
 .gameProgress {
-    margin-right: 10px;
-    width: 55px;
+    margin-right: .5rem;
+    width: 3rem;
     object-fit: contain;
 }
 
 .inGameBoxMargin {
-    margin-right: 2.3vw;
+    margin-right: 2.5rem;
 }
 /**
 힌트 스크롤 리스트
  */
 #hintListBox{
-    height:413px;
-    width: 378px;
     display:flex;
     flex-direction: column;
-    position: absolute;
-    top:110px;
     align-items: center;
 }
 #hintCarousel{
-    height:340px;
-    width:378px;
+
 }
 .hintItem{
-    margin-bottom: 10px;
-    position:relative;
-    width: 378px;
-    height: 60px;
-    border-radius: 30px;
+    margin-bottom: .5rem;
+    position: relative;
+    width: 23rem;
+    height: 2.5rem;
+    border-radius: 2rem;
     opacity: 0.2;
 }
 
 #hintItemIcon{
-    width: 31px;
-    height: 32px;
+    width: 1.5rem;
     object-fit: contain;
     position:absolute;
     top: 50%;
@@ -579,21 +572,14 @@ body {
     left : 15px;
 }
 #hintItemText{
-    width: 307px;
-    height: 18px;
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
-    left:72px;
+    left:4rem;
     font-family: 'NanumSquare',sans-serif;
-    font-size: 24px;
+    font-size: 1.3rem;
     font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
     line-height: 18px;
-    letter-spacing: normal;
-    text-align: left;
-    color: #ffffff;
 }
 #hintItemFocus{
     opacity: 1;
@@ -611,16 +597,14 @@ body {
 }
 
 #hintArrowUpButton{
-    margin-bottom: 19px;
-    width: 30px;
-    height: 17px;
+    margin-bottom: .5rem;
+    width: 2rem;
     object-fit: contain;
     visibility: hidden;
 }
 #hintArrowDownButton{
-    margin-top: 19px;
-    width: 30px;
-    height: 17px;
+    margin-top: .5rem;
+    width: 2rem;
     object-fit: contain;
     visibility: hidden;
 }
@@ -660,14 +644,14 @@ body {
 }
 
 #gameBoard {
-    width: 554px;
-    height: 554px;
+    width: 22rem;
+    height: 22rem;
     display: grid;
     gap: 1%;
 }
 
 .alphabetBox {
-    border-radius: 20px;
+    border-radius: 1rem;
     background-color: rgba(67, 67, 67, 0.1);
     display: flex;
     align-items: center;
@@ -675,27 +659,29 @@ body {
 }
 
 .alphabet {
-    height: 45px;
+    height: 1.3rem;
     object-fit: contain;
 }
 
 #gameTimerBox {
     display: flex;
     flex-direction: column;
-    margin: 0 44px 0 10px;
+    margin: 0 3rem 0 1rem;
 }
 
 #gameTimer {
-    width: 22px;
-    height: 554px;
+    width: 1.3rem;
+    height: 20rem;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 2vh;
     transform: rotate(180deg);
+    position: relative;
+    top: 1rem;
 }
 
 #remainTime {
-    width: 22px;
-    border-radius: 2vh;
+    width: 1.3rem;
+    border-radius: 1rem;
     transform: rotate(180deg);
     position: absolute;
     bottom: 0;
@@ -703,10 +689,10 @@ body {
 
 #gameTimerTextBox {
     box-shadow: 2.8px 4.1px 10px 0 rgba(47, 47, 47, 0.45);
-    width: 50px;
-    height: 50px;
+    width: 2.5rem;
+    height: 2.5rem;
     position: absolute;
-    bottom: -20px;
+    bottom: -1rem;
     animation-name: color;
 }
 
@@ -718,47 +704,45 @@ body {
 #gameTimerText {
     font-family: "NanumSquare", sans-serif;
     font-weight: 800;
-    letter-spacing: -1.56px;
-    font-size: 26px;
+    font-size: 1.3rem;
 }
 
 /*힌트 열기*/
 #hintButtonBox{
-    position:absolute;
-    left:56px;
-    top:338px;
-    width: 90px;
-    height:90px;
-
+    position: absolute;
+    left: 3.3rem;
+    top: 15.5rem;
 }
+
 #hintClickBox{
     border-radius: 50%;
     position:absolute;
     left :0px;
     top : 0px;
-    width: 81px;
-    height: 80px;
+    width: 3.5rem;
+    height: 3.5rem;
     box-shadow: -5.6px 8.3px 20px 0 rgba(0, 0, 0, 0.2);
     background-color: #7cbf5a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 /**
 좌측 힌트버튼
  */
 #hintBoxIcon{
     position:absolute;
-    left :18px;
-    top : 19px;
-    width: 42px;
-    height: 41px;
+    width: 1.6rem;
     object-fit: contain;
 }
+
 #hintCountBox{
     border-radius: 50%;
     position:absolute;
-    right : 0px;
-    top :  0px;
-    width: 40px;
-    height: 40px;
+    left : 21px;
+    top :  -3px;
+    width: 2rem;
+    height: 2rem;
     box-shadow: -2.8px 4.1px 10px 0 rgba(33, 68, 93, 0.4);
     background-color: #ffba00;
     display: flex;
@@ -767,11 +751,10 @@ body {
 }
 #hintCountText{
     font-family: 'NanumSquare',sans-serif;
-    font-size: 23.5px;
+    font-size: 1.2rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: 18px;
     letter-spacing: normal;
     text-align: left;
     color: #ffffff;
@@ -784,70 +767,61 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width:540px;
-    height:460px;
+    width: 29rem;
+    height: 17rem;
     z-index : 2;
 }
 #hintModal{
     position : absolute;
     left: 0px;
     top: 40px;
-    width: 540px;
-    height: 420px;
+    width: 29rem;
+    height: 17rem;
     border-radius: 20px;
     box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
     background-color: #ffffff;
 }
 #hintModalIcon{
-    position : absolute;
-    left: 228px;
-    top: 0px;
-    width: 69px;
-    height: 71px;
+    position: absolute;
+    left: 12.5rem;
+    top: 2.5rem;
+    width: 3.5rem;
     object-fit: contain;
 }
 #hintTopBox{
-    width: 540px;
-    height: 90px;
+    width: 29rem;
+    height: 5rem;
     border-radius: 15px 15px 0px 0px;
     position : absolute;
     left: 0px;
     top: 0px;
     background-color: #99c34b;
+    display: flex;
+    justify-content: center;
 }
 #hintBottomBox{
-    width: 540px;
-    height: 330px;
-    position : absolute;
-    left: 0px;
     top: 90px;
+    width: 29rem;
+    height: 17rem;
+    display: flex;
+    align-items: center;
 }
+
 #hintTopBoxText{
-    position : absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 67px;
-    height: 22px;
     font-family: 'NanumSquare',sans-serif;
-    font-size: 31px;
+    font-size: 1.5rem;
     font-weight: 800;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 22px;
-    letter-spacing: normal;
-    text-align: left;
-    color: #ffffff;
+    position: relative;
+    top: 2.5rem;
 }
+
 #hintNotifyText{
-    position : absolute;
-    left: 50%;
-    top : 50%;
-    transform: translate(-50%, -50%);
-    width: 300px;
+    position: relative;
+    top: 2rem;
+    width: 29rem;
     height: auto;
     font-family: 'NanumSquare',sans-serif;
-    font-size: 34.5px;
+    font-size: 1.5rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
