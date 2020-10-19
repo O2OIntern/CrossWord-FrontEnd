@@ -79,7 +79,7 @@ const Timer = (function () {
         gameTimerTextBox.style.animationPlayState = "running";
         console.log("게임 재실행");
     }
-    
+
     function isRunning() {
         return intervalId !== null;
     }
@@ -404,7 +404,7 @@ export class Action {
                 common.settingButton.onclick = setting;
 
                 $('#progress').circleProgress({
-                    size: 110, //수정필요
+                    size: 55, //수정필요
                     //그래프 크기
                     startAngle: -Math.PI / 2,
                     //시작지점 (기본값 Math.PI)

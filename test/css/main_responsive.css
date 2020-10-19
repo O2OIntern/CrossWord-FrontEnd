@@ -1310,25 +1310,25 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 46px;
+    margin-bottom: 0.775rem;
 }
 
 #resultIcon {
-    width: 78px;
-    height: 71px;
+    width: 3.975rem;
+    height: 3.5375rem;
     object-fit: fill;
 }
 
 #resultText {
-    width: 150px;
-    height: 23px;
+    width: 9.375rem;
+    height: 0.8375rem;
     text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
     font-family: 'NanumSquare', sans-serif;
-    font-size: 31px;
+    font-size: 1rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: 23px;
+    line-height: 1rem;
     letter-spacing: normal;
     text-align: center;
 }
@@ -1343,22 +1343,22 @@ input[type="checkbox"] {
 }
 
 #resultLevelBox {
-    width: 156px;
-    height: 22px;
+    width: 8.35rem;
+    height: 1.075rem;
     border-radius: 25px;
     background-color: #324091;
-    padding-top: 14px;
-    padding-bottom: 14px;
+		padding-top: 0.575rem;
+    padding-bottom: 0.575rem;
 }
 
 #resultLevelText {
-    height: 23px;
+    height: 1.4375rem;
     font-family: 'NanumSquare', sans-serif;
-    font-size: 28px;
+    font-size: 1rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: 22px;
+    line-height: 1.55rem;
     letter-spacing: normal;
     text-align: center;
     color: #f7d119;
@@ -1368,10 +1368,10 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: row;
     align-self: flex-start;
-    margin-left: 20.5vw;
+    margin: 0 auto;
     justify-content: flex-start;
-    width: 33.2vw;
-    height: 113px;
+    width: 18.2vw;
+    height: 3.73125rem;
 }
 
 
@@ -1380,13 +1380,13 @@ input[type="checkbox"] {
     display: inline-flex;
     width: 9vw;
     margin-right: 5.1vw;
-    text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
+    text-shadow: 0px 1rem 30px rgba(0, 0, 0, 0.35);
     font-family: 'NanumSquare', sans-serif;
-    font-size: 56.5px;
+    font-size: 1.73125rem;
     font-weight: 400;
     font-stretch: normal;
     font-style: normal;
-    line-height: 56.5px;
+    line-height: 2.73125rem;
     letter-spacing: normal;
     text-align: left;
     vertical-align: bottom;
@@ -1398,30 +1398,31 @@ input[type="checkbox"] {
     align-self: flex-end;
     text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
     font-family: 'NanumSquare', sans-serif;
-    font-size: 56.5px;
+    font-size: 1.73125rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: 56.5px;
+    line-height: 2.73125rem;
     letter-spacing: normal;
     text-align: center;
     color: #f7d119;
+		margin-left:auto;
 }
 
 #gainCoinText1 ,#gainExpText1{
-    padding-bottom:30px;
+    padding-bottom:1.875rem;
     position: relative;
     align-self: flex-start;
     display: inline-flex;
-    width: 54px;
-    height: 75px;
+    width: 0;
+    height: 1.8875rem;
     text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
     font-family: "NanumSquare", sans-serif;
-    font-size: 31px;
+    font-size: 0.8rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: 75px;
+    line-height: 4.6875rem;
     letter-spacing: normal;
     text-align: left;
     color: #a9f2d4;
@@ -1429,38 +1430,38 @@ input[type="checkbox"] {
 }
 
 #gainCoinEffectText,#gainExpEffectText{
-    height: 49px;
+    height: 39px;
     padding-bottom: 32px;
-    line-height: 49px;
+    line-height: 3.0625rem;
     position: absolute;
     bottom: 0;
     left: 0;
 }
 
 #gainCoinInnerText,#gainExpInnerText{
-    height: 23px;
-    padding-bottom: 32px;
-    line-height: 23px;
+    height: 0px;
+    padding-bottom: 27px;
+    line-height: 1rem;
     position: absolute;
     bottom: 0;
     left: 0;
 }
 
-#gainCoinText2 ,#gainExpText2{
-    padding-bottom:30px;
+#gainCoinText2,#gainExpText2{
+    padding-bottom:1.875rem;
     position: absolute;
     align-self: flex-start;
     display: inline-flex;
     width: 114px;
-    height: 75px;
+    height: 4.6875rem;
     opacity: 1;
     text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
     font-family: "NanumSquare", sans-serif;
-    font-size: 31px;
+    font-size: 1.5rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: 75px;
+    line-height: 4.6875rem;
     letter-spacing: normal;
     text-align: left;
     z-index: 2;
@@ -1471,11 +1472,11 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: row;
     align-self: flex-start;
-    margin-left: 20.5vw;
+    margin: 0 auto;
     justify-content: flex-start;
-    width: 33.2vw;
-    height: 113px;
-    margin-bottom: 51px;
+    width: 18.2vw;
+    height: 2.73125rem;
+    margin-bottom: 0.1875rem;
 }
 
 #resultExpText1 {
@@ -1484,7 +1485,7 @@ input[type="checkbox"] {
     margin-right: 5.1vw;
     text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
     font-family: 'NanumSquare', sans-serif;
-    font-size: 56.5px;
+    font-size: 1.73125rem;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -1498,7 +1499,7 @@ input[type="checkbox"] {
     align-self: flex-end;
     text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
     font-family: 'NanumSquare', sans-serif;
-    font-size: 56.5px;
+    font-size: 1.73125rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
@@ -1506,6 +1507,7 @@ input[type="checkbox"] {
     letter-spacing: normal;
     text-align: center;
     color: #f7d119;
+		margin-left:auto;
 }
 
 #wordBox{
@@ -1513,15 +1515,15 @@ input[type="checkbox"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 110px;
+    height: 4.875rem;
     width: 65.6vw;
-    margin-bottom: 48px;
+    margin-bottom: 1rem;
 
 }
 #resultWordBox {
     display: grid;
-    grid-row-gap: 10px;
-    grid-column-gap: 0.8vw;
+    grid-row-gap: 0.625rem;
+    grid-column-gap: 0.6vw;
     grid-template-columns: repeat(5, 1fr);
 }
 
@@ -1537,23 +1539,23 @@ input[type="checkbox"] {
 
 #resultWordItem {
     width: 12.5vw;
-    height: 50px;
+    height: 3.125rem;
     border-radius: 10px;
     font-family: 'NanumSquare', sans-serif;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
-    line-height: 50px;
+    line-height: 3.125rem;
     letter-spacing: normal;
     text-align: center;
 }
 
 #resultContinueText {
-    width: 94px;
-    height: 16px;
+    width: 5.875rem;
+    height: 1rem;
     font-family: 'NanumSquare', sans-serif;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -1561,12 +1563,12 @@ input[type="checkbox"] {
     letter-spacing: normal;
     text-align: left;
     color: #ffffff;
-    line-height: 16px;
+    line-height: 1rem;
 }
 
 #resultContinueIcon {
-    width: 24px;
-    height: 31px;
+    width: 1.5rem;
+    height: 1.25rem;
     object-fit: contain;
 }
 
@@ -1576,10 +1578,10 @@ input[type="checkbox"] {
     justify-content: space-evenly;
     align-items: center;
     width: 14.8vw;
-    height: 26px;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    border-radius: 30px;
-    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+    height: 1.125rem;
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+    border-radius: 15px;
+    box-shadow: 0px 0.9rem 30px 0 rgba(0, 0, 0, 0.35);
     background-color: #00b4ff;
 }
