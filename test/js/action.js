@@ -408,47 +408,32 @@ export class Action {
                 common.rankingButton.onclick = ranking;
                 common.settingButton.onclick = setting;
 
-                if (window.innerWidth == 1280) {
-                    $('#progress').circleProgress({
-                        size: 110, //수정필요
-                        //그래프 크기
-                        startAngle: -Math.PI / 2,
-                        //시작지점 (기본값 Math.PI)
-                        value: exp / fullExp,
-                        //그래프에 표시될 값
-                        animation: true,
-                        //그래프가 그려지는 애니메이션 동작 여부
-                        fill: {gradient: ['#7cbf5a', '#f9d118']},
-                        //채워지는 색
-                        emptyFill: "rgba(0, 0, 0, 0.0)",
-                        //빈칸 색
-                        lineCap: 'round',
-                        //그래프 끝
-                        thickness: 8 //수정필요
-                        //그래프 두께
-                    });
+                let circleoption = {
+                    startAngle: -Math.PI / 2,
+                    //시작지점 (기본값 Math.PI)
+                    value: exp / fullExp,
+                    //그래프에 표시될 값
+                    animation: true,
+                    //그래프가 그려지는 애니메이션 동작 여부
+                    fill: {gradient: ['#7cbf5a', '#f9d118']},
+                    //채워지는 색
+                    emptyFill: "rgba(0, 0, 0, 0.0)",
+                    //빈칸 색
+                    lineCap: 'round',
+                    //그래프 끝
+                    thickness: 8 //수정필요
+                    //그래프 두께
+                };
+
+                if(window.innerWidth < 1280) {
+                    //화면 가로길이가 1280 미만(모바일)일 경우 그래프 크기 55
+                    circleoption = {size: 55, ...circleoption};
                 } else {
-                    $('#progress').circleProgress({
-                        size: 55, //수정필요
-                        //그래프 크기
-                        startAngle: -Math.PI / 2,
-                        //시작지점 (기본값 Math.PI)
-                        value: exp / fullExp,
-                        //그래프에 표시될 값
-                        animation: true,
-                        //그래프가 그려지는 애니메이션 동작 여부
-                        fill: {gradient: ['#7cbf5a', '#f9d118']},
-                        //채워지는 색
-                        emptyFill: "rgba(0, 0, 0, 0.0)",
-                        //빈칸 색
-                        lineCap: 'round',
-                        //그래프 끝
-                        thickness: 5 //수정필요
-                        //그래프 두께
-                    });
+                    //화면 가로길이가 1280 이상(Nest Hub Max)일 경우 그래프 크기 110
+                    circleoption = {size: 110, ...circleoption};
                 }
 
-
+                $('#progress').circleProgress(circleoption);
 
                 /**
                  * 중앙에 이어하기, 단계 선택 버튼
