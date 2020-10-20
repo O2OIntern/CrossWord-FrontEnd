@@ -421,16 +421,14 @@ export class Action {
                     //빈칸 색
                     lineCap: 'round',
                     //그래프 끝
-                    thickness: 8 //수정필요
-                    //그래프 두께
                 };
 
                 if(window.innerWidth < 1280) {
-                    //화면 가로길이가 1280 미만(모바일)일 경우 그래프 크기 55
-                    circleoption = {size: 55, ...circleoption};
+                    //화면 가로길이가 1280 미만(모바일)일 경우 그래프 크기 55, 두께 5
+                    circleoption = {size: 55, thickness: 5, ...circleoption};
                 } else {
-                    //화면 가로길이가 1280 이상(Nest Hub Max)일 경우 그래프 크기 110
-                    circleoption = {size: 110, ...circleoption};
+                    //화면 가로길이가 1280 이상(Nest Hub Max)일 경우 그래프 크기 110, 두께 8
+                    circleoption = {size: 110, thickness: 8, ...circleoption};
                 }
 
                 $('#progress').circleProgress(circleoption);
