@@ -302,6 +302,13 @@ export class Action {
         resultDisplay.init();
         resultDisplay.doNoneDisplay();
 
+        if (window.innerWidth < 1280) { //모바일일 경우
+            const welcomeIcon = document.createElement("img");
+            welcomeIcon.setAttribute("src", "../image/welcome/title.png");
+            welcomeIcon.setAttribute("id", "welcomeIcon");
+            container.appendChild(welcomeIcon);
+        }
+
         this.canvas = window.interactiveCanvas;
         this.scene = scene;
         this.commands = {
