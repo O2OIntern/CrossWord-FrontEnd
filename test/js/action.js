@@ -28,13 +28,13 @@ const Timer = (function () {
         timerStart = 0;
         percent = 0;
         plusPercent = 100 / remainTime;
-        console.log(plusHeight);
     }
 
     function initTimer() { //초기 타이머 설정
         timerHeightBox = document.querySelector("#remainTime");
         gameTimerText = document.querySelector("#gameTimerText");
         gameTimerTextBox = document.querySelector("#gameTimerTextBox");
+        gameTimerTextBox.style.animationDuration = timerText+2 + "s";
         if (timerHeightBox == null && timerTextBox == null) {
             throw "Element does not exists!";
         }
@@ -195,7 +195,9 @@ export class Action {
 
             window.addEventListener("resize", function () {
                 document.body.setAttribute("style","height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
-                container.setAttribute("style", "margin-top: " + result + "px; " + "height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
+                container.style.marginTop = result + "px";
+                container.style.height = (window.innerHeight - result) + "px";
+                container.style.width = window.innerWidth + "px";
             });
 
             document.body.setAttribute("style","height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
@@ -229,6 +231,7 @@ export class Action {
         let topHint = 0;
         //main -> 공통 화면
         let userEmail = "";
+        let bgmOn, foleyOn;
 
 
 
@@ -274,16 +277,6 @@ export class Action {
 
         welcome.init();
 
-        //First Frame Test
-        //remove_welcome();
-        // document.body.style.backgroundImage = "url('')";
-        // console.log(container);
-        // container.style.backgroundImage = "url('../image/scene/default_bg.png')";
-        // console.log(container);
-
-        //window.open("../image/scene/default_bg.png");
-        //welcome.setGameBackGround();
-
         common.init();
         common.doNoneDisplay();
 
@@ -309,7 +302,6 @@ export class Action {
         resultDisplay.init();
         resultDisplay.doNoneDisplay();
 
-        let bgm, foley;
         this.canvas = window.interactiveCanvas;
         this.scene = scene;
         this.commands = {
@@ -327,7 +319,7 @@ export class Action {
                 //welcome button, copyright, o2ologo remove
                 remove_welcome();
                 document.body.style.backgroundImage = "url('')";
-                container.style.backgroundImage = "url('../image/scene/default_bg.png')";
+                container.style.backgroundImage = "url('../image/background/bg_default.png')";
 
                 //inGame 화면에서 main(home)으로 바로 나온 경우
                 if(Timer.running()) Timer.stop();
@@ -373,6 +365,10 @@ export class Action {
                 if (data.fullExp != null) {
                     fullExp = data.fullExp;
                 }
+
+                bgmOn = data.bgmOn;
+                foleyOn = data.foleyOn;
+
 
                 /**
                  *
@@ -557,7 +553,7 @@ export class Action {
 
                     settingPage.doNoneDisplay();
                     common.displayHigherBox();
-                    container.style.backgroundImage = "url('../image/inGame/bg_" + container.getAttribute("value") + ".png')";
+                    container.style.backgroundImage = "url('../image/background/bg_" + container.getAttribute("value") + ".png')";
                     document.querySelector("#inGameBox").style.display = "flex";
                     document.querySelector("#hintButtonBox").style.display = "block";
 
@@ -597,7 +593,7 @@ export class Action {
                     cnt = 0;
 
                     //난이도별 설정
-                    container.style.backgroundImage = "url('../image/inGame/bg_" + difficulty + ".png')";
+                    container.style.backgroundImage = "url('../image/background/bg_" + difficulty + ".png')";
                     container.setAttribute("value", difficulty);
 
 
@@ -628,7 +624,6 @@ export class Action {
                     const gameTimerTextBox = document.createElement("div");
                     gameTimerTextBox.setAttribute("id", "gameTimerTextBox");
                     gameTimerTextBox.setAttribute("class", "circle center");
-                    gameTimerTextBox.style.animationDuration = timeLimit + "s";
                     remainTime.appendChild(gameTimerTextBox);
 
                     const gameTimerText = document.createElement("div");
@@ -1039,7 +1034,7 @@ export class Action {
                 // document.querySelector("#coinBox").style.visibility = "visible";
                 bgMusic.pause();
 
-                container.style.backgroundImage = "url('../image/scene/default_bg.png')";
+                container.style.backgroundImage = "url('../image/background/bg_default.png')";
 
                 if (document.querySelector("#inGameBox") != null) {
                     common.lowerBox.removeChild(document.querySelector("#inGameBox"));
@@ -1182,7 +1177,7 @@ export class Action {
             SETTING: function (data) {
                 console.log("실행 : setting");
 
-                container.style.backgroundImage = "url('../image/scene/default_bg.png')";
+                container.style.backgroundImage = "url('../image/background/bg_default.png')";
 
                 settingPage.setDisplayDefault();
 

@@ -15,7 +15,4 @@ export class Welcome {
         this.container.style.backgroundImage="url('../image/welcome/bg.png')";
     }
 
-    setGameBackGround(){
-        this.container.style.backgroundImage="url('../image/default_bg.png')";
-    }
 }
