@@ -98,7 +98,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -58%); /*수정필요*/
+    transform: translate(-50%, -56%);
 }
 
 #expBox {
