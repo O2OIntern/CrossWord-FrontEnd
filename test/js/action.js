@@ -34,7 +34,6 @@ const Timer = (function () {
         timerHeightBox = document.querySelector("#remainTime");
         gameTimerText = document.querySelector("#gameTimerText");
         gameTimerTextBox = document.querySelector("#gameTimerTextBox");
-        gameTimerTextBox.style.animationDuration = timerText+2 + "s";
         if (timerHeightBox == null && timerTextBox == null) {
             throw "Element does not exists!";
         }
@@ -60,6 +59,7 @@ const Timer = (function () {
             throw "Timer is already running!";
         }
         intervalId = setInterval(update, 1000);
+        gameTimerTextBox.style.animationDuration = timerText + 3 + "s";
     }
 
     function stopTimer() {
@@ -589,14 +589,13 @@ export class Action {
                     const timeLimit = data.timeLimit;
                     // const timeLimit = 900;
                     const totalWord = data.totalWord;
-                    // data.difficulty -> easy : 1, medium : 2, hard : 3
-                    const difficulty = difficultySelect.difficulty[data.difficulty - 1]; //easy, medium, hard
+                    const difficulty = data.difficulty; //easy, medium, hard
                     console.log("board : " + board);
                     console.log("boardRow : " + boardRow);
                     console.log("boardCol : " + boardCol);
                     console.log("timeLimit : " + timeLimit);
                     console.log("totalWord : " + totalWord);
-                    console.log("difficulty : " + difficulty);
+                    console.log("difficulty : " + data.difficulty);
                     cnt = 0;
 
                     //난이도별 설정
