@@ -366,9 +366,18 @@ export class Action {
                     fullExp = data.fullExp;
                 }
 
-                bgmOn = data.bgmOn;
-                foleyOn = data.foleyOn;
+                bgmOn = (data.bgmOn === "true");
+                foleyOn = (data.foleyOn === "true");
 
+                console.log("bgm on : " + bgmOn);
+
+                bgMusic.muted = !bgmOn;
+                correctAudio.muted = !foleyOn;
+                wrongAudio.muted = !foleyOn;
+                successAudio.muted = !foleyOn;
+                failAudio.muted = !foleyOn;
+
+                console.log("bgm muted : " + bgMusic.muted);
 
                 /**
                  *
@@ -1236,33 +1245,21 @@ export class Action {
                     })
                 }
 
-                let bgmOn = data.bgmOn; //유저의 bgm 설정 정보 얻어옴(db)
-                let foleyOn = data.foleyOn; //유저의 foley 설정 정보 얻어옴(db)
-
-                console.log("bgm : " + bgmOn);
-                console.log("foley : " + foleyOn);
+                console.log("setting bgm : " + bgmOn);
+                console.log("setting foley : " + foleyOn);
 
                 settingPage.accountText.textContent = userEmail;
 
-                //기초설정대로 보여주기
-                if (foleyOn == "true") {
-                    settingPage.effectSound.checked = true;
-                } else {
-                    settingPage.effectSound.checked = false;
-                }
-                if (bgmOn == "true") {
-                    settingPage.bgSound.checked = true;
-                } else {
-                    settingPage.bgSound.checked = false;
-                }
+                settingPage.effectSound.checked = foleyOn;
+                settingPage.bgSound.checked = bgmOn;
 
                 settingPage.effectSound.onclick = function () {
-                    if(foleyOn == "true") window.canvas.sendTextQuery("soundeffect off");
+                    if(foleyOn) window.canvas.sendTextQuery("soundeffect off");
                     else window.canvas.sendTextQuery("soundeffect on");
                 };
 
                 settingPage.bgSound.onclick = function () {
-                    if(bgmOn == "true") window.canvas.sendTextQuery("backgroundsound off");
+                    if(bgmOn) window.canvas.sendTextQuery("backgroundsound off");
                     else window.canvas.sendTextQuery("backgroundsound on");
                 };
 
@@ -1277,47 +1274,31 @@ export class Action {
             },
             SETTINGSELECT: function (data) {
                 console.log("실행: settingselect");
-                let bgmOn = data.bgmOn; //유저의 bgm 설정 정보 얻어옴(db)
-                let foleyOn = data.foleyOn; //유저의 foley 설정 정보 얻어옴(db)
+                bgmOn = (data.bgmOn === "true"); //유저의 bgm 설정 정보 얻어옴(db)
+                foleyOn = (data.foleyOn === "true"); //유저의 foley 설정 정보 얻어옴(db)
 
                 console.log("ss bgm : " + bgmOn);
                 console.log("ss foley : " + foleyOn);
 
                 settingPage.effectSound.onclick = function () {
-                    if(foleyOn == "true") window.canvas.sendTextQuery("soundeffect off");
+                    if(foleyOn) window.canvas.sendTextQuery("soundeffect off");
                     else window.canvas.sendTextQuery("soundeffect on");
                 };
 
                 settingPage.bgSound.onclick = function () {
-                    if(bgmOn == "true") window.canvas.sendTextQuery("backgroundsound off");
+                    if(bgmOn) window.canvas.sendTextQuery("backgroundsound off");
                     else window.canvas.sendTextQuery("backgroundsound on");
                 };
 
-                if (foleyOn != "true") {
-                    console.log("foley off");
-                    correctAudio.volume = 0;
-                    wrongAudio.volume = 0;
-                    successAudio.volume = 0;
-                    failAudio.volume = 0;
-                    settingPage.effectSound.checked = false;
-                } else {
-                    console.log("foley on");
-                    correctAudio.volume = 1;
-                    wrongAudio.volume = 1;
-                    successAudio.volume = 1;
-                    failAudio.volume = 1;
-                    settingPage.effectSound.checked = true;
-                }
+                correctAudio.muted = !foleyOn;
+                wrongAudio.muted = !foleyOn;
+                successAudio.muted = !foleyOn;
+                failAudio.muted = !foleyOn;
+                settingPage.effectSound.checked = foleyOn;
 
-                if (bgmOn != "true") {
-                    console.log("backgroundMusic off");
-                    bgMusic.volume = 0;
-                    settingPage.bgSound.checked = false;
-                } else {
-                    console.log("backgroundMusic on");
-                    bgMusic.volume = 0.5;
-                    settingPage.bgSound.checked = true;
-                }
+                bgMusic.muted = !bgmOn;
+                settingPage.bgSound.checked = bgmOn;
+
             },
             RANKING: function (data) {
                 console.log("실행 : ranking");
