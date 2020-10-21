@@ -1199,6 +1199,7 @@ export class Action {
                 rankingPage.doNoneDisplay();
                 shopPage.doNoneDisplay();
                 difficultySelect.doNoneDisplay();
+                stageSelect.doNoneDisplay();
 
                 settingPage.doDisplay();
 

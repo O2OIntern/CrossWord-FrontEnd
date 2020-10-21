@@ -19,7 +19,6 @@ body {
     display: flex;
     flex-direction: column;
     color: white;
-    position: relative;
 }
 
 /*처음 화면*/
@@ -29,7 +28,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-46%, -52%);
+    transform: translate(-48%, -40%);
     z-index: -1;
 }
 
