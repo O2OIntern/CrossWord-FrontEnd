@@ -28,7 +28,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-48%, -40%);
+    transform: translate(-44%, -40%);
     z-index: -1;
 }
 
@@ -128,8 +128,8 @@ body {
     height: 1rem;
     background-color: white;
     position: relative;
-    top: 3px;
-    margin: 0 5px;
+    top: .2rem;
+    margin: 0 .5rem;
 }
 
 #levelFullExp {
@@ -252,7 +252,7 @@ body {
 #ranking, #setting, #main{
     object-fit: contain;
     width: 3.5rem;
-    padding-bottom: 1rem;
+    padding-bottom: .5rem;
 }
 
 #bottomCommon {
@@ -571,9 +571,7 @@ body {
     flex-direction: column;
     align-items: center;
 }
-#hintCarousel{
 
-}
 .hintItem{
     margin-bottom: .5rem;
     position: relative;
@@ -731,8 +729,8 @@ body {
 /*힌트 열기*/
 #hintButtonBox{
     position: absolute;
-    left: 3.3rem;
-    top: 15.5rem;
+    left: 3.5rem;
+    top: 16rem;
 }
 
 #hintClickBox{
@@ -1012,7 +1010,7 @@ body {
     display: flex;
     /*border-style: solid;*/
     flex-grow: 1;
-    padding: 40px 0 0 150px;
+    margin-left: 10rem;
 }
 
 .circle {
@@ -1020,9 +1018,9 @@ body {
 }
 
 .shopCircle {
-    width: 130px;
-    height: 131px;
-    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+    width: 6.5rem;
+    height: 6.5rem;
+    box-shadow: 0 1rem 2rem 0 rgba(0, 0, 0, 0.35)
 }
 
 .yellow {
@@ -1046,18 +1044,18 @@ body {
 }
 
 .shopIcon {
-    width: 120px;
+    width: 6rem;
     position: relative;
-    left: 6px;
-    top: 17px;
+    left: .2rem;
+    top: .85rem;
 }
 
 .miniCoinIcon {
-    width: 50px;
+    width: 3rem;
 }
 
 .shopText {
-    font-size: 56.5px;
+    font-size: 3rem;
 }
 
 .font {
@@ -1073,25 +1071,25 @@ body {
 }
 
 .shopTwoBox {
-    padding: 0 200px 0 0;
+    padding: 0 8rem 0 0;
 }
 
 .shopTextBox {
-    padding: 30px 0 0 0;
+    padding: 1rem 0 0 0;
 }
 
 .lowerTextBox {
     display: flex;
     position: relative;
-    right: 10px;
+    right: .5rem;
 }
 
 .shopSmallText {
-    padding: 10px 0 0 0;
+    padding: .5rem 0 0 0;
 }
 
 .textSpace {
-    padding: 0 20px 0 0;
+    padding: 0 1rem 0 0;
 }
 
 /*setting*/
@@ -1160,7 +1158,7 @@ body {
 }
 
 .boxShadow {
-    box-shadow: 0px 15px 30px 0 rgba(0, 0, 0, 0.35);
+    box-shadow: 0 .5rem 1.5rem 0 rgba(0, 0, 0, 0.35);
 }
 
 .settingRound {
