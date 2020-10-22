@@ -1249,26 +1249,17 @@ input[type="checkbox"] {
 /*result*/
 #levelUpBox{
     position: absolute;
-    left: 245px;
-    right: 270px;
-    top: 148px;
-    width: 333px;
-    height: 300px;
+    top: 14rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #levelUpIcon{
     position: absolute;
-    left: 19px;
-    right: 25px;
-    width: 300px;
-    height: 300px;
+    width: 20rem;
 }
 #levelUpText{
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 158px;
-    height: 37px;
     font-family: 'NanumSquare', sans-serif;
     font-size: 51px;
     font-weight: 800;
@@ -1281,14 +1272,7 @@ input[type="checkbox"] {
 }
 #levelUpEffectText{
     position: absolute;
-    left: 50%;
-    top: 50%;
     opacity: 0.3;
-    transform: translate(-50%, -50%);
-    /*width: 333px;*/
-    /*height: 75px;*/
-    width: 158px;
-    height: 37px;
     font-family: 'NanumSquare', sans-serif;
     font-size: 51px;
     font-weight: 800;
@@ -1305,10 +1289,9 @@ input[type="checkbox"] {
     display: flex;
     flex-direction: column;
     width: 65.6vw;
-    height: 596px;
     justify-content: flex-start;
     align-items: center;
-    top: 18vh;
+    top: 22vh;
     left: 17.2vw;
     bottom: 40px;
 }
@@ -1322,7 +1305,6 @@ input[type="checkbox"] {
 
 #resultIcon {
     width: 3.975rem;
-    height: 3.5375rem;
     object-fit: fill;
 }
 
