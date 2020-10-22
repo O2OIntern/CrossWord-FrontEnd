@@ -8,10 +8,11 @@ import {Result} from "./result.js";
 import {Welcome} from "./welcome.js";
 import {Ranking} from "./ranking.js";
 
+let finish;
+let timeOver;
 
 const Timer = (function () {
-    let intervalId = null;
-    let timerHeightBox = 0;
+   let timerHeightBox = 0;
     let gameTimerText = 0;
     let timerHeight = 0;
     let timerText = 0;
@@ -20,6 +21,8 @@ const Timer = (function () {
     let percent = 0;
     let plusPercent = 0;
     let gameTimerTextBox;
+    let intervalId = null;
+
 
     function setTimer(remainTime, remainHeight) { //시간을 정함.
         timerHeight = remainHeight; //gameTimer 의 높이
@@ -28,6 +31,8 @@ const Timer = (function () {
         timerStart = 0;
         percent = 0;
         plusPercent = 100 / remainTime;
+        timeOver = false;
+        finish = false;
     }
 
     function initTimer() { //초기 타이머 설정
@@ -48,9 +53,11 @@ const Timer = (function () {
         timerStart += plusHeight; //gameTimer 의 높이를 제한시간만큼 나눈 것 == 1초에 늘어나야하는 높이
         percent += plusPercent;
 
-        if (timerText < 0) { //&& timerHeight = 0
+        if (timerText < 0) {
             stopTimer();
-            window.canvas.sendTextQuery("get fail result");
+            timeOver = true; //시간이 모두 끝났는지 확인
+            console.log("!!!time over!!!");
+            window.canvas.sendTextQuery("get fail result"); //일반적으로 쿼리 겹침 없이 끝날 때
         }
     }
 
@@ -777,7 +784,7 @@ export class Action {
                 console.log("실행 : correct");
 
                 // 게임 종료 여부를 받아옴, 변경되면 안되므로 상수 선언
-                const finish = data.finish;
+                finish = data.finish;
                 console.log(finish);
 
                 const difficulty = container.getAttribute("value");
@@ -809,7 +816,8 @@ export class Action {
                 //다 맞추면 fulfillment로 textQuery 전송
                 if (finish) {
                     setTimeout(function () {
-                        Timer.stop();
+                        if (!timeOver) //시간이 끝나지 않았으면 (제한시간 내에 모두 다 맞췄을 때)
+                            Timer.stop(); //시간 멈춤
                         console.log("get success result");
                         window.canvas.sendTextQuery("get success result");
                     }, 1000);
@@ -828,6 +836,11 @@ export class Action {
                 gameBoard.classList.remove("shake");
                 void gameBoard.offsetWidth;
                 gameBoard.classList.add("shake");
+
+                if (timeOver && !finish) { //시간이 끝났고 단어를 다 맞추지 못했을 때
+                    console.log("단어 다 못맞춤 + 시간 끝남");
+                    window.canvas.sendTextQuery("get fail result");
+                }
             },
             OPENHINT: function (data) {
                 console.log("실행 : openHint");
@@ -929,6 +942,8 @@ export class Action {
                         document.getElementById("hintCountText").textContent = myHint;
 
                     } else if (hint.length > 1) {
+                        if(Timer.running()) Timer.stop(); //타이머가 작동하고 있으면 멈추고 힌트 보여주기
+
                         backgroundModal.style.display = "block";
 
                         //힌트 모달 생성
@@ -956,9 +971,6 @@ export class Action {
                         hintNotifyText.setAttribute("id", "hintNotifyText");
                         hintBottomBox.appendChild(hintNotifyText);
 
-
-                        Timer.stop();
-
                         if (hint != "noHint") {
                             hintNotifyText.textContent = hint;
                             console.log(hint);
@@ -974,7 +986,7 @@ export class Action {
                         setTimeout(function () {
                             backgroundModal.style.display = "none";
                             container.removeChild(hintModalBox);
-                            Timer.resume();
+                            if(!timeOver) Timer.resume();
                             //힌트 리스트 박스에 추가
                             if (hint != "noHint") {
                                 console.log("usedHint" + usedHint.toString());
@@ -1034,9 +1046,14 @@ export class Action {
                     backgroundModal.style.display = "block";
                     setTimeout(function () {
                         backgroundModal.style.display = "none";
-                        Timer.resume();
+                        if(!timeOver) Timer.resume();
                     }, 5000);
                     container.removeChild(hintModalBox);
+                }
+
+                if (timeOver) {
+                    console.log("시간 종료 + open hint");
+                    window.canvas.sendTextQuery("get fail result");
                 }
             },
             RESULT: function (data) {
