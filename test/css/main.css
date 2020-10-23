@@ -731,6 +731,7 @@ body {
     height: 50px;
     position: absolute;
     bottom: -20px;
+    background-color: #fed61a;
     animation-name: color;
 }
 

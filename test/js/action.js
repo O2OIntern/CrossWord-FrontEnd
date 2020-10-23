@@ -64,7 +64,7 @@ const Timer = (function () {
             throw "Timer is already running!";
         }
         intervalId = setInterval(update, 1000);
-        gameTimerTextBox.style.animationDuration = timerText + 3 + "s";
+        gameTimerTextBox.style.animationDuration = timerText + "s";
     }
 
     function stopTimer() {
@@ -229,7 +229,6 @@ export class Action {
         container.setAttribute("class", "container");
 
         /**
-         *
          * User Info
          */
             //main, stageselect, difficultyselect에서 사용
@@ -253,8 +252,6 @@ export class Action {
         let userEmail = "";
         let bgmOn, foleyOn;
 
-
-
         const correctAudio = document.createElement("audio");
         correctAudio.setAttribute("src", "https://actions.o2o.kr/devsvr1/audio/correct_sound.mp3");
         correctAudio.canPlayType("audio/mp3");
@@ -269,7 +266,6 @@ export class Action {
         successAudio.canPlayType("audio/mp3");
         successAudio.setAttribute("src", "https://actions.o2o.kr/devsvr1/audio/success_sound.mp3");
         successAudio.volume = 1.0;
-
 
         const failAudio = document.createElement("audio");
         failAudio.canPlayType("audio/mp3");
@@ -395,7 +391,6 @@ export class Action {
 
                 bgmOn = (data.bgmOn === "true");
                 foleyOn = (data.foleyOn === "true");
-
                 console.log("bgm on : " + bgmOn);
 
                 bgMusic.muted = !bgmOn;
@@ -403,14 +398,11 @@ export class Action {
                 wrongAudio.muted = !foleyOn;
                 successAudio.muted = !foleyOn;
                 failAudio.muted = !foleyOn;
-
                 console.log("bgm muted : " + bgMusic.muted);
 
                 /**
-                 *
                  * Display Setting
                  */
-
                 common.lowerBox.appendChild(mainFrame.playBox);
 
                 //set TextContent
@@ -421,8 +413,7 @@ export class Action {
                 common.coinText.textContent = coin(myCoin);
                 if(userEmail.length>15){
                     common.accountText.textContent = userEmail.slice(0,15)+"...";
-                }
-                else{
+                } else{
                     common.accountText.textContent = userEmail;
                 }
 
@@ -464,11 +455,8 @@ export class Action {
                  * 중앙에 이어하기, 단계 선택 버튼
                  * @type {HTMLDivElement}
                  */
-
                 mainFrame.gameContinueButton.onclick = continuebutton;
                 mainFrame.chooseLevelButton.onclick = viewallButton;
-
-
             },
             STAGESELECT: function (data) {
                 console.log("실행 : stage");
@@ -604,7 +592,6 @@ export class Action {
                     stageSelect.doNoneDisplay();
                     difficultySelect.doNoneDisplay();
                     resultDisplay.doNoneDisplay();
-
 
                     /**
                      * 게임판, 게임판 행과 열, 시간제한, 맞춰야 할 모든 단어 수는 변경되면 안 되서 상수 선언
@@ -798,7 +785,7 @@ export class Action {
 
                 // 게임 종료 여부를 받아옴, 변경되면 안되므로 상수 선언
                 Timer.setFinish(data.finish);
-                console.log("Timer.getFinish() 로그 >>> " + Timer.getFinish());
+                console.log("실행 : correct, if game finished :: "+ Timer.getFinish());
 
                 const difficulty = container.getAttribute("value");
 
@@ -806,8 +793,7 @@ export class Action {
                 correctAudio.autoplay = true;
 
                 const correctOne = document.querySelector("#progress" + cnt);
-                console.log(correctOne);
-                console.log(correctOne.src);
+                console.log(correctOne+", src : "+ correctOne.src);
                 correctOne.src = "../image/inGame/star.png";
                 correctOne.style.opacity = "1";
                 console.log(correctOne.src);
@@ -834,7 +820,6 @@ export class Action {
                         console.log("get success result");
                         window.canvas.sendTextQuery("get success result");
                     }, 1000);
-
                 }
             },
             WRONG: function (data) {
@@ -842,7 +827,6 @@ export class Action {
                 /**
                  * 틀렸다는 팝업창보다는 소리가 나도록 하거나 게임판을 좌우로 흔드는 쪽으로 -> 한 번만 흔들림, 소리 재생되지 않음
                  */
-
                 wrongAudio.load();
                 wrongAudio.autoplay = true;
                 const gameBoard = document.querySelector("#gameBoard");
@@ -856,26 +840,21 @@ export class Action {
                 }
             },
             OPENHINT: function (data) {
-                console.log("실행 : openHint");
+                const hint = data.hint;
+                console.log("실행 : openHint, hint >> "+hint);
+
                 container.classList.add("overlay");
                 /**
                  * hint = data.hint -> fulfillment에서 보내주는 hint
-                 * 게임판을 가리고 힌트를 보여줌
-                 * 타이머가 잠시 멈춤
+                 * 게임판을 가리고 힌트를 보여주는 동안 타이머를 잠시 멈춤
                  */
-                const hint = data.hint;
-
                 const backgroundModal = document.createElement("div");
                 backgroundModal.setAttribute("class", "backgroundModal");
                 backgroundModal.setAttribute("id", "backgroundModal");
                 container.appendChild(backgroundModal);
 
-                //힌트를 열면 타이머를 잠시 멈춤
-                // Timer.stop(); //demo를 위함
-
-
-                document.querySelector("#hintArrowDownButton").addEventListener("click", function () {
-                    console.log("click");
+                document.querySelector("#hintArrowDownButton").addEventListener("click", () => {
+                    console.log("click down");
                     if (topHint + 5 < usedHint) {
                         let content = document.getElementsByClassName("hintItem");
                         topHint += 1;
@@ -885,8 +864,8 @@ export class Action {
                         }
                     }
                 });
-                document.querySelector("#hintArrowUpButton").addEventListener("click",  function () {
-                    console.log("click");
+                document.querySelector("#hintArrowUpButton").addEventListener("click", () => {
+                    console.log("click up");
                     if (topHint > 0) {
                         let content = document.getElementsByClassName("hintItem");
                         topHint -= 1;
@@ -896,36 +875,61 @@ export class Action {
                         }
                     }
                 });
-
-
                 // const contentModal = document.createElement("div");
                 // contentModal.setAttribute("class", "contentModal");
                 // contentModal.style.height = document.querySelector("#gameBoard").clientHeight + "px";
                 // contentModal.style.width = document.querySelector("#gameBoard").clientWidth + "px";
                 // backgroundModal.appendChild(contentModal);
-                // const hintModalText = document.createElement("p");
-                // hintModalText.textContent = "HINT";
-                // contentModal.appendChild(hintModalText);
-                // contentModal.appendChild(document.createElement("br"));
-                // contentModal.appendChild(document.createElement("hr"));
-                // contentModal.appendChild(document.createElement("br"));
-                //사용자의 힌트 개수가 1개 이상인지 체크
-                if (myHint >= 1) {
-                    //힌트3 일 경우
-                    if (hint.length == 1) {
+
+                // if (data.nohint) {
+                //     const hintModalBox = document.createElement("div");
+                //     hintModalBox.setAttribute("id", "hintModalBox");
+                //     container.appendChild(hintModalBox);
+                //     const hintModal = document.createElement("div");
+                //     hintModal.setAttribute("id", "hintModal");
+                //     hintModalBox.appendChild(hintModal);
+                //     const hintModalIcon = document.createElement("img");
+                //     hintModalIcon.setAttribute("id", "hintModalIcon");
+                //     hintModalIcon.setAttribute("src", "../image/ico-hint-modal.png");
+                //     hintModalBox.appendChild(hintModalIcon);
+                //     const hintTopBox = document.createElement("div");
+                //     hintTopBox.setAttribute("id", "hintTopBox");
+                //     hintModal.appendChild(hintTopBox);
+                //     const hintBottomBox = document.createElement("div");
+                //     hintBottomBox.setAttribute("id", "hintBottomBox");
+                //     hintModal.appendChild(hintBottomBox);
+                //     const hintTopBoxText = document.createElement("div");
+                //     hintTopBoxText.setAttribute("id", "hintTopBoxText");
+                //     hintTopBox.appendChild(hintTopBoxText);
+                //     hintTopBoxText.textContent = "HINT";
+                //     const hintNotifyText = document.createElement("div");
+                //     hintNotifyText.setAttribute("id", "hintNotifyText");
+                //     hintBottomBox.appendChild(hintNotifyText);
+                //
+                //     hintNotifyText.textContent = hint; //"Please charge your hint";
+                //     backgroundModal.style.display = "block";
+                //     setTimeout(function () {
+                //         backgroundModal.style.display = "none";
+                //         Timer.resume();
+                //     }, 5000);
+                //     container.removeChild(hintModalBox);
+                // } else { //힌트가 있음.
+
+                    if (hint.length == 1) { //힌트3(첫글자) 일 경우
                         backgroundModal.style.display = "none";
-                        console.log(hint);
+
                         for (let i = 0; i < document.getElementsByClassName("alphabetBox").length; i++) {
                             console.log(document.getElementsByClassName("alphabetBox")[i].getAttribute("value"));
                             if (document.getElementsByClassName("alphabetBox")[i].getAttribute("value") === hint)
                                 document.getElementsByClassName("alphabetBox")[i].style.backgroundColor = "#ffffff";
                         }
-                        setTimeout(function () {
+                        setTimeout( () => {
                             /*글자가 다시 원상태로 돌아오록 함, usedHint에 추가 "first alphabet : A"*/
                             //Timer.resume();
                             for (let i = 0; i < document.getElementsByClassName("alphabetBox").length; i++)
                                 document.getElementsByClassName("alphabetBox")[i].style.backgroundColor = "rgba(67, 67, 67, 0.1)";
-                            //힌트리스트박스에 추가
+
+                            //힌트리스트박스에 추가 //TODO 밑에 중복되는 코드와 merge
                             const content = document.getElementsByClassName("hintItem");
                             usedHintList.push("first alphabet is \"" + hint.toUpperCase() + "\"");
                             if (usedHint < 5) {
@@ -942,19 +946,17 @@ export class Action {
                                 }
                             }
 
-                            console.log(hint);
                             usedHint++;
-                            if (usedHint == 5) {
-                                document.querySelector("#hintArrowDownButton").style.visibility = "visible";
-                                document.querySelector("#hintArrowUpButton").style.visibility = "visible";
-                            }
+                            // if (usedHint > 5) {
+                            //     document.querySelector("#hintArrowDownButton").style.visibility = "visible";
+                            //     document.querySelector("#hintArrowUpButton").style.visibility = "visible";
+                            // }
                         }, 5000);
 
-                        //사용자의 남은 힌트를 보여줌
-                        if (myHint > 0) myHint--;
+                        if (myHint > 0) myHint--; //사용자의 남은 힌트를 보여줌 //TODO data.myhint를 받아서 대입하는것은??
                         document.getElementById("hintCountText").textContent = myHint;
 
-                    } else if (hint.length > 1) {
+                    } else if (hint.length > 1 ) {
                         if(Timer.running()) Timer.stop(); //타이머가 작동하고 있으면 멈추고 힌트 보여주기
 
                         backgroundModal.style.display = "block";
@@ -984,34 +986,29 @@ export class Action {
                         hintNotifyText.setAttribute("id", "hintNotifyText");
                         hintBottomBox.appendChild(hintNotifyText);
 
-                        if (hint != "noHint") {
-                            hintNotifyText.textContent = hint;
-                            console.log(hint);
-
-                            //사용자의 남은 힌트를 보여줌
-                            if (myHint > 0) myHint--;
+                        hintNotifyText.textContent = hint;
+                        if (!data.nohint) {
+                            if (myHint > 0) myHint--; //사용자의 남은 힌트를 보여줌
                             document.getElementById("hintCountText").textContent = myHint;
-
-                        } else if (hint == "noHint") {
-                            hintNotifyText.textContent = "Please charge your hint";
                         }
 
-                        setTimeout(function () {
+                        setTimeout( () => {
                             backgroundModal.style.display = "none";
                             container.removeChild(hintModalBox);
-                            if(!timeOver) Timer.resume();
+                            if(!Timer.timeOver()) Timer.resume();
                             //힌트 리스트 박스에 추가
-                            if (hint != "noHint") {
-                                console.log("usedHint" + usedHint.toString());
+                            console.log("data.nohint >> "+data.nohint)
+                            if (!data.nohint) { //힌트 리스트 박스에 추가
                                 const content = document.getElementsByClassName("hintItem");
                                 usedHintList.push(hint);
-                                if (usedHint < 5) {
+
+                                if (usedHint < 5) { //쓴 힌트가 5개보다 작으면
                                     content[usedHint].querySelector("#hintItemIcon").style.opacity = "1";
                                     content[usedHint].setAttribute("id", "hintItemFocus");
                                     for (let i = topHint; i <= usedHint; i++) {
                                         content[i].querySelector("#hintItemText").textContent = usedHintList[i];
                                     }
-                                } else {
+                                } else { //5개 이상이면
                                     topHint = usedHint - 4;
                                     let k = 0;
                                     for (let i = topHint; i < topHint + 5; i++) {
@@ -1019,49 +1016,19 @@ export class Action {
                                         content[k++].querySelector("#hintItemText").textContent = usedHintList[i];
                                     }
                                 }
-                                console.log(hint);
                                 usedHint++;
-                                if (usedHint == 5) {
-                                    document.querySelector("#hintArrowDownButton").style.visibility = "visible";
-                                    document.querySelector("#hintArrowUpButton").style.visibility = "visible";
-                                }
                             }
+
+                            // if (usedHint > 5) { // 힌트가 5개 이상인 경우 화살표 visible
+                            //     document.querySelector("#hintArrowDownButton").style.visibility = "visible";
+                            //     document.querySelector("#hintArrowUpButton").style.visibility = "visible";
+                            // }
                         }, 5000);
                     }
-                } else if (myHint <= 0) {
-                    //힌트 모달 생성
-                    const hintModalBox = document.createElement("div");
-                    hintModalBox.setAttribute("id", "hintModalBox");
-                    container.appendChild(hintModalBox);
-                    const hintModal = document.createElement("div");
-                    hintModal.setAttribute("id", "hintModal");
-                    hintModalBox.appendChild(hintModal);
-                    const hintModalIcon = document.createElement("img");
-                    hintModalIcon.setAttribute("id", "hintModalIcon");
-                    hintModalIcon.setAttribute("src", "../image/ico-hint-modal.png");
-                    hintModalBox.appendChild(hintModalIcon);
-                    const hintTopBox = document.createElement("div");
-                    hintTopBox.setAttribute("id", "hintTopBox");
-                    hintModal.appendChild(hintTopBox);
-                    const hintBottomBox = document.createElement("div");
-                    hintBottomBox.setAttribute("id", "hintBottomBox");
-                    hintModal.appendChild(hintBottomBox);
-                    const hintTopBoxText = document.createElement("div");
-                    hintTopBoxText.setAttribute("id", "hintTopBoxText");
-                    hintTopBox.appendChild(hintTopBoxText);
-                    hintTopBoxText.textContent = "HINT";
-                    const hintNotifyText = document.createElement("div");
-                    hintNotifyText.setAttribute("id", "hintNotifyText");
-                    hintBottomBox.appendChild(hintNotifyText);
 
-                    //사용자의 남은 힌트가 없다면 힌트를 보여주지 않음
-                    hintNotifyText.textContent = "Please charge your hint";
-                    backgroundModal.style.display = "block";
-                    setTimeout(function () {
-                        backgroundModal.style.display = "none";
-                        if(!Timer.timeOver()) Timer.resume();
-                    }, 5000);
-                    container.removeChild(hintModalBox);
+                if (usedHint > 4) {
+                    document.querySelector("#hintArrowDownButton").style.visibility = "visible";
+                    document.querySelector("#hintArrowUpButton").style.visibility = "visible";
                 }
 
                 if (Timer.timeOver()) {
