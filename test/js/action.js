@@ -8,9 +8,6 @@ import {Result} from "./result.js";
 import {Welcome} from "./welcome.js";
 import {Ranking} from "./ranking.js";
 
-let finish;
-let timeOver;
-
 const Timer = (function () {
    let timerHeightBox = 0;
     let gameTimerText = 0;
@@ -22,7 +19,8 @@ const Timer = (function () {
     let plusPercent = 0;
     let gameTimerTextBox;
     let intervalId = null;
-
+    let finish;
+    let timeOver;
 
     function setTimer(remainTime, remainHeight) { //시간을 정함.
         timerHeight = remainHeight; //gameTimer 의 높이
@@ -91,13 +89,28 @@ const Timer = (function () {
         return intervalId !== null;
     }
 
+    function setFinish(fin) {
+        finish = fin;
+    }
+
+    function getFinish() {
+        return finish;
+    }
+
+    function getTimeOver() {
+        return timeOver;
+    }
+
     return {
         'setter': setTimer,
         'init': initTimer,
         'start': startTimer,
         'stop': stopTimer,
         'resume': resumeTimer,
-        'running': isRunning
+        'running': isRunning,
+        'setFinish' : setFinish,
+        'getFinish' : getFinish,
+        'timeOver' : getTimeOver
     };
 })();
 
@@ -784,8 +797,8 @@ export class Action {
                 console.log("실행 : correct");
 
                 // 게임 종료 여부를 받아옴, 변경되면 안되므로 상수 선언
-                finish = data.finish;
-                console.log(finish);
+                Timer.setFinish(data.finish);
+                console.log("Timer.getFinish() 로그 >>> " + Timer.getFinish());
 
                 const difficulty = container.getAttribute("value");
 
@@ -814,9 +827,9 @@ export class Action {
                 }
 
                 //다 맞추면 fulfillment로 textQuery 전송
-                if (finish) {
+                if (Timer.getFinish()) {
                     setTimeout(function () {
-                        if (!timeOver) //시간이 끝나지 않았으면 (제한시간 내에 모두 다 맞췄을 때)
+                        if (!Timer.timeOver()) //시간이 끝나지 않았으면 (제한시간 내에 모두 다 맞췄을 때)
                             Timer.stop(); //시간 멈춤
                         console.log("get success result");
                         window.canvas.sendTextQuery("get success result");
@@ -837,7 +850,7 @@ export class Action {
                 void gameBoard.offsetWidth;
                 gameBoard.classList.add("shake");
 
-                if (timeOver && !finish) { //시간이 끝났고 단어를 다 맞추지 못했을 때
+                if (Timer.timeOver() && !Timer.getFinish()) { //시간이 끝났고 단어를 다 맞추지 못했을 때
                     console.log("단어 다 못맞춤 + 시간 끝남");
                     window.canvas.sendTextQuery("get fail result");
                 }
@@ -1046,12 +1059,12 @@ export class Action {
                     backgroundModal.style.display = "block";
                     setTimeout(function () {
                         backgroundModal.style.display = "none";
-                        if(!timeOver) Timer.resume();
+                        if(!Timer.timeOver()) Timer.resume();
                     }, 5000);
                     container.removeChild(hintModalBox);
                 }
 
-                if (timeOver) {
+                if (Timer.timeOver()) {
                     console.log("시간 종료 + open hint");
                     window.canvas.sendTextQuery("get fail result");
                 }
