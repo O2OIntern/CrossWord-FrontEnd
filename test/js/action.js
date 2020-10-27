@@ -9,7 +9,7 @@ import {Welcome} from "./welcome.js";
 import {Ranking} from "./ranking.js";
 
 const Timer = (function () {
-   let timerHeightBox = 0;
+    let timerHeightBox = 0;
     let gameTimerText = 0;
     let timerHeight = 0;
     let timerText = 0;
@@ -190,13 +190,12 @@ function coin(num) {
     }
 }
 
+
 /**
  * This class is used as a wrapper for Google Assistant Canvas Action class
  * along with its callbacks.
  */
 export class Action {
-
-
     /**
      * @param {*} scene which serves as a container of all visual elements
      */
@@ -210,10 +209,10 @@ export class Action {
         const headerheight = async () => {
             return await window.interactiveCanvas.getHeaderHeightPx();
         };
-        headerheight().then(function (result) {
-            console.log(result);
+        headerheight().then( result => {
+            console.log(`headerheight :: ${result}`);
 
-            window.addEventListener("resize", function () {
+            window.addEventListener("resize", () => {
                 document.body.setAttribute("style","height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
                 container.style.marginTop = result + "px";
                 container.style.height = (window.innerHeight - result) + "px";
@@ -236,26 +235,52 @@ export class Action {
         /**
          * User Info
          */
-            //main, stageselect, difficultyselect에서 사용
-        let level = 0;
-        let exp = 0;
-        let myHint = 0;
-        let myCoin = 0;
-        let fullExp = 0;
+        //main, stageselect, difficultyselect에서 사용
+        let level = 0, exp = 0, myHint = 0, myCoin = 0, fullExp = 0;
 
         //difficultyselect, ingame에서 사용
-        let betMoney1 = 0;
-        let betMoney2 = 0;
-        let betMoney3 = 0;
+        let betMoney1 = 0, betMoney2 = 0, betMoney3 = 0;
 
         //ingame, correct에서 사용
-        let cnt = 0;
-        let usedHint = 0;
+        let cnt = 0, usedHint = 0, topHint = 0;
         let usedHintList = new Array();
-        let topHint = 0;
+
         //main -> 공통 화면
         let userEmail = "";
         let bgmOn, foleyOn;
+
+        const setUserInfo = (data, cmmn) => {
+            /**
+             * 메인 화면에서 보여줄 사용자의
+             * 레벨, 경험치, 힌트, 코인
+             */
+            if (data.level != null) {
+                level = data.level;
+            }
+            if (data.myExp != null) {
+                exp = data.myExp;
+            }
+            if (data.myHint != null) {
+                myHint = data.myHint;
+            }
+            if (data.myCoin != null) {
+                myCoin = data.myCoin;
+            }
+            if (data.fullExp != null) {
+                fullExp = data.fullExp;
+            }
+
+            common.userLevel.textContent = level;
+            common.userExp.textContent = exp;
+            common.levelFullExp.textContent = fullExp;
+            common.hintText.textContent = myHint;
+            common.coinText.textContent = coin(myCoin);
+            if(userEmail.length>15){
+                common.accountText.textContent = userEmail.slice(0,15)+"...";
+            } else{
+                common.accountText.textContent = userEmail;
+            }
+        }
 
         const correctAudio = document.createElement("audio");
         correctAudio.setAttribute("src", "https://actions.o2o.kr/devsvr1/audio/correct_sound.mp3");
@@ -374,25 +399,7 @@ export class Action {
                 document.querySelector("#ranking").style.display = "block"; //ranking 아이콘 보이기
                 document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
-                /**
-                 * 메인 화면에서 보여줄 사용자의
-                 * 레벨, 경험치, 힌트, 코인
-                 */
-                if (data.level != null) {
-                    level = data.level;
-                }
-                if (data.myExp != null) {
-                    exp = data.myExp;
-                }
-                if (data.myHint != null) {
-                    myHint = data.myHint;
-                }
-                if (data.myCoin != null) {
-                    myCoin = data.myCoin;
-                }
-                if (data.fullExp != null) {
-                    fullExp = data.fullExp;
-                }
+                setUserInfo(data);
 
                 bgmOn = (data.bgmOn === "true");
                 foleyOn = (data.foleyOn === "true");
@@ -410,17 +417,17 @@ export class Action {
                  */
                 common.lowerBox.appendChild(mainFrame.playBox);
 
-                //set TextContent
-                common.userLevel.textContent = level;
-                common.userExp.textContent = exp;
-                common.levelFullExp.textContent = fullExp;
-                common.hintText.textContent = myHint;
-                common.coinText.textContent = coin(myCoin);
-                if(userEmail.length>15){
-                    common.accountText.textContent = userEmail.slice(0,15)+"...";
-                } else{
-                    common.accountText.textContent = userEmail;
-                }
+                //set TextContent //TODO to be deleted
+                // common.userLevel.textContent = level;
+                // common.userExp.textContent = exp;
+                // common.levelFullExp.textContent = fullExp;
+                // common.hintText.textContent = myHint;
+                // common.coinText.textContent = coin(myCoin);
+                // if(userEmail.length>15){
+                //     common.accountText.textContent = userEmail.slice(0,15)+"...";
+                // } else{
+                //     common.accountText.textContent = userEmail;
+                // }
 
                 //set onClick Function
                 // common.hintPlus.onclick = shop;
@@ -493,12 +500,8 @@ export class Action {
             DIFFICULTYSELECT: function (data) {
                 console.log("실행 : difficulty");
 
-                let winMoney1 = 0;
-                let winMoney2 = 0;
-                let winMoney3 = 0;
-                let timeLimit1 = 0;
-                let timeLimit2 = 0;
-                let timeLimit3 = 0;
+                let winMoney1 = 0, winMoney2 = 0, winMoney3 = 0;
+                let timeLimit1 = 0, timeLimit2 = 0, timeLimit3 = 0;
                 /**
                  * 단계 선택, 중앙에 생성했던
                  * 단계 버튼 제거
@@ -515,49 +518,28 @@ export class Action {
                 document.querySelector("#ranking").style.display = "none"; //ranking 아이콘 숨기기
                 document.querySelector("#setting").style.display = "block"; //setting 아이콘 보이기
 
+                setUserInfo(data); //변경된 유저정보 표시
+
                 /**
                  * 배팅머니, 획득머니, 시간제한 등을 fulfillment에서 가져옴
-                 * 변동사항이 있으면 안되므로 상수 선언
                  */
-                if (data.winMoney1 != null) {
-                    winMoney1 = data.winMoney1;
-                }
-                if (data.winMoney2 != null) {
-                    winMoney2 = data.winMoney2;
-                }
-                if (data.winMoney3 != null) {
-                    winMoney3 = data.winMoney3;
-                }
-                if (data.betMoney1 != null) {
-                    betMoney1 = data.betMoney1;
-                }
-                if (data.betMoney2 != null) {
-                    betMoney2 = data.betMoney2;
-                }
-                if (data.betMoney3 != null) {
-                    betMoney3 = data.betMoney3;
-                }
-                if (data.timeLimit1 != null) {
-                    timeLimit1 = data.timeLimit1;
-                }
-                if (data.timeLimit2 != null) {
-                    timeLimit2 = data.timeLimit2;
-                }
-                if (data.timeLimit3 != null) {
-                    timeLimit3 = data.timeLimit3;
-                }
-                /**
-                 * 몇 단계를 선택했는지 표시 -> fulfillment에서 가져와야 함
-                 */
+                // if (data.winMoney1) winMoney1 = data.winMoney1;
+                // if (data.winMoney2) winMoney2 = data.winMoney2;
+                // if (data.winMoney3) winMoney3 = data.winMoney3;
+                if (data.betMoney1) betMoney1 = data.betMoney1;
+                if (data.betMoney2) betMoney2 = data.betMoney2;
+                if (data.betMoney3) betMoney3 = data.betMoney3;
+                if (data.timeLimit1) timeLimit1 = data.timeLimit1;
+                if (data.timeLimit2) timeLimit2 = data.timeLimit2;
+                if (data.timeLimit3) timeLimit3 = data.timeLimit3;
+
                 /**
                  * 난이도별 경험치 표시해야 함
-                 * @type {HTMLDivElement}
                  */
-
                 for (let i = 1; i <= 3; i++) {
                     difficultySelect.feeText[i - 1].textContent = eval("betMoney" + i) + "c";
                     difficultySelect.timeText[i - 1].textContent = eval("timeLimit" + i) + "s";
-                    difficultySelect.boxItem[i - 1].addEventListener("click", function () {
+                    difficultySelect.boxItem[i - 1].addEventListener("click", () => {
                         window.canvas.sendTextQuery(difficultySelect.difficulty[i - 1]);
                     })
                 }
@@ -753,7 +735,6 @@ export class Action {
                         hintItemText.setAttribute("id", "hintItemText");
                         hintItem.appendChild(hintItemText);
                     }
-
 
                     // const usedHint = document.createElement("div");
                     // usedHint.setAttribute("id", "usedHint");
