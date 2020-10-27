@@ -82,7 +82,6 @@ export class MainFrame {
 
 
         this.#_chooseLevelBox = document.createElement("div");
-        this.#_chooseLevelBox.setAttribute("class", "mainTwoBox");
         this.#_playBox.appendChild(this.#_chooseLevelBox);
 
         this.#_chooseLevelText = document.createElement("div");

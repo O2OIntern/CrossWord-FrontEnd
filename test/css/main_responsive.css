@@ -24,7 +24,7 @@ body {
 /*처음 화면*/
 
 #welcomeIcon {
-    width: 25rem;
+    width: 85vmin;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -43,7 +43,7 @@ body {
 #higherBox {
     display: flex;
     /*border-style: solid;*/
-    height: 8rem;
+    height: 50%;
 }
 
 #lowerBox {
@@ -69,12 +69,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 9rem;
 }
 
 #backCircle {
-    width: 4rem;
-    height: 4rem;
+    width: 13vmin;
+    height: 13vmin;
     box-shadow: -5.6px 8.3px 20px 0 rgba(25, 34, 61, 0.45);
     background-color: #ffffff;
     border-radius: 50%;
@@ -142,7 +141,7 @@ body {
 #userInfoBox {
     display: flex;
     justify-content: flex-end;
-    padding: 1.5rem 1rem 0 0;
+    padding: 5vh 1rem 0 0;
     flex-grow: 1;
     /*border-style: solid;*/
     border-color: black;
@@ -268,11 +267,11 @@ body {
     display: flex;
     /*border-style: solid;*/
     flex-grow: 1;
-    padding-left: 10rem;
+    padding-left: 10%;
 }
 
 .mainTwoBox {
-    padding-right: 8rem;
+    padding-right: 11rem;
 }
 
 .mainText {
@@ -321,9 +320,7 @@ body {
 
 #stepBox {
     position: absolute;
-    height: 17.0625rem;
-    width: 60.375rem;
-    left: 14vw;
+    left: 10vmax;
     top: 40vh;
 }
 
@@ -332,7 +329,6 @@ body {
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(2, minmax(8.1875rem, auto));
     position: absolute;
-    height: 17.9rem;
     width: 48.125rem;
     left: 10vw;
     top: 0vh;
@@ -445,10 +441,10 @@ body {
 #difficultyBox {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 1rem;
+    grid-column-gap: 5vmax;
     position: absolute;
-    left: 18rem;
-    top: 14rem;
+    left: 22vmax;
+    top: 45%;
 }
 
 #boxItem {
@@ -460,7 +456,7 @@ body {
     position: relative;
     width: 5.8rem;
     height: 5.8rem;
-    margin-bottom: .5rem;
+    margin-bottom: 1vh;
 }
 
 .difficultyIcon {
@@ -483,6 +479,7 @@ body {
 #expTextBox {
     justify-content: space-between;
     display: flex;
+    margin-bottom: .5rem;
 }
 
 .expText {
@@ -537,8 +534,8 @@ body {
 #inGameBox {
     display: flex;
     position: absolute;
-    top: -6.5rem;
-    left: 15vw;
+    top: -21vmin;
+    left: 16vw;
 }
 
 #gameProgress_HintBox {
@@ -556,12 +553,12 @@ body {
 
 .gameProgress {
     margin-right: .5rem;
-    width: 3rem;
+    width: 4vmax;
     object-fit: contain;
 }
 
 .inGameBoxMargin {
-    margin-right: 2.5rem;
+    margin-right: 3%;
 }
 /**
 힌트 스크롤 리스트
@@ -575,7 +572,7 @@ body {
 .hintItem{
     margin-bottom: .5rem;
     position: relative;
-    width: 23rem;
+    width: 20rem;
     height: 2.5rem;
     border-radius: 2rem;
     opacity: 0.2;
@@ -617,13 +614,13 @@ body {
 
 #hintArrowUpButton{
     margin-bottom: .5rem;
-    width: 2rem;
+    width: 4vmin;
     object-fit: contain;
     visibility: hidden;
 }
 #hintArrowDownButton{
     margin-top: .5rem;
-    width: 2rem;
+    width: 4vmin;
     object-fit: contain;
     visibility: hidden;
 }
@@ -663,8 +660,8 @@ body {
 }
 
 #gameBoard {
-    width: 22rem;
-    height: 22rem;
+    width: 70vmin;
+    height: 70vmin;
     display: grid;
     gap: 1%;
 }
@@ -678,7 +675,7 @@ body {
 }
 
 .alphabet {
-    height: 1.3rem;
+    height: 5vh;
     object-fit: contain;
 }
 
@@ -690,12 +687,12 @@ body {
 
 #gameTimer {
     width: 1.3rem;
-    height: 20rem;
+    height: 68vmin;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 2vh;
     transform: rotate(180deg);
     position: relative;
-    top: 1rem;
+    top: 1vmin;
 }
 
 #remainTime {
@@ -712,6 +709,7 @@ body {
     height: 2.5rem;
     position: absolute;
     bottom: -1rem;
+    background-color: #fed61a;
     animation-name: color;
 }
 
@@ -729,8 +727,8 @@ body {
 /*힌트 열기*/
 #hintButtonBox{
     position: absolute;
-    left: 3.5rem;
-    top: 16rem;
+    left: 3.3rem;
+    top: 50vh;
 }
 
 #hintClickBox{
@@ -758,8 +756,8 @@ body {
 #hintCountBox{
     border-radius: 50%;
     position:absolute;
-    left : 21px;
-    top :  -3px;
+    left : 2rem;
+    top :  -.5rem;
     width: 2rem;
     height: 2rem;
     box-shadow: -2.8px 4.1px 10px 0 rgba(33, 68, 93, 0.4);
@@ -803,7 +801,7 @@ body {
 #hintModalIcon{
     position: absolute;
     left: 12.5rem;
-    top: 2.5rem;
+    top: 10%;
     width: 3.5rem;
     object-fit: contain;
 }
@@ -902,18 +900,23 @@ body {
 #rankingBox {
     position: relative;
     flex-grow: 1;
+    /*border-style: solid;*/
 }
 
 #bottomBox {
-    height: 15rem;
-    position: relative;
-    left: -2rem;
+    height: 50vh;
+    /*position: relative;*/
+    /*left: -2rem;*/
+}
+
+#rankLeftBox {
+    width: 34vw;
 }
 
 
 #rankRightBox {
-    position: relative;
-    left: 1rem;
+    /*border-style: dashed;*/
+    /*border-color: deeppink;*/
 }
 
 #top5InfoBox {
@@ -923,8 +926,8 @@ body {
 
 .topBox {
     position: absolute;
-    top: -6.5rem;
-    left: 20rem;
+    top: -22vh;
+    left: 34%;
 }
 
 .flexColumn {
@@ -960,11 +963,11 @@ body {
 #rankingIcon {
     width: 4rem;
     object-fit: contain;
-    padding-bottom: .5rem;
+    padding-bottom: 2vh;
 }
 
 .rankRound {
-    width: 32rem;
+    width: 48vw;
     height: 3rem;
     border-radius: 2rem;
     position: relative;
@@ -981,7 +984,7 @@ body {
 
 .rank8Mail {
     position: absolute;
-    left: 8rem;
+    left: 6rem;
 }
 
 .rank8Exp {
@@ -997,7 +1000,7 @@ body {
     overflow: scroll;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
-    padding-left: 2rem;
+    /*padding-left: 3%;*/
 }
 
 .scroll::-webkit-scrollbar {
@@ -1067,7 +1070,7 @@ body {
 }
 
 .small {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
 }
 
 .shopTwoBox {
@@ -1096,12 +1099,12 @@ body {
 #settingBox {
     display: flex;
     position: relative;
-    top: -8vh;
-    padding-left: 9rem;
+    top: -3.5rem;
+    padding-left: 10vmax;
 }
 
 .rightBox {
-    padding-left: 5rem;
+    padding-left: 15vmax;
     position: relative;
     top: -.5rem;
 }
@@ -1293,7 +1296,7 @@ input[type="checkbox"] {
     align-items: center;
     top: 22vh;
     left: 17.2vw;
-    bottom: 40px;
+    /*bottom: 40px;*/
 }
 
 #resultNotifyBox {
@@ -1338,16 +1341,15 @@ input[type="checkbox"] {
     background-color: #324091;
 		padding-top: 0.575rem;
     padding-bottom: 0.575rem;
+    margin-bottom: 2vh;
 }
 
 #resultLevelText {
-    height: 1.4375rem;
     font-family: 'NanumSquare', sans-serif;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: 1.55rem;
     letter-spacing: normal;
     text-align: center;
     color: #f7d119;
@@ -1360,7 +1362,7 @@ input[type="checkbox"] {
     margin: 0 auto;
     justify-content: flex-start;
     width: 18.2vw;
-    height: 3.73125rem;
+    /*height: 3.73125rem;*/
 }
 
 
@@ -1403,15 +1405,12 @@ input[type="checkbox"] {
     position: relative;
     align-self: flex-start;
     display: inline-flex;
-    width: 0;
-    height: 1.8875rem;
     text-shadow: 0px 15px 30px rgba(0, 0, 0, 0.35);
     font-family: "NanumSquare", sans-serif;
     font-size: 0.8rem;
     font-weight: 800;
     font-stretch: normal;
     font-style: normal;
-    line-height: 4.6875rem;
     letter-spacing: normal;
     text-align: left;
     color: #a9f2d4;
@@ -1419,17 +1418,17 @@ input[type="checkbox"] {
 }
 
 #gainCoinEffectText,#gainExpEffectText{
-    height: 39px;
+    /*height: 39px;*/
     padding-bottom: 32px;
-    line-height: 3.0625rem;
+    /*line-height: 3.0625rem;*/
     position: absolute;
-    bottom: 0;
+    bottom: 1.5vh;
     left: 0;
 }
 
 #gainCoinInnerText,#gainExpInnerText{
-    height: 0px;
-    padding-bottom: 27px;
+    /*height: 0px;*/
+    padding-bottom: 3vh;
     line-height: 1rem;
     position: absolute;
     bottom: 0;
@@ -1464,8 +1463,8 @@ input[type="checkbox"] {
     margin: 0 auto;
     justify-content: flex-start;
     width: 18.2vw;
-    height: 2.73125rem;
-    margin-bottom: 0.1875rem;
+    /*height: 2.73125rem;*/
+    margin-bottom: 3vh;
 }
 
 #resultExpText1 {
@@ -1504,8 +1503,8 @@ input[type="checkbox"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 4.875rem;
-    width: 65.6vw;
+    /*height: 4.875rem;*/
+    /*width: 65.6vw;*/
     margin-bottom: 1rem;
 
 }
@@ -1570,7 +1569,9 @@ input[type="checkbox"] {
     height: 1.125rem;
     padding-top: 0.875rem;
     padding-bottom: 0.875rem;
-    border-radius: 15px;
+    border-radius: 2rem;
     box-shadow: 0px 0.9rem 30px 0 rgba(0, 0, 0, 0.35);
     background-color: #00b4ff;
+    position: absolute;
+    bottom: -12vh;
 }

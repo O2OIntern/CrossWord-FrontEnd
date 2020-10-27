@@ -220,8 +220,13 @@ export class Action {
                 container.style.width = window.innerWidth + "px";
             });
 
+            document.documentElement.style.fontSize = window.innerWidth / 67 + "px";
             document.body.setAttribute("style","height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
             container.setAttribute("style", "margin-top: " + result + "px; " + "height:" + (window.innerHeight - result) + "px; width: " + window.innerWidth + "px");
+
+            // const size = document.createElement("p");
+            // size.textContent = "헤더 높이 : " + result + " / 총 높이 : " + window.innerHeight + " / 총 너비 : " + window.innerWidth;
+            // container.appendChild(size);
 
             console.log(window.innerHeight - result);
             console.log(window.innerWidth);
@@ -318,7 +323,7 @@ export class Action {
         resultDisplay.init();
         resultDisplay.doNoneDisplay();
 
-        if (window.innerWidth < 1280) { //모바일일 경우
+        if (window.innerWidth != 1280) { //모바일일 경우
             const welcomeIcon = document.createElement("img");
             welcomeIcon.setAttribute("src", "../image/welcome/title.png");
             welcomeIcon.setAttribute("id", "welcomeIcon");
@@ -441,11 +446,11 @@ export class Action {
                     //그래프 끝
                 };
 
-                if(window.innerWidth < 1280) {
-                    //화면 가로길이가 1280 미만(모바일)일 경우 그래프 크기 55, 두께 5
+                if(window.innerWidth <= 720) {
+                    //화면 가로길이가 720 이하(모바일)일 경우 그래프 크기 55, 두께 5
                     circleoption = {size: 55, thickness: 5, ...circleoption};
-                } else {
-                    //화면 가로길이가 1280 이상(Nest Hub Max)일 경우 그래프 크기 110, 두께 8
+                }  else {
+                    //화면 가로길이가 720 보다 클 (Nest Hub Max) 경우 그래프 크기 110, 두께 8
                     circleoption = {size: 110, thickness: 8, ...circleoption};
                 }
 
@@ -1350,6 +1355,7 @@ export class Action {
                 rankingPage.rankingBox.appendChild(bottomBox);
 
                 const leftBox = document.createElement("div");
+                leftBox.setAttribute("id", "rankLeftBox");
                 leftBox.setAttribute("class", "scroll");
                 bottomBox.appendChild(leftBox);
 
